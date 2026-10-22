@@ -18,7 +18,7 @@ module sm3_core #(
     output logic                  block_last_out
 );
 
-    logic busy;
+    (* max_fanout = 32 *) logic busy;
     logic [5:0] round_idx;
 
     logic [31:0] a, b, c, d, e, f, g, h;
@@ -28,7 +28,7 @@ module sm3_core #(
     logic last_q;
 
     logic [31:0] wj, wj4, wnext, wpj;
-    logic [31:0] tj, tj_rot;
+    logic [31:0] tj_rot_q;
     logic [31:0] a12, ss1, ss2, tt1, tt2;
     logic [31:0] an, bn, cn, dn, en, fn, gn, hn;
     logic [255:0] round_state_next;
@@ -81,16 +81,21 @@ module sm3_core #(
     // output-to-input turnaround bubble without changing the 64-round datapath.
     assign in_ready = ~busy & (~out_valid | out_ready);
 
+    // Replicate the load enable so the 1000+ flip-flop enable pins are not
+    // driven by a single long high-fanout net.
+    (* max_fanout = 32 *) logic load_en;
+    assign load_en = in_valid && in_ready;
+
     always_comb begin
         wj    = w[0];
         wj4   = w[4];
         wpj   = wj ^ wj4;
         wnext = p1(w[0] ^ w[7] ^ rol32(w[13], 15)) ^ rol32(w[3], 7) ^ w[10];
 
-        tj     = (round_idx < 16) ? 32'h79cc4519 : 32'h7a879d8a;
-        tj_rot = rol32(tj, int'(round_idx));
+        // Tj <<< j is pre-computed one cycle ahead into tj_rot_q so the
+        // variable rotate is not in the round combinational path.
         a12    = rol32(a, 12);
-        ss1    = rol32(a12 + e + tj_rot, 7);
+        ss1    = rol32(a12 + e + tj_rot_q, 7);
         ss2    = ss1 ^ a12;
         tt1    = ff(a, b, c, round_idx) + d + ss2 + wpj;
         tt2    = gg(e, f, g, round_idx) + h + ss1 + wj;
@@ -112,6 +117,7 @@ module sm3_core #(
         if (!rst_n) begin
             busy           <= 1'b0;
             round_idx       <= '0;
+            tj_rot_q        <= 32'h79cc4519;
             a               <= '0;
             b               <= '0;
             c               <= '0;
@@ -133,9 +139,10 @@ module sm3_core #(
             if (out_valid && out_ready)
                 out_valid <= 1'b0;
 
-            if (in_valid && in_ready) begin
+            if (load_en) begin
                 busy      <= 1'b1;
                 round_idx <= 6'd0;
+                tj_rot_q  <= 32'h79cc4519;
 
                 a <= hash_in[255:224];
                 b <= hash_in[223:192];
@@ -165,6 +172,10 @@ module sm3_core #(
                 for (i = 0; i < 15; i = i + 1)
                     w[i] <= w[i+1];
                 w[15] <= wnext;
+
+                tj_rot_q <= rol32(((round_idx + 6'd1) < 16) ? 32'h79cc4519
+                                                           : 32'h7a879d8a,
+                                  int'(round_idx + 6'd1));
 
                 if (round_idx == 6'd63) begin
                     busy          <= 1'b0;
