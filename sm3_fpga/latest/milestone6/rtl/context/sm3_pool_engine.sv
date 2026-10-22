@@ -113,6 +113,7 @@ module sm3_pool_engine #(
     logic                  pool_link_wr_en;
     logic [POOL_SLOT_W-1:0] pool_link_wr_slot;
     logic [POOL_SLOT_W-1:0] pool_link_wr_next;
+    logic                  pool_link_rd_en;
     logic [POOL_SLOT_W-1:0] pool_link_rd_slot;
     logic [POOL_SLOT_W-1:0] pool_link_rd_next;
     logic                  pool_rd_en;
@@ -317,9 +318,16 @@ module sm3_pool_engine #(
                      && (sched_use_fast || sched_ctx_found);
     assign fast_pop = sched_fire && sched_use_fast;
 
-    // One context queue slot is popped whenever a normal context dispatch or a
-    // sticky continuation is selected. The slot returns to the global free list
-    // immediately after the synchronous payload read is launched.
+    // One context queue slot is popped whenever a normal context dispatch or
+    // sticky continuation is selected. Payload launch stays one cycle; metadata
+    // link lookup and slot recycle are retimed through two more cycles.
+    // Delaying frees prevents a recycled slot from overwriting next_mem before
+    // its old successor is read.
+    logic pop_head_s1, pop_head_s2;
+    logic [CTX_ID_W-1:0] pop_head_ctx_s1, pop_head_ctx_s2;
+    logic pop_free_s1, pop_free_s2;
+    logic [POOL_SLOT_W-1:0] pop_free_slot_s1, pop_free_slot_s2;
+
     logic ctx_pop;
     logic [CTX_ID_W-1:0] pop_ctx_idx;
     logic [POOL_SLOT_W-1:0] pop_slot;
@@ -344,11 +352,43 @@ module sm3_pool_engine #(
 
     assign push_pop_same_ctx = multi_push && ctx_pop && (push_ctx_idx == pop_ctx_idx);
 
-    assign pool_rd_en   = ctx_pop;
-    assign pool_rd_slot = pop_slot;
-    assign pool_free_valid = ctx_pop;
-    assign pool_free_slot  = pop_slot;
-    assign pool_link_rd_slot = pop_slot;
+    assign pool_rd_en         = ctx_pop;
+    assign pool_rd_slot       = pop_slot;
+    assign pool_link_rd_en    = ctx_pop && !pop_single_old;
+    assign pool_link_rd_slot  = pop_slot;
+    assign pool_free_valid    = pop_free_s2;
+    assign pool_free_slot     = pop_free_slot_s2;
+
+    // E0: capture address/slot; E1: block-pool link read completes;
+    // E2: update ctx_head and return the old slot to the free list.
+    // A context with a pending non-single head update is already inflight,
+    // so it cannot dispatch the same context again before the update retires.
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            pop_head_s1      <= 1'b0;
+            pop_head_s2      <= 1'b0;
+            pop_head_ctx_s1  <= '0;
+            pop_head_ctx_s2  <= '0;
+            pop_free_s1      <= 1'b0;
+            pop_free_s2      <= 1'b0;
+            pop_free_slot_s1 <= '0;
+            pop_free_slot_s2 <= '0;
+        end else begin
+            pop_head_s1 <= pool_link_rd_en;
+            pop_head_s2 <= pop_head_s1;
+            if (pool_link_rd_en)
+                pop_head_ctx_s1 <= pop_ctx_idx;
+            if (pop_head_s1)
+                pop_head_ctx_s2 <= pop_head_ctx_s1;
+
+            pop_free_s1 <= ctx_pop;
+            pop_free_s2 <= pop_free_s1;
+            if (ctx_pop)
+                pop_free_slot_s1 <= pop_slot;
+            if (pop_free_s1)
+                pop_free_slot_s2 <= pop_free_slot_s1;
+        end
+    end
 
     // Link the previous tail to a newly allocated slot, except for the special
     // one-element pop+push case where the old tail is being removed entirely.
@@ -485,11 +525,10 @@ module sm3_pool_engine #(
                     ctx_tail[push_ctx_idx] <= pool_alloc_slot;
                 end
             end else if (!multi_push && ctx_pop) begin
-                if (pop_single_old) begin
+                if (pop_single_old)
                     ctx_pending_valid[pop_ctx_idx] <= 1'b0;
-                end else begin
-                    ctx_head[pop_ctx_idx] <= pool_link_rd_next;
-                end
+                // Otherwise the successor pointer is committed two cycles
+                // later by pop_head_s2.
             end else if (multi_push && ctx_pop) begin
                 if (push_ctx_idx == pop_ctx_idx) begin
                     if (pop_single_old) begin
@@ -497,9 +536,9 @@ module sm3_pool_engine #(
                         ctx_tail[pop_ctx_idx] <= pool_alloc_slot;
                         ctx_pending_valid[pop_ctx_idx] <= 1'b1;
                     end else begin
-                        ctx_head[pop_ctx_idx] <= pool_link_rd_next;
                         ctx_tail[pop_ctx_idx] <= pool_alloc_slot;
                         ctx_pending_valid[pop_ctx_idx] <= 1'b1;
+                        // The prior head advances via pop_head_s2.
                     end
                 end else begin
                     // Push context.
@@ -513,10 +552,14 @@ module sm3_pool_engine #(
                     // Pop context.
                     if (pop_single_old)
                         ctx_pending_valid[pop_ctx_idx] <= 1'b0;
-                    else
-                        ctx_head[pop_ctx_idx] <= pool_link_rd_next;
                 end
             end
+
+            // Retire a non-single linked-list pop after its synchronous RAM
+            // lookup. Because each context has at most one inflight block,
+            // there cannot be a second pop for this context within two cycles.
+            if (pop_head_s2)
+                ctx_head[pop_head_ctx_s2] <= pool_link_rd_next;
 
             if (launch_fire) begin
                 launch_valid <= 1'b0;
@@ -643,6 +686,7 @@ module sm3_pool_engine #(
         .link_wr_en   (pool_link_wr_en),
         .link_wr_slot (pool_link_wr_slot),
         .link_wr_next (pool_link_wr_next),
+        .link_rd_en   (pool_link_rd_en),
         .link_rd_slot (pool_link_rd_slot),
         .link_rd_next (pool_link_rd_next),
         .rd_en        (pool_rd_en),
