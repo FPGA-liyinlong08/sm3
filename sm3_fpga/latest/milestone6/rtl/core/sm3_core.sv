@@ -79,7 +79,12 @@ module sm3_core #(
     // Allow a new block to be accepted in the same cycle that the previous
     // result is consumed. This removes the otherwise mandatory one-cycle
     // output-to-input turnaround bubble without changing the 64-round datapath.
-    assign in_ready = ~busy & (~out_valid | out_ready);
+    // Do not accept a new block in the same cycle that the previous result is
+    // handed off.  Keeping out_valid out of the in_ready equation breaks the
+    // combinational loop core_out_valid -> commit_accept -> core_out_ready ->
+    // core_in_ready -> scheduler -> ctx_head.  Cost is one bubble per block
+    // (~1.5% at the 65-cycle service interval).
+    assign in_ready = ~busy & ~out_valid;
 
     // Replicate the load enable so the 1000+ flip-flop enable pins are not
     // driven by a single long high-fanout net.
@@ -97,8 +102,8 @@ module sm3_core #(
         a12    = rol32(a, 12);
         ss1    = rol32(a12 + e + tj_rot_q, 7);
         ss2    = ss1 ^ a12;
-        tt1    = ff(a, b, c, round_idx) + d + ss2 + wpj;
-        tt2    = gg(e, f, g, round_idx) + h + ss1 + wj;
+        tt1    = (ff(a, b, c, round_idx) + d) + (ss2 + wpj);
+        tt2    = (gg(e, f, g, round_idx) + h) + (ss1 + wj);
 
         an = tt1;
         bn = a;

@@ -73,6 +73,7 @@ module sm3_pool_engine #(
     logic [MSG_ID_W-1:0] ctx_msg_id [0:CTX_NUM-1];
     logic [POOL_SLOT_W-1:0] ctx_head [0:CTX_NUM-1];
     logic [POOL_SLOT_W-1:0] ctx_tail [0:CTX_NUM-1];
+    logic                   ctx_single [0:CTX_NUM-1];
 
     assign ctx_valid_bitmap    = ctx_valid;
     assign ctx_pending_bitmap  = ctx_pending_valid;
@@ -141,8 +142,11 @@ module sm3_pool_engine #(
             if (block_first_in)
                 input_multi_ok = !ctx_valid[input_ctx_idx];
             else
+                // The top-level block router keeps continuation blocks on the
+                // context allocated for their message, so the full 32-bit
+                // message-ID comparison is redundant here and is removed from
+                // the block-ready -> ctx_head timing path.
                 input_multi_ok = ctx_valid[input_ctx_idx]
-                              && (ctx_msg_id[input_ctx_idx] == msg_id_in)
                               && !ctx_last_accepted[input_ctx_idx];
         end
 
@@ -165,6 +169,7 @@ module sm3_pool_engine #(
     logic [CORE_NUM-1:0] core_out_valid;
     logic [CORE_NUM-1:0] core_out_ready;
     logic [CORE_NUM-1:0] core_reserved;
+    logic [CORE_NUM-1:0] core_commit_mask;
     logic [255:0]        core_hash_out [0:CORE_NUM-1];
     logic [TAG_W-1:0]    core_tag_out  [0:CORE_NUM-1];
     logic                core_last_out [0:CORE_NUM-1];
@@ -173,18 +178,32 @@ module sm3_pool_engine #(
     logic                 sched_core_found;
     logic [CTX_ID_W-1:0]  sched_ctx_sel;
     logic                 sched_ctx_found;
-    logic [CTX_EXT_W-1:0] sched_ctx_scan;
+    logic [CTX_NUM-1:0]   ctx_ready;
+    logic [CTX_NUM-1:0]   ctx_ready_ge;
+    logic [CTX_NUM-1:0]   ctx_ready_lt;
     logic [CTX_RR_W-1:0] ctx_rr_ptr;
     logic   sched_use_fast;
-    logic   sched_fire;
-    logic   launch_valid;
+    logic   sched_candidate;
+    logic   sched_accept;
+    logic   sched_issue;
+    logic   sched_gnt_valid_q;
+    logic [CTX_ID_W-1:0]  sched_gnt_ctx_q;
+    logic [CORE_ID_W-1:0] sched_gnt_core_q;
+    logic   sched_gnt_fast_q;
+    logic   sched_gnt_ctx_found_q;
+    (* max_fanout = 32 *) logic   launch_valid;
+    (* max_fanout = 32 *) logic   launch_pending;
     logic   launch_is_fast;
     logic [CTX_ID_W-1:0] launch_ctx_id;
     logic [MSG_ID_W-1:0] launch_msg_id;
     logic [511:0]        launch_fast_block;
+    logic [511:0]        launch_block_q;
+    logic [255:0]        launch_hash_q;
+    logic                launch_last_q;
     logic [CORE_ID_W-1:0] launch_core_id;
     logic   launch_fire;
     logic   launch_pipe_ready;
+    (* max_fanout = 32 *) logic   launch_slot_busy;
     logic [FAST_BURST_W-1:0] fast_burst_count;
     logic [QUANTUM_W-1:0] core_quantum [0:CORE_NUM-1];
     logic                  launch_hash_bypass;
@@ -205,36 +224,47 @@ module sm3_pool_engine #(
 
     assign launch_fire       = launch_valid && core_in_ready[launch_core_id];
     assign launch_pipe_ready = !launch_valid || launch_fire;
+    assign launch_slot_busy  = launch_valid || launch_pending;
 
     always_comb begin
         sched_core_sel   = '0;
         sched_core_found = 1'b0;
         sched_ctx_sel    = '0;
-        sched_ctx_found  = 1'b0;
-        sched_ctx_scan   = '0;
-        sched_use_fast = 1'b0;
+        sched_use_fast   = 1'b0;
+        ctx_ready        = '0;
+        ctx_ready_ge     = '0;
+        ctx_ready_lt     = '0;
+
+        for (int c = 0; c < CTX_NUM; c = c + 1) begin
+            ctx_ready[c] = ctx_valid[c] && ctx_pending_valid[c] && !ctx_inflight[c];
+            if (c >= ctx_rr_ptr)
+                ctx_ready_ge[c] = ctx_ready[c];
+            else
+                ctx_ready_lt[c] = ctx_ready[c];
+        end
+
+        // The grant valid only needs to know whether any context is ready; the
+        // round-robin index is a separate, wider data path.
+        sched_ctx_found = |ctx_ready;
 
         if (launch_pipe_ready) begin
             for (int k = 0; k < CORE_NUM; k = k + 1) begin
-                if (!sched_core_found && core_in_ready[k] && !core_reserved[k]) begin
+                if (!sched_core_found && core_in_ready[k] && !core_commit_mask[k]) begin
                     sched_core_sel   = CORE_ID_W'(k);
                     sched_core_found = 1'b1;
                 end
             end
 
-            // Round-robin across ready contexts. Fixed low-ID priority can
-            // otherwise starve older high-ID messages under sustained load.
-            for (int off = 0; off < CTX_NUM; off = off + 1) begin
-                sched_ctx_scan = {1'b0, ctx_rr_ptr} + CTX_EXT_W'(off);
-                if (sched_ctx_scan >= CTX_EXT_W'(CTX_NUM))
-                    sched_ctx_scan = sched_ctx_scan - CTX_EXT_W'(CTX_NUM);
-                if (!sched_ctx_found
-                    && ctx_valid[sched_ctx_scan[CTX_ID_W-1:0]]
-                    && ctx_pending_valid[sched_ctx_scan[CTX_ID_W-1:0]]
-                    && !ctx_inflight[sched_ctx_scan[CTX_ID_W-1:0]]) begin
-                    sched_ctx_sel   = sched_ctx_scan[CTX_ID_W-1:0];
-                    sched_ctx_found = 1'b1;
-                end
+            // Round-robin across ready contexts: lowest ready ID at or above
+            // ctx_rr_ptr, otherwise wrap to the lowest ready ID below it.
+            if (|ctx_ready_ge) begin
+                for (int c = CTX_NUM-1; c >= 0; c = c - 1)
+                    if (ctx_ready_ge[c])
+                        sched_ctx_sel = CTX_ID_W'(c);
+            end else begin
+                for (int c = CTX_NUM-1; c >= 0; c = c - 1)
+                    if (ctx_ready_lt[c])
+                        sched_ctx_sel = CTX_ID_W'(c);
             end
 
             if (!fast_empty && !sched_ctx_found)
@@ -247,8 +277,23 @@ module sm3_pool_engine #(
     // ------------------------------------------------------------------
     // Completion arbitration.
     // ------------------------------------------------------------------
+    // Core completion first enters a one-entry commit register.  This removes
+    // the 16:1 live-core arbitration and the wide core output muxes from the
+    // path that updates ctx_head / link state in the following cycle.
     logic [CORE_ID_W-1:0] commit_core_sel;
     logic                 commit_core_found;
+    logic                 commit_accept;
+    logic                 commit_valid_q;
+    logic [CORE_ID_W-1:0] commit_core_q;
+    logic [255:0]         commit_hash_q;
+    logic [TAG_W-1:0]     commit_tag_q;
+    logic                 commit_last_q;
+    logic                 commit_ctx_in_range_q;
+    logic                 commit_ctx_pending_q;
+    logic                 commit_ctx_valid_q;
+    logic                 commit_ctx_inflight_q;
+    logic                 commit_sticky_ok_q;
+    logic                 commit_can_consume;
     logic                 commit_ctx_in_range;
     logic   commit_fire;
     logic   commit_last;
@@ -259,11 +304,12 @@ module sm3_pool_engine #(
     logic result_slot_available;
 
     assign result_slot_available = !result_valid || result_ready;
+    assign commit_accept = !commit_valid_q;
 
     always_comb begin
         commit_core_sel   = '0;
         commit_core_found = 1'b0;
-        core_out_ready  = '0;
+        core_out_ready    = '0;
         for (int k = 0; k < CORE_NUM; k = k + 1) begin
             if (!commit_core_found && core_out_valid[k]) begin
                 commit_core_sel   = CORE_ID_W'(k);
@@ -271,52 +317,125 @@ module sm3_pool_engine #(
             end
         end
 
-        if (commit_core_found) begin
-            if ((!core_tag_out[commit_core_sel][TAG_W-1]
-                 && !core_last_out[commit_core_sel]) || result_slot_available)
-                core_out_ready[commit_core_sel] = 1'b1;
+        // The core is released as soon as its result is captured.  Its
+        // reservation is held until the commit register is processed so the
+        // scheduler cannot reuse it during the one-cycle gap.
+        if (commit_core_found && commit_accept)
+            core_out_ready[commit_core_sel] = 1'b1;
+    end
+
+    // A final or fast result needs room in the result register.  Other blocks
+    // only update context metadata and may retire immediately.
+    always_comb begin
+        commit_can_consume = 1'b0;
+        if (commit_valid_q)
+            commit_can_consume = commit_last_q || commit_tag_q[TAG_W-1]
+                               ? result_slot_available : 1'b1;
+    end
+
+    assign commit_fire = commit_valid_q && commit_can_consume;
+
+    always_comb begin
+        commit_last    = commit_last_q;
+        commit_hash    = commit_hash_q;
+        commit_is_fast = commit_tag_q[TAG_W-1];
+        commit_msg_id  = commit_tag_q[CTX_ID_W +: MSG_ID_W];
+        commit_ctx_id  = commit_tag_q[CTX_ID_W-1:0];
+        commit_ctx_in_range = ({1'b0, commit_tag_q[CTX_ID_W-1:0]}
+                               < CTX_EXT_W'(CTX_NUM));
+    end
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            commit_valid_q <= 1'b0;
+            commit_core_q  <= '0;
+            commit_hash_q  <= '0;
+            commit_tag_q   <= '0;
+            commit_last_q  <= 1'b0;
+            commit_ctx_in_range_q <= 1'b0;
+            commit_ctx_pending_q  <= 1'b0;
+            commit_ctx_valid_q    <= 1'b0;
+            commit_ctx_inflight_q <= 1'b0;
+            commit_sticky_ok_q    <= 1'b0;
+        end else begin
+            if (commit_accept && commit_core_found) begin
+                commit_valid_q <= 1'b1;
+                commit_core_q  <= commit_core_sel;
+                commit_hash_q  <= core_hash_out[commit_core_sel];
+                commit_tag_q   <= core_tag_out[commit_core_sel];
+                commit_last_q  <= core_last_out[commit_core_sel];
+                commit_ctx_in_range_q <=
+                    ({1'b0, core_tag_out[commit_core_sel][CTX_ID_W-1:0]}
+                     < CTX_EXT_W'(CTX_NUM));
+                commit_ctx_pending_q <=
+                    ({1'b0, core_tag_out[commit_core_sel][CTX_ID_W-1:0]}
+                     < CTX_EXT_W'(CTX_NUM))
+                    ? ctx_pending_valid[core_tag_out[commit_core_sel][CTX_ID_W-1:0]]
+                    : 1'b0;
+                commit_ctx_valid_q <=
+                    ({1'b0, core_tag_out[commit_core_sel][CTX_ID_W-1:0]}
+                     < CTX_EXT_W'(CTX_NUM))
+                    ? ctx_valid[core_tag_out[commit_core_sel][CTX_ID_W-1:0]]
+                    : 1'b0;
+                commit_ctx_inflight_q <=
+                    ({1'b0, core_tag_out[commit_core_sel][CTX_ID_W-1:0]}
+                     < CTX_EXT_W'(CTX_NUM))
+                    ? ctx_inflight[core_tag_out[commit_core_sel][CTX_ID_W-1:0]]
+                    : 1'b0;
+                commit_sticky_ok_q <=
+                    (core_quantum[commit_core_sel] < sticky_quantum_limit);
+            end else if (commit_fire) begin
+                commit_valid_q <= 1'b0;
+            end
         end
     end
 
+    // A core whose result is being captured, or still sitting in the commit
+    // register, must not be selected for a new launch.  core_reserved covers
+    // the normal launch pipeline; this mask also covers the commit stage.
     always_comb begin
-        commit_fire    = 1'b0;
-        commit_last    = 1'b0;
-        commit_is_fast = 1'b0;
-        commit_ctx_id  = '0;
-        commit_msg_id  = '0;
-        commit_hash    = '0;
-        commit_ctx_in_range = 1'b0;
-
-        if (commit_core_found) begin
-            commit_fire    = core_out_valid[commit_core_sel] && core_out_ready[commit_core_sel];
-            commit_last    = core_last_out[commit_core_sel];
-            commit_hash    = core_hash_out[commit_core_sel];
-            commit_is_fast = core_tag_out[commit_core_sel][TAG_W-1];
-            commit_msg_id  = core_tag_out[commit_core_sel][CTX_ID_W +: MSG_ID_W];
-            commit_ctx_id  = core_tag_out[commit_core_sel][CTX_ID_W-1:0];
-            commit_ctx_in_range = ({1'b0, core_tag_out[commit_core_sel][CTX_ID_W-1:0]}
-                                   < CTX_EXT_W'(CTX_NUM));
-        end
+        for (int k = 0; k < CORE_NUM; k = k + 1)
+            core_commit_mask[k] = core_reserved[k]
+                                || (core_out_valid[k] && commit_accept)
+                                || (commit_valid_q
+                                    && (commit_core_q == CORE_ID_W'(k)));
     end
 
     // Sticky continuation consumes the next queued slot directly on the core
     // that just completed, bypassing a hash-RAM write/read round trip.
     always_comb begin
         sticky_issue = 1'b0;
-        if (launch_pipe_ready
-            && commit_fire
+        // Only the launch-slot occupancy matters here.  Using launch_pipe_ready
+        // would pull core_in_ready / core busy into the ctx_head write-enable
+        // path.  When a normal launch is still waiting, skip sticky for this
+        // commit; the scheduler will pick the context up again.
+        // Equivalent to commit_fire for the non-final/non-fast case, but it
+        // does not pull result_ready into the sticky/pop logic.
+        if (!launch_slot_busy
+            && !sched_gnt_valid_q
+            && commit_valid_q
             && !commit_is_fast
             && !commit_last
-            && commit_ctx_in_range
-            && ctx_pending_valid[commit_ctx_id]
-            && (core_quantum[commit_core_sel] < sticky_quantum_limit))
+            && commit_ctx_in_range_q
+            && commit_ctx_pending_q
+            && commit_sticky_ok_q)
             sticky_issue = 1'b1;
     end
 
-    assign sched_fire = !sticky_issue
-                     && sched_core_found
-                     && (sched_use_fast || sched_ctx_found);
-    assign fast_pop = sched_fire && sched_use_fast;
+    // The round-robin scan feeds a one-entry grant register.  The following
+    // cycle performs the pop/launch using registered grant metadata, keeping
+    // the 32-context scan off the ctx_head write-enable path.
+    assign sched_candidate = sched_core_found
+                          && (sched_use_fast || sched_ctx_found);
+    // Use launch-slot occupancy, not launch_pipe_ready, for the grant/pop
+    // stages.  launch_pipe_ready includes core_in_ready, which would otherwise
+    // put core out_valid/busy back on the ctx_head write-enable path.
+    assign sched_accept = !sticky_issue
+                       && !sched_gnt_valid_q
+                       && !launch_valid
+                       && sched_candidate;
+    assign sched_issue = sched_gnt_valid_q && !launch_slot_busy;
+    assign fast_pop = sched_issue && sched_gnt_fast_q;
 
     // One context queue slot is popped whenever a normal context dispatch or
     // sticky continuation is selected. Payload launch stays one cycle; metadata
@@ -325,6 +444,9 @@ module sm3_pool_engine #(
     // its old successor is read.
     logic pop_head_s1, pop_head_s2;
     logic [CTX_ID_W-1:0] pop_head_ctx_s1, pop_head_ctx_s2;
+    logic pop_single_s1, pop_single_s2;
+    logic pop_push_same, pop_push_same_s1, pop_push_same_s2;
+    logic [POOL_SLOT_W-1:0] pop_new_slot_s1, pop_new_slot_s2;
     logic pop_free_s1, pop_free_s2;
     logic [POOL_SLOT_W-1:0] pop_free_slot_s1, pop_free_slot_s2;
 
@@ -332,29 +454,45 @@ module sm3_pool_engine #(
     logic [CTX_ID_W-1:0] pop_ctx_idx;
     logic [POOL_SLOT_W-1:0] pop_slot;
     logic pop_single_old;
-    logic push_pop_same_ctx;
+    logic [POOL_SLOT_W-1:0] pop_head_new;
+    logic [POOL_SLOT_W-1:0] pop_tail_next;
 
     always_comb begin
-        ctx_pop = sticky_issue || (sched_fire && !sched_use_fast);
+        ctx_pop = sticky_issue || (sched_issue && !sched_gnt_fast_q);
         pop_ctx_idx = '0;
         if (sticky_issue)
             pop_ctx_idx = commit_ctx_id;
-        else if (sched_fire && !sched_use_fast)
-            pop_ctx_idx = sched_ctx_sel;
+        else if (sched_issue && !sched_gnt_fast_q)
+            pop_ctx_idx = sched_gnt_ctx_q;
 
         pop_slot = '0;
         pop_single_old = 1'b0;
         if (ctx_pop) begin
             pop_slot = ctx_head[pop_ctx_idx];
-            pop_single_old = (ctx_head[pop_ctx_idx] == ctx_tail[pop_ctx_idx]);
+            pop_single_old = ctx_single[pop_ctx_idx];
         end
+        pop_push_same = ctx_pop && multi_push
+                     && (push_ctx_idx == pop_ctx_idx);
     end
 
-    assign push_pop_same_ctx = multi_push && ctx_pop && (push_ctx_idx == pop_ctx_idx);
+    // Data used to retire a pop at E2.  The head is either the linked
+    // successor or the freshly pushed slot for a one-element queue.  The
+    // single-element flag is recomputed against the tail that will exist after
+    // any push in the same cycle, so it stays exact without carrying a wide
+    // per-context count through the dispatch path.
+    always_comb begin
+        pop_head_new = pool_link_rd_next;
+        if (pop_single_s2 && pop_push_same_s2)
+            pop_head_new = pop_new_slot_s2;
+
+        pop_tail_next = ctx_tail[pop_head_ctx_s2];
+        if (multi_push && (push_ctx_idx == pop_head_ctx_s2))
+            pop_tail_next = pool_alloc_slot;
+    end
 
     assign pool_rd_en         = ctx_pop;
     assign pool_rd_slot       = pop_slot;
-    assign pool_link_rd_en    = ctx_pop && !pop_single_old;
+    assign pool_link_rd_en    = ctx_pop;
     assign pool_link_rd_slot  = pop_slot;
     assign pool_free_valid    = pop_free_s2;
     assign pool_free_slot     = pop_free_slot_s2;
@@ -369,6 +507,12 @@ module sm3_pool_engine #(
             pop_head_s2      <= 1'b0;
             pop_head_ctx_s1  <= '0;
             pop_head_ctx_s2  <= '0;
+            pop_single_s1    <= 1'b0;
+            pop_single_s2    <= 1'b0;
+            pop_push_same_s1 <= 1'b0;
+            pop_push_same_s2 <= 1'b0;
+            pop_new_slot_s1  <= '0;
+            pop_new_slot_s2  <= '0;
             pop_free_s1      <= 1'b0;
             pop_free_s2      <= 1'b0;
             pop_free_slot_s1 <= '0;
@@ -376,6 +520,12 @@ module sm3_pool_engine #(
         end else begin
             pop_head_s1 <= pool_link_rd_en;
             pop_head_s2 <= pop_head_s1;
+            pop_single_s1 <= pop_single_old;
+            pop_single_s2 <= pop_single_s1;
+            pop_push_same_s1 <= pop_push_same;
+            pop_push_same_s2 <= pop_push_same_s1;
+            pop_new_slot_s1  <= pool_alloc_slot;
+            pop_new_slot_s2  <= pop_new_slot_s1;
             if (pool_link_rd_en)
                 pop_head_ctx_s1 <= pop_ctx_idx;
             if (pop_head_s1)
@@ -390,18 +540,21 @@ module sm3_pool_engine #(
         end
     end
 
-    // Link the previous tail to a newly allocated slot, except for the special
-    // one-element pop+push case where the old tail is being removed entirely.
-    assign pool_link_wr_en = multi_push
-                           && ctx_pending_valid[push_ctx_idx]
-                           && !(push_pop_same_ctx && pop_single_old);
+    // Link the previous tail to a newly allocated slot whenever the pushed
+    // block extends an existing queue.  The old implementation suppressed this
+    // write when a one-element queue was popped in the same cycle as a push;
+    // that made the BRAM write-enable depend on the whole commit/pop path.
+    // Writing the link unconditionally is safe: the popped slot is not returned
+    // to the free list until two cycles later, and its stale successor is
+    // overwritten before the slot can be used as a non-single-element tail.
+    assign pool_link_wr_en   = multi_push && ctx_pending_valid[push_ctx_idx];
     assign pool_link_wr_slot = ctx_tail[push_ctx_idx];
     assign pool_link_wr_next = pool_alloc_slot;
 
     // Hash RAM read is needed for normal context dispatch only. Sticky uses the
     // completion result directly as hash_in.
-    assign hash_rd_en   = sched_fire && !sched_use_fast;
-    assign hash_rd_addr = sched_ctx_sel;
+    assign hash_rd_en   = sched_issue && !sched_gnt_fast_q;
+    assign hash_rd_addr = sched_gnt_ctx_q;
     assign hash_wr_en   = commit_fire && !commit_is_fast && !commit_last && !sticky_issue;
     assign hash_wr_addr = commit_ctx_id;
     assign hash_wr_data = commit_hash;
@@ -418,11 +571,18 @@ module sm3_pool_engine #(
         if (launch_valid)
             core_in_valid[launch_core_id] = 1'b1;
 
-        core_launch_block = launch_is_fast ? launch_fast_block : pool_rd_block;
-        core_launch_hash  = launch_is_fast ? SM3_IV
-                         : (launch_hash_bypass ? launch_hash_value
-                         : (pool_rd_first ? SM3_IV : hash_rd_state));
-        core_launch_last  = launch_is_fast ? 1'b1 : pool_rd_last;
+        // The block-pool synchronous read is captured one cycle after issue.
+        // Launching from this register removes the BRAM output -> core w load
+        // path from the launch cycle.
+        if (launch_is_fast) begin
+            core_launch_block = launch_fast_block;
+            core_launch_hash  = SM3_IV;
+            core_launch_last  = 1'b1;
+        end else begin
+            core_launch_block = launch_block_q;
+            core_launch_hash  = launch_hash_q;
+            core_launch_last  = launch_last_q;
+        end
         core_launch_tag   = {launch_is_fast,
                              (launch_is_fast ? launch_msg_id : {MSG_ID_W{1'b0}}),
                              launch_ctx_id};
@@ -439,7 +599,7 @@ module sm3_pool_engine #(
 
     always_comb begin
         for (int k = 0; k < CORE_NUM; k = k + 1)
-            core_occupied[k] = (~core_in_ready[k]) | core_reserved[k];
+            core_occupied[k] = (~core_in_ready[k]) | core_commit_mask[k];
     end
 
     // Fast FIFO storage is deliberately isolated from reset/control logic so
@@ -463,11 +623,20 @@ module sm3_pool_engine #(
             ctx_inflight      <= '0;
             ctx_last_accepted <= '0;
             core_reserved     <= '0;
+            sched_gnt_valid_q <= 1'b0;
+            sched_gnt_ctx_q   <= '0;
+            sched_gnt_core_q  <= '0;
+            sched_gnt_fast_q  <= 1'b0;
+            sched_gnt_ctx_found_q <= 1'b0;
             launch_valid      <= 1'b0;
+            launch_pending    <= 1'b0;
             launch_is_fast    <= 1'b0;
             launch_ctx_id     <= '0;
             launch_msg_id     <= '0;
             launch_fast_block <= '0;
+            launch_block_q    <= '0;
+            launch_hash_q     <= '0;
+            launch_last_q     <= 1'b0;
             launch_core_id    <= '0;
             launch_hash_bypass <= 1'b0;
             launch_hash_value  <= '0;
@@ -487,6 +656,7 @@ module sm3_pool_engine #(
                 ctx_msg_id[i] <= '0;
                 ctx_head[i]   <= '0;
                 ctx_tail[i]   <= '0;
+                ctx_single[i] <= 1'b0;
             end
             for (i = 0; i < CORE_NUM; i = i + 1)
                 core_quantum[i] <= '0;
@@ -515,66 +685,102 @@ module sm3_pool_engine #(
             end
 
             // Queue metadata update, including simultaneous enqueue/dequeue of
-            // the same context.
+            // the same context.  ctx_single is an exact one-element flag in
+            // steady state; after a multi-element pop it is recomputed when
+            // pop_head_s2 commits the successor.
             if (multi_push && !ctx_pop) begin
                 if (!ctx_pending_valid[push_ctx_idx]) begin
                     ctx_head[push_ctx_idx] <= pool_alloc_slot;
                     ctx_tail[push_ctx_idx] <= pool_alloc_slot;
                     ctx_pending_valid[push_ctx_idx] <= 1'b1;
+                    ctx_single[push_ctx_idx] <= 1'b1;
                 end else begin
                     ctx_tail[push_ctx_idx] <= pool_alloc_slot;
+                    ctx_single[push_ctx_idx] <= 1'b0;
                 end
             end else if (!multi_push && ctx_pop) begin
                 if (pop_single_old)
                     ctx_pending_valid[pop_ctx_idx] <= 1'b0;
-                // Otherwise the successor pointer is committed two cycles
-                // later by pop_head_s2.
+                // The successor commit below re-evaluates whether a
+                // multi-element queue became single.
+                ctx_single[pop_ctx_idx] <= 1'b0;
             end else if (multi_push && ctx_pop) begin
                 if (push_ctx_idx == pop_ctx_idx) begin
-                    if (pop_single_old) begin
-                        ctx_head[pop_ctx_idx] <= pool_alloc_slot;
-                        ctx_tail[pop_ctx_idx] <= pool_alloc_slot;
-                        ctx_pending_valid[pop_ctx_idx] <= 1'b1;
-                    end else begin
-                        ctx_tail[pop_ctx_idx] <= pool_alloc_slot;
-                        ctx_pending_valid[pop_ctx_idx] <= 1'b1;
-                        // The prior head advances via pop_head_s2.
-                    end
+                    // The new slot is linked after the old tail (the link write
+                    // above is unconditional).  The head advances through the
+                    // normal pop_head_s2 path, including the one-element case.
+                    ctx_tail[pop_ctx_idx] <= pool_alloc_slot;
+                    ctx_pending_valid[pop_ctx_idx] <= 1'b1;
+                    ctx_single[pop_ctx_idx] <= pop_single_old;
                 end else begin
                     // Push context.
                     if (!ctx_pending_valid[push_ctx_idx]) begin
                         ctx_head[push_ctx_idx] <= pool_alloc_slot;
                         ctx_tail[push_ctx_idx] <= pool_alloc_slot;
                         ctx_pending_valid[push_ctx_idx] <= 1'b1;
+                        ctx_single[push_ctx_idx] <= 1'b1;
                     end else begin
                         ctx_tail[push_ctx_idx] <= pool_alloc_slot;
+                        ctx_single[push_ctx_idx] <= 1'b0;
                     end
                     // Pop context.
                     if (pop_single_old)
                         ctx_pending_valid[pop_ctx_idx] <= 1'b0;
+                    ctx_single[pop_ctx_idx] <= 1'b0;
                 end
             end
 
-            // Retire a non-single linked-list pop after its synchronous RAM
-            // lookup. Because each context has at most one inflight block,
-            // there cannot be a second pop for this context within two cycles.
-            if (pop_head_s2)
-                ctx_head[pop_head_ctx_s2] <= pool_link_rd_next;
+            // Retire a linked-list pop after its synchronous RAM lookup.
+            // pop_head_new/pop_tail_next also maintain the exact one-element
+            // flag, including late pushes in the same cycle.
+            if (pop_head_s2) begin
+                if (pop_single_s2 && pop_push_same_s2)
+                    ctx_head[pop_head_ctx_s2] <= pop_new_slot_s2;
+                else if (!pop_single_s2)
+                    ctx_head[pop_head_ctx_s2] <= pool_link_rd_next;
 
-            if (launch_fire) begin
-                launch_valid <= 1'b0;
-                core_reserved[launch_core_id] <= 1'b0;
+                if (!pop_single_s2 || pop_push_same_s2)
+                    ctx_single[pop_head_ctx_s2] <= (pop_head_new == pop_tail_next);
             end
 
-            if (sched_fire) begin
-                launch_valid       <= 1'b1;
-                launch_is_fast     <= sched_use_fast;
-                launch_core_id     <= sched_core_sel;
-                launch_hash_bypass <= 1'b0;
-                core_reserved[sched_core_sel] <= 1'b1;
-                core_quantum[sched_core_sel] <= sched_use_fast ? '0 : QUANTUM_W'(1);
+            // Capture the synchronous block-pool/hash read one cycle after
+            // issue.  The following cycle launches from these registers, so
+            // the BRAM output does not have to reach the core w load in the
+            // same cycle.  The wide payload registers capture every cycle to
+            // keep launch_pending off a 700+ fanout clock-enable net.
+            if (launch_pending) begin
+                launch_valid   <= 1'b1;
+                launch_pending <= 1'b0;
+            end else if (launch_fire) begin
+                launch_valid <= 1'b0;
+            end
+            launch_block_q <= pool_rd_block;
+            launch_hash_q  <= launch_hash_bypass ? launch_hash_value
+                            : (pool_rd_first ? SM3_IV : hash_rd_state);
+            launch_last_q  <= pool_rd_last;
 
-                if (sched_use_fast) begin
+            if (launch_fire)
+                core_reserved[launch_core_id] <= 1'b0;
+
+            if (sched_accept) begin
+                sched_gnt_valid_q     <= 1'b1;
+                sched_gnt_ctx_q       <= sched_ctx_sel;
+                sched_gnt_core_q      <= sched_core_sel;
+                sched_gnt_fast_q      <= sched_use_fast;
+                sched_gnt_ctx_found_q <= sched_ctx_found;
+            end else if (sched_issue) begin
+                sched_gnt_valid_q <= 1'b0;
+            end
+
+            if (sched_issue) begin
+                launch_pending     <= 1'b1;
+                launch_is_fast     <= sched_gnt_fast_q;
+                launch_core_id     <= sched_gnt_core_q;
+                launch_hash_bypass <= 1'b0;
+                core_reserved[sched_gnt_core_q] <= 1'b1;
+                core_quantum[sched_gnt_core_q] <= sched_gnt_fast_q ? '0 : QUANTUM_W'(1);
+
+                if (sched_gnt_fast_q) begin
                     launch_ctx_id     <= fast_ctx_mem[fast_rd_ptr];
                     launch_msg_id     <= fast_msg_mem[fast_rd_ptr];
                     launch_fast_block <= fast_block_mem[fast_rd_ptr];
@@ -583,26 +789,26 @@ module sm3_pool_engine #(
                     else
                         fast_rd_ptr <= fast_rd_ptr + 1'b1;
                 end else begin
-                    launch_ctx_id <= sched_ctx_sel;
+                    launch_ctx_id <= sched_gnt_ctx_q;
                     launch_msg_id <= '0;
-                    ctx_inflight[sched_ctx_sel] <= 1'b1;
-                    if (sched_ctx_sel == CTX_ID_W'(CTX_NUM-1))
+                    ctx_inflight[sched_gnt_ctx_q] <= 1'b1;
+                    if (sched_gnt_ctx_q == CTX_ID_W'(CTX_NUM-1))
                         ctx_rr_ptr <= '0;
                     else
-                        ctx_rr_ptr <= sched_ctx_sel + 1'b1;
+                        ctx_rr_ptr <= sched_gnt_ctx_q + 1'b1;
                 end
             end
 
             if (sticky_issue) begin
-                launch_valid       <= 1'b1;
+                launch_pending     <= 1'b1;
                 launch_is_fast     <= 1'b0;
                 launch_ctx_id      <= commit_ctx_id;
                 launch_msg_id      <= '0;
-                launch_core_id     <= commit_core_sel;
+                launch_core_id     <= commit_core_q;
                 launch_hash_bypass <= 1'b1;
                 launch_hash_value  <= commit_hash;
-                core_reserved[commit_core_sel] <= 1'b1;
-                core_quantum[commit_core_sel] <= core_quantum[commit_core_sel] + 1'b1;
+                core_reserved[commit_core_q] <= 1'b1;
+                core_quantum[commit_core_q] <= core_quantum[commit_core_q] + 1'b1;
             end
 
             if (fast_push)
@@ -616,9 +822,9 @@ module sm3_pool_engine #(
                 default: fast_count <= fast_count;
             endcase
 
-            if (sched_fire) begin
-                if (sched_use_fast) begin
-                    if (sched_ctx_found) begin
+            if (sched_issue) begin
+                if (sched_gnt_fast_q) begin
+                    if (sched_gnt_ctx_found_q) begin
                         if (fast_burst_count < FAST_BURST_W'(FAST_QUOTA))
                             fast_burst_count <= fast_burst_count + 1'b1;
                     end else begin
@@ -636,12 +842,12 @@ module sm3_pool_engine #(
                     msg_id_out   <= commit_msg_id;
                     ctx_id_out   <= commit_ctx_id;
                     result_fast  <= 1'b1;
-                    core_quantum[commit_core_sel] <= '0;
+                    core_quantum[commit_core_q] <= '0;
                 end else if (!commit_ctx_in_range) begin
 `ifndef SYNTHESIS
                     $error("SM3 commit returned invalid context id %0d", commit_ctx_id);
 `endif
-                end else if (!ctx_valid[commit_ctx_id] || !ctx_inflight[commit_ctx_id]) begin
+                end else if (!commit_ctx_valid_q || !commit_ctx_inflight_q) begin
 `ifndef SYNTHESIS
                     $error("SM3 commit on inactive/non-inflight context %0d", commit_ctx_id);
 `endif
@@ -659,10 +865,10 @@ module sm3_pool_engine #(
                     ctx_pending_valid[commit_ctx_id] <= 1'b0;
                     ctx_inflight[commit_ctx_id]      <= 1'b0;
                     ctx_last_accepted[commit_ctx_id] <= 1'b0;
-                    core_quantum[commit_core_sel] <= '0;
+                    core_quantum[commit_core_q] <= '0;
                 end else if (!sticky_issue) begin
                     ctx_inflight[commit_ctx_id] <= 1'b0;
-                    core_quantum[commit_core_sel] <= '0;
+                    core_quantum[commit_core_q] <= '0;
                 end
             end
         end
