@@ -1,0 +1,4 @@
+read_verilog -sv -DSYNTHESIS rtl/front_end/sm3_block_builder.sv
+hierarchy -check -top sm3_block_builder
+synth_xilinx -family xcu -top sm3_block_builder -noiopad -noclkbuf
+stat -tech xilinx

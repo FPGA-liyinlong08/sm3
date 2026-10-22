@@ -1,0 +1,21 @@
+List of CLB Tiles
+CLE_M_X10Y193
+CLEL_R_X10Y193
+CLE_M_X19Y168
+CLEL_R_X18Y185
+CLE_M_X16Y170
+CLEL_R_X16Y170
+CLE_M_X12Y185
+CLEL_R_X12Y185
+CLE_M_X5Y211
+CLEL_R_X5Y211
+CLE_M_X4Y218
+CLEL_R_X4Y218
+CLE_M_X3Y202
+
+List of Congested Nets
+u_engine/g_core[4].u_core/h_reg_n_0_[17]
+u_engine/g_core[4].u_core/p0_return1__2_carry__1_i_25__7_n_0
+u_engine/g_core[3].u_core/p0_return1__2_carry__1_i_21__9_n_0
+u_engine/g_core[3].u_core/h_reg_n_0_[19]
+

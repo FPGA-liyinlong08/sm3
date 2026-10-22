@@ -1,0 +1,53 @@
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:167:10: Instance pin connected by name with empty reference: 'ctx_valid_bitmap'
+  167 |         .ctx_valid_bitmap     (),
+      |          ^~~~~~~~~~~~~~~~
+                          ... For warning description see https://verilator.org/warn/PINCONNECTEMPTY?v=5.048
+                          ... Use "/* verilator lint_off PINCONNECTEMPTY */" and lint_on around source to disable this message.
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:168:10: Instance pin connected by name with empty reference: 'ctx_pending_bitmap'
+  168 |         .ctx_pending_bitmap   (),
+      |          ^~~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:169:10: Instance pin connected by name with empty reference: 'ctx_inflight_bitmap'
+  169 |         .ctx_inflight_bitmap  (),
+      |          ^~~~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:173:10: Instance pin connected by name with empty reference: 'dbg_dispatch_valid'
+  173 |         .dbg_dispatch_valid   (),
+      |          ^~~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:174:10: Instance pin connected by name with empty reference: 'dbg_dispatch_fast'
+  174 |         .dbg_dispatch_fast    (),
+      |          ^~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:175:10: Instance pin connected by name with empty reference: 'dbg_dispatch_ctx_id'
+  175 |         .dbg_dispatch_ctx_id  (),
+      |          ^~~~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:176:10: Instance pin connected by name with empty reference: 'dbg_commit_valid'
+  176 |         .dbg_commit_valid     (),
+      |          ^~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:177:10: Instance pin connected by name with empty reference: 'dbg_commit_fast'
+  177 |         .dbg_commit_fast      (),
+      |          ^~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:178:10: Instance pin connected by name with empty reference: 'dbg_commit_ctx_id'
+  178 |         .dbg_commit_ctx_id    (),
+      |          ^~~~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:179:10: Instance pin connected by name with empty reference: 'dbg_commit_last'
+  179 |         .dbg_commit_last      (),
+      |          ^~~~~~~~~~~~~~~
+%Warning-PINCONNECTEMPTY: rtl/top/sm3_accel_top.sv:180:10: Instance pin connected by name with empty reference: 'dbg_sticky_valid'
+  180 |         .dbg_sticky_valid     ()
+      |          ^~~~~~~~~~~~~~~~
+%Warning-WIDTHEXPAND: rtl/front_end/sm3_block_builder.sv:84:28: Operator EQ expects 32 bits on the RHS, but RHS's VARREF 'nbytes' generates 5 bits.
+                                                              : ... note: In instance 'sm3_accel_top.u_block_builder'
+   84 |                 else if (j == nbytes)
+      |                            ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.048
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-SYNCASYNCNET: rtl/top/sm3_accel_top.sv:12:37: Signal flopped as both synchronous and async: 'rst_n'
+                       rtl/top/sm3_accel_top.sv:96:14: ... Location of async usage
+   96 |         if (!rst_n) begin
+      |              ^~~~~
+                       rtl/context/sm3_block_pool.sv:80:13: ... Location of sync usage
+   80 |         if (rst_n) begin
+      |             ^~~~~
+                       ... For warning description see https://verilator.org/warn/SYNCASYNCNET?v=5.048
+                       ... Use "/* verilator lint_off SYNCASYNCNET */" and lint_on around source to disable this message.
+- V e r i l a t i o n   R e p o r t: Verilator 5.048 2026-04-26 rev vUNKNOWN-built20260429
+- Verilator: Built from 0.243 MB sources in 6 modules, into 1.946 MB in 4 C++ files needing 0.000 MB
+- Verilator: Walltime 0.158 s (elab=0.007, cvt=0.117, bld=0.000); cpu 0.158 s on 1 threads; allocated 34.504 MB

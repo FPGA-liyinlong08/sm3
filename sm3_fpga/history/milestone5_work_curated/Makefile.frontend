@@ -1,0 +1,11 @@
+SIM ?= verilator
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := sm3_block_builder
+COCOTB_TEST_MODULES := test_sm3_block_builder
+export PYTHONPATH := $(CURDIR)/tb:$(PYTHONPATH)
+VERILOG_SOURCES := $(CURDIR)/rtl/front_end/sm3_block_builder.sv
+COMPILE_ARGS += --timing -Wall -Wno-fatal
+SIM_BUILD := sim_build_frontend
+COCOTB_RESULTS_FILE := results_frontend.xml
+
+include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -1,0 +1,614 @@
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source run_top_synth.tcl
+# set root  /home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6
+# set out   /home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx
+# set part  xcku060-ffva1156-2-e
+# file mkdir $out
+# set_param general.maxThreads 6
+# read_verilog -sv \
+#     $root/rtl/core/sm3_core.sv \
+#     $root/rtl/front_end/sm3_block_builder.sv \
+#     $root/rtl/context/sm3_block_pool.sv \
+#     $root/rtl/context/sm3_pool_engine.sv \
+#     $root/rtl/top/sm3_accel_top.sv
+# read_xdc $out/top_16c_32ctx.xdc
+# synth_design -top sm3_accel_top -part $part -flatten_hierarchy rebuilt \
+#     -generic CORE_NUM=16 \
+#     -generic CTX_NUM=32 \
+#     -generic FAST_DEPTH=32 \
+#     -generic POOL_DEPTH=512
+Command: synth_design -top sm3_accel_top -part xcku060-ffva1156-2-e -flatten_hierarchy rebuilt -generic CORE_NUM=16 -generic CTX_NUM=32 -generic FAST_DEPTH=32 -generic POOL_DEPTH=512
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcku060'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcku060'
+INFO: [Device 21-403] Loading part xcku060-ffva1156-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 1947597
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2833.738 ; gain = 72.680 ; free physical = 12640 ; free virtual = 116093
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'sm3_accel_top' [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/top/sm3_accel_top.sv:1]
+	Parameter CORE_NUM bound to: 32'sb00000000000000000000000000010000 
+	Parameter CTX_NUM bound to: 32'sb00000000000000000000000000100000 
+	Parameter FAST_DEPTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter POOL_DEPTH bound to: 32'sb00000000000000000000001000000000 
+INFO: [Synth 8-6157] synthesizing module 'sm3_block_builder' [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/front_end/sm3_block_builder.sv:1]
+	Parameter MSG_ID_W bound to: 32'sb00000000000000000000000000100000 
+INFO: [Synth 8-6155] done synthesizing module 'sm3_block_builder' (1#1) [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/front_end/sm3_block_builder.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'sm3_pool_engine' [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/context/sm3_pool_engine.sv:1]
+	Parameter CORE_NUM bound to: 32'sb00000000000000000000000000010000 
+	Parameter CTX_NUM bound to: 32'sb00000000000000000000000000100000 
+	Parameter MSG_ID_W bound to: 32'sb00000000000000000000000000100000 
+	Parameter FAST_DEPTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter POOL_DEPTH bound to: 32'sb00000000000000000000001000000000 
+INFO: [Synth 8-6157] synthesizing module 'sm3_core' [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/core/sm3_core.sv:1]
+	Parameter MSG_ID_W bound to: 32'sb00000000000000000000000000100110 
+INFO: [Synth 8-6155] done synthesizing module 'sm3_core' (2#1) [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/core/sm3_core.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'sm3_block_pool' [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/context/sm3_block_pool.sv:1]
+	Parameter POOL_DEPTH bound to: 32'sb00000000000000000000001000000000 
+INFO: [Synth 8-6155] done synthesizing module 'sm3_block_pool' (3#1) [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/context/sm3_block_pool.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'sm3_pool_engine' (4#1) [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/context/sm3_pool_engine.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'sm3_accel_top' (5#1) [/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/rtl/top/sm3_accel_top.sv:1]
+WARNING: [Synth 8-7129] Port s_keep[15] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[14] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[13] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[12] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[11] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[10] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[9] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[8] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[7] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[6] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[5] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[4] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[3] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[2] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[1] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[0] in module sm3_block_builder is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3052.707 ; gain = 291.648 ; free physical = 13185 ; free virtual = 116640
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3052.707 ; gain = 291.648 ; free physical = 13197 ; free virtual = 116652
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3052.707 ; gain = 291.648 ; free physical = 13197 ; free virtual = 116652
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.13 ; elapsed = 00:00:00.13 . Memory (MB): peak = 3052.707 ; gain = 0.000 ; free physical = 13158 ; free virtual = 116613
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx.xdc]
+Finished Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sm3_accel_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sm3_accel_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3146.543 ; gain = 0.000 ; free physical = 13019 ; free virtual = 116474
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 3146.543 ; gain = 0.000 ; free physical = 13019 ; free virtual = 116474
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 3146.543 ; gain = 385.484 ; free physical = 13188 ; free virtual = 116643
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcku060-ffva1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 3146.543 ; gain = 385.484 ; free physical = 13188 ; free virtual = 116643
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 3146.543 ; gain = 385.484 ; free physical = 13188 ; free virtual = 116643
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3146.543 ; gain = 385.484 ; free physical = 13164 ; free virtual = 116621
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 16    
+	   4 Input   32 Bit       Adders := 32    
+	   3 Input   32 Bit       Adders := 16    
+	   2 Input   10 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 3     
+	   2 Input    7 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 18    
+	   2 Input    5 Bit       Adders := 34    
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input    256 Bit         XORs := 16    
+	   2 Input     32 Bit         XORs := 32    
+	   3 Input     32 Bit         XORs := 64    
+	   5 Input     32 Bit         XORs := 16    
++---Registers : 
+	              514 Bit    Registers := 1     
+	              512 Bit    Registers := 3     
+	              256 Bit    Registers := 35    
+	               64 Bit    Registers := 1     
+	               38 Bit    Registers := 32    
+	               32 Bit    Registers := 426   
+	               16 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                9 Bit    Registers := 67    
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 18    
+	                5 Bit    Registers := 4     
+	                4 Bit    Registers := 17    
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 77    
++---RAMs : 
+	             257K Bit	(512 X 514 bit)          RAMs := 1     
+	               8K Bit	(32 X 256 bit)          RAMs := 1     
+	               4K Bit	(512 X 9 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input  512 Bit        Muxes := 12    
+	   8 Input  512 Bit        Muxes := 1     
+	   2 Input  256 Bit        Muxes := 3     
+	   3 Input  128 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 496   
+	   5 Input   32 Bit        Muxes := 1     
+	   2 Input   31 Bit        Muxes := 16    
+	   2 Input   16 Bit        Muxes := 5     
+	   2 Input   10 Bit        Muxes := 1     
+	   2 Input    9 Bit        Muxes := 173   
+	   2 Input    8 Bit        Muxes := 45    
+	   2 Input    7 Bit        Muxes := 3     
+	   2 Input    6 Bit        Muxes := 33    
+	   2 Input    5 Bit        Muxes := 10    
+	   2 Input    4 Bit        Muxes := 146   
+	   3 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 2     
+	   5 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 764   
+	   4 Input    1 Bit        Muxes := 4     
+	   3 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2760 (col length:120)
+BRAMs: 2160 (col length: RAMB18 120 RAMB36 60)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[0]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[1]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[2]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[3]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[4]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[5]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[5]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[8]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[8]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[7]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_wr_ptr_reg_rep[6]' (FDCE) to 'u_block_pool/free_wr_ptr_reg[6]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[0]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[1]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[2]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[3]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[4]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[5]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[5]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[7]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[8]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[8]'
+INFO: [Synth 8-3886] merging instance 'u_block_pool/free_rd_ptr_reg_rep[6]' (FDCE) to 'u_block_pool/free_rd_ptr_reg[6]'
+WARNING: [Synth 8-7129] Port s_keep[15] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[14] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[13] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[12] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[11] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[10] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[9] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[8] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[7] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[6] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[5] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[4] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[3] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[2] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[1] in module sm3_block_builder is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_keep[0] in module sm3_block_builder is either unconnected or has no load
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[0]' (FDCE) to 'u_block_builder/total_bits_q_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[1]' (FDCE) to 'u_block_builder/total_bits_q_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[2]' (FDCE) to 'u_block_builder/total_bits_q_reg[35]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[35]' (FDCE) to 'u_block_builder/total_bits_q_reg[36]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[36]' (FDCE) to 'u_block_builder/total_bits_q_reg[37]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[37]' (FDCE) to 'u_block_builder/total_bits_q_reg[38]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[38]' (FDCE) to 'u_block_builder/total_bits_q_reg[39]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[39]' (FDCE) to 'u_block_builder/total_bits_q_reg[40]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[40]' (FDCE) to 'u_block_builder/total_bits_q_reg[41]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[41]' (FDCE) to 'u_block_builder/total_bits_q_reg[42]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[42]' (FDCE) to 'u_block_builder/total_bits_q_reg[43]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[43]' (FDCE) to 'u_block_builder/total_bits_q_reg[44]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[44]' (FDCE) to 'u_block_builder/total_bits_q_reg[45]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[45]' (FDCE) to 'u_block_builder/total_bits_q_reg[46]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[46]' (FDCE) to 'u_block_builder/total_bits_q_reg[47]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[47]' (FDCE) to 'u_block_builder/total_bits_q_reg[48]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[48]' (FDCE) to 'u_block_builder/total_bits_q_reg[49]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[49]' (FDCE) to 'u_block_builder/total_bits_q_reg[50]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[50]' (FDCE) to 'u_block_builder/total_bits_q_reg[51]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[51]' (FDCE) to 'u_block_builder/total_bits_q_reg[52]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[52]' (FDCE) to 'u_block_builder/total_bits_q_reg[53]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[53]' (FDCE) to 'u_block_builder/total_bits_q_reg[54]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[54]' (FDCE) to 'u_block_builder/total_bits_q_reg[55]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[55]' (FDCE) to 'u_block_builder/total_bits_q_reg[56]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[56]' (FDCE) to 'u_block_builder/total_bits_q_reg[57]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[57]' (FDCE) to 'u_block_builder/total_bits_q_reg[58]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[58]' (FDCE) to 'u_block_builder/total_bits_q_reg[59]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[59]' (FDCE) to 'u_block_builder/total_bits_q_reg[60]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[60]' (FDCE) to 'u_block_builder/total_bits_q_reg[61]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[61]' (FDCE) to 'u_block_builder/total_bits_q_reg[62]'
+INFO: [Synth 8-3886] merging instance 'u_block_builder/total_bits_q_reg[62]' (FDCE) to 'u_block_builder/total_bits_q_reg[63]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_block_builder/\total_bits_q_reg[63] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:45 . Memory (MB): peak = 3146.543 ; gain = 385.484 ; free physical = 7482 ; free virtual = 110972
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name          | RTL Object    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|u_block_pool         | block_mem_reg | 512 x 514(READ_FIRST)  | W |   | 512 x 514(WRITE_FIRST) |   | R | Port A and B     | 1      | 7      |                 | 
+|sm3_pool_engine__GB4 | hash_mem_reg  | 32 x 256(READ_FIRST)   | W |   | 32 x 256(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      |                 | 
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++---------------------+--------------------+----------------+----------------------+----------------+
+|Module Name          | RTL Object         | Inference      | Size (Depth x Width) | Primitives     | 
++---------------------+--------------------+----------------+----------------------+----------------+
+|u_block_pool         | free_fifo_reg      | Implied        | 512 x 9              | RAM64M8 x 32   | 
+|u_block_pool         | next_mem_reg       | Implied        | 512 x 9              | RAM64M8 x 16   | 
+|sm3_pool_engine__GB3 | fast_block_mem_reg | User Attribute | 32 x 512             | RAM32M16 x 37  | 
+|sm3_pool_engine__GB4 | fast_msg_mem_reg   | User Attribute | 32 x 32              | RAM32M16 x 3   | 
+|sm3_pool_engine__GB4 | fast_ctx_mem_reg   | User Attribute | 32 x 5               | RAM32M16 x 1   | 
++---------------------+--------------------+----------------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:49 . Memory (MB): peak = 3175.379 ; gain = 414.320 ; free physical = 7195 ; free virtual = 110717
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+info: optimization accepted worst group hill climbing move (-10764.0/oG. 1342.0ps)
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:02:35 ; elapsed = 00:02:58 . Memory (MB): peak = 4420.957 ; gain = 1659.898 ; free physical = 6657 ; free virtual = 110288
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name          | RTL Object    | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|u_block_pool         | block_mem_reg | 512 x 514(READ_FIRST)  | W |   | 512 x 514(WRITE_FIRST) |   | R | Port A and B     | 1      | 7      |                 | 
+|sm3_pool_engine__GB4 | hash_mem_reg  | 32 x 256(READ_FIRST)   | W |   | 32 x 256(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      |                 | 
++---------------------+---------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+
+Distributed RAM: Final Mapping Report
++---------------------+--------------------+----------------+----------------------+----------------+
+|Module Name          | RTL Object         | Inference      | Size (Depth x Width) | Primitives     | 
++---------------------+--------------------+----------------+----------------------+----------------+
+|u_block_pool         | free_fifo_reg      | Implied        | 512 x 9              | RAM64M8 x 32   | 
+|u_block_pool         | next_mem_reg       | Implied        | 512 x 9              | RAM64M8 x 16   | 
+|sm3_pool_engine__GB3 | fast_block_mem_reg | User Attribute | 32 x 512             | RAM32M16 x 37  | 
+|sm3_pool_engine__GB4 | fast_msg_mem_reg   | User Attribute | 32 x 32              | RAM32M16 x 3   | 
+|sm3_pool_engine__GB4 | fast_ctx_mem_reg   | User Attribute | 32 x 5               | RAM32M16 x 1   | 
++---------------------+--------------------+----------------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+WARNING: [Synth 8-6779] Delay data for wire-load model not found, using default value
+INFO: [Common 17-14] Message 'Synth 8-6779' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Common 17-14] Message 'Synth 8-6779' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/u_block_pool/block_mem_reg_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/hash_mem_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/hash_mem_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/hash_mem_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_enginei_3/u_engine/hash_mem_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:02:47 ; elapsed = 00:03:16 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6146 ; free virtual = 109678
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/u_block_pool/block_mem_reg_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/hash_mem_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/hash_mem_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/hash_mem_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance u_engine/hash_mem_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:02:51 ; elapsed = 00:03:20 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6141 ; free virtual = 109710
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:51 ; elapsed = 00:03:20 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6141 ; free virtual = 109710
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:53 ; elapsed = 00:03:22 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6138 ; free virtual = 109707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:53 ; elapsed = 00:03:22 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6138 ; free virtual = 109707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:56 ; elapsed = 00:03:25 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6137 ; free virtual = 109705
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:56 ; elapsed = 00:03:25 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6136 ; free virtual = 109705
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY8   |   200|
+|3     |LUT1     |    49|
+|4     |LUT2     |  4338|
+|5     |LUT3     |  5411|
+|6     |LUT4     |  2757|
+|7     |LUT5     | 11696|
+|8     |LUT6     |  6647|
+|9     |MUXF7    |   578|
+|10    |MUXF8    |   256|
+|11    |RAM32M   |     1|
+|12    |RAM32M16 |    39|
+|13    |RAM64M   |    24|
+|14    |RAM64M8  |    24|
+|15    |RAMB18E2 |     1|
+|16    |RAMB36E2 |    11|
+|17    |FDCE     | 26011|
+|18    |FDPE     |    33|
+|19    |IBUF     |   197|
+|20    |OBUF     |   356|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:56 ; elapsed = 00:03:25 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 6136 ; free virtual = 109705
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 329 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:56 ; elapsed = 00:03:26 . Memory (MB): peak = 4432.883 ; gain = 1577.988 ; free physical = 12729 ; free virtual = 116298
+Synthesis Optimization Complete : Time (s): cpu = 00:02:59 ; elapsed = 00:03:28 . Memory (MB): peak = 4432.883 ; gain = 1671.824 ; free physical = 12748 ; free virtual = 116302
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.17 ; elapsed = 00:00:00.17 . Memory (MB): peak = 4432.883 ; gain = 0.000 ; free physical = 12725 ; free virtual = 116279
+INFO: [Netlist 29-17] Analyzing 1320 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx.xdc]
+Finished Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 4460.977 ; gain = 0.000 ; free physical = 12667 ; free virtual = 116221
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 286 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+  IBUF => IBUF (IBUFCTRL, INBUF): 197 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 1 instance 
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 39 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 24 instances
+  RAM64M8 => RAM64M8 (RAMD64E(x8)): 24 instances
+
+Synth Design complete, checksum: 7f0fe37a
+INFO: [Common 17-83] Releasing license: Synthesis
+102 Infos, 132 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:03:05 ; elapsed = 00:03:34 . Memory (MB): peak = 4460.977 ; gain = 1707.930 ; free physical = 12937 ; free virtual = 116490
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+# write_checkpoint -force $out/top_16c_32ctx_post_synth.dcp
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint '/home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx/top_16c_32ctx_post_synth.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 4500.996 ; gain = 40.020 ; free physical = 12917 ; free virtual = 116494
+# report_utilization -hierarchical -file $out/top_16c_32ctx_utilization_synth.rpt
+# report_utilization -file $out/top_16c_32ctx_utilization_flat_synth.rpt
+# if {[llength [info commands report_ram_utilization]] > 0} {
+#     report_ram_utilization -file $out/top_16c_32ctx_ram_utilization_synth.rpt
+# }
+report_ram_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4509.000 ; gain = 0.000 ; free physical = 12864 ; free virtual = 116440
+# report_timing_summary -delay_type min_max -report_unconstrained \
+#     -check_timing_verbose -max_paths 20 \
+#     -file $out/top_16c_32ctx_timing_summary_synth.rpt
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 6 CPUs
+report_timing_summary: Time (s): cpu = 00:00:15 ; elapsed = 00:00:10 . Memory (MB): peak = 4862.707 ; gain = 353.707 ; free physical = 12473 ; free virtual = 116049
+# proc dump_mem_cells {outfile} {
+#     set fh [open $outfile w]
+#     puts $fh "REF_NAME count"
+#     foreach ref {RAMB36E2 RAMB18E2 RAM32M RAM32M16 RAM64M RAM64M8 RAM128X1D RAM256X1S RAM64X1D RAM32X1D} {
+#         set cells [get_cells -hier -quiet -filter "REF_NAME == $ref"]
+#         puts $fh "$ref [llength $cells]"
+#         foreach c $cells {
+#             puts $fh "  $c"
+#         }
+#     }
+#     close $fh
+# }
+# dump_mem_cells $out/top_16c_32ctx_memory_cells_synth.rpt
+# puts "TOP_SYNTH_DONE"
+TOP_SYNTH_DONE
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 22 15:32:07 2026...

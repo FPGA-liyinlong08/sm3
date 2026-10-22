@@ -1,0 +1,1686 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date              : Thu Oct 22 16:08:20 2026
+| Host              : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command           : report_timing -delay_type max -max_paths 20 -nworst 5 -path_type full_clock_expanded -from [get_cells -hier -filter IS_SEQUENTIAL] -to [get_cells -hier -filter IS_SEQUENTIAL] -file /home/wx/Documents/AI/SM3/work/vivado/core_bufg_base2/core_bufg_base2_timing_internal_max.rpt
+| Design            : sm3_core_bufg
+| Device            : xcku060-ffva1156
+| Speed File        : -2  PRODUCTION 1.25 12-04-2018
+| Temperature Grade : E
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[127]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.788ns  (logic 1.769ns (46.700%)  route 2.019ns (53.300%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.721 r  u_core/hash_out_reg[127]_i_3/CO[7]
+                         net (fo=1, routed)           0.027     5.748    u_core/hash_out_reg[127]_i_3_n_0
+    SLICE_X27Y206        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.934 r  u_core/hash_out_reg[127]_i_2/O[7]
+                         net (fo=6, routed)           0.379     6.313    u_core/x[31]
+    SLICE_X26Y205        LUT4 (Prop_B6LUT_SLICEL_I1_O)
+                                                      0.116     6.429 r  u_core/hash_out[127]_i_1/O
+                         net (fo=1, routed)           0.026     6.455    u_core/hash_out[127]_i_1_n_0
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X26Y205        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.464    u_core/hash_out_reg[127]
+  -------------------------------------------------------------------
+                         required time                          6.464    
+                         arrival time                          -6.455    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[127]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.788ns  (logic 1.769ns (46.700%)  route 2.019ns (53.300%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 r  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 f  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 f  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 f  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.721 r  u_core/hash_out_reg[127]_i_3/CO[7]
+                         net (fo=1, routed)           0.027     5.748    u_core/hash_out_reg[127]_i_3_n_0
+    SLICE_X27Y206        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.934 r  u_core/hash_out_reg[127]_i_2/O[7]
+                         net (fo=6, routed)           0.379     6.313    u_core/x[31]
+    SLICE_X26Y205        LUT4 (Prop_B6LUT_SLICEL_I1_O)
+                                                      0.116     6.429 r  u_core/hash_out[127]_i_1/O
+                         net (fo=1, routed)           0.026     6.455    u_core/hash_out[127]_i_1_n_0
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X26Y205        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.464    u_core/hash_out_reg[127]
+  -------------------------------------------------------------------
+                         required time                          6.464    
+                         arrival time                          -6.455    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[127]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.788ns  (logic 1.769ns (46.700%)  route 2.019ns (53.300%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 f  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.721 r  u_core/hash_out_reg[127]_i_3/CO[7]
+                         net (fo=1, routed)           0.027     5.748    u_core/hash_out_reg[127]_i_3_n_0
+    SLICE_X27Y206        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.934 r  u_core/hash_out_reg[127]_i_2/O[7]
+                         net (fo=6, routed)           0.379     6.313    u_core/x[31]
+    SLICE_X26Y205        LUT4 (Prop_B6LUT_SLICEL_I1_O)
+                                                      0.116     6.429 r  u_core/hash_out[127]_i_1/O
+                         net (fo=1, routed)           0.026     6.455    u_core/hash_out[127]_i_1_n_0
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X26Y205        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.464    u_core/hash_out_reg[127]
+  -------------------------------------------------------------------
+                         required time                          6.464    
+                         arrival time                          -6.455    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[127]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.788ns  (logic 1.769ns (46.700%)  route 2.019ns (53.300%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 r  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 f  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 f  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 f  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 f  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.721 r  u_core/hash_out_reg[127]_i_3/CO[7]
+                         net (fo=1, routed)           0.027     5.748    u_core/hash_out_reg[127]_i_3_n_0
+    SLICE_X27Y206        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.934 r  u_core/hash_out_reg[127]_i_2/O[7]
+                         net (fo=6, routed)           0.379     6.313    u_core/x[31]
+    SLICE_X26Y205        LUT4 (Prop_B6LUT_SLICEL_I1_O)
+                                                      0.116     6.429 r  u_core/hash_out[127]_i_1/O
+                         net (fo=1, routed)           0.026     6.455    u_core/hash_out[127]_i_1_n_0
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X26Y205        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.464    u_core/hash_out_reg[127]
+  -------------------------------------------------------------------
+                         required time                          6.464    
+                         arrival time                          -6.455    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.009ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[127]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.788ns  (logic 1.769ns (46.700%)  route 2.019ns (53.300%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 f  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.721 r  u_core/hash_out_reg[127]_i_3/CO[7]
+                         net (fo=1, routed)           0.027     5.748    u_core/hash_out_reg[127]_i_3_n_0
+    SLICE_X27Y206        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.934 r  u_core/hash_out_reg[127]_i_2/O[7]
+                         net (fo=6, routed)           0.379     6.313    u_core/x[31]
+    SLICE_X26Y205        LUT4 (Prop_B6LUT_SLICEL_I1_O)
+                                                      0.116     6.429 r  u_core/hash_out[127]_i_1/O
+                         net (fo=1, routed)           0.026     6.455    u_core/hash_out[127]_i_1_n_0
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X26Y205        FDCE                                         r  u_core/hash_out_reg[127]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X26Y205        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.464    u_core/hash_out_reg[127]
+  -------------------------------------------------------------------
+                         required time                          6.464    
+                         arrival time                          -6.455    
+  -------------------------------------------------------------------
+                         slack                                  0.009    
+
+Slack (MET) :             0.036ns  (required time - arrival time)
+  Source:                 u_core/out_valid_reg/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/round_idx_reg[5]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.790ns  (logic 0.478ns (12.612%)  route 3.312ns (87.388%))
+  Logic Levels:           2  (LUT3=1 LUT4=1)
+  Clock Path Skew:        -0.149ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.345ns = ( 6.345 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.652ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.569ns (routing 1.096ns, distribution 1.473ns)
+  Clock Net Delay (Destination): 2.270ns (routing 1.005ns, distribution 1.265ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.569     2.652    u_core/clk
+    SLICE_X29Y197        FDCE                                         r  u_core/out_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y197        FDCE (Prop_AFF_SLICEM_C_Q)
+                                                      0.115     2.767 r  u_core/out_valid_reg/Q
+                         net (fo=3, routed)           0.310     3.077    u_core/out_valid
+    SLICE_X28Y194        LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.196     3.273 f  u_core/hash_base[255]_i_1/O
+                         net (fo=1065, routed)        2.227     5.500    u_core/busy0
+    SLICE_X29Y195        LUT3 (Prop_F5LUT_SLICEM_I2_O)
+                                                      0.167     5.667 r  u_core/round_idx[5]_i_2/O
+                         net (fo=1, routed)           0.775     6.442    u_core/round_idx[5]_i_2_n_0
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.270     6.345    u_core/clk
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/C
+                         clock pessimism              0.158     6.503    
+                         clock uncertainty           -0.085     6.418    
+    SLICE_X28Y194        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.478    u_core/round_idx_reg[5]
+  -------------------------------------------------------------------
+                         required time                          6.478    
+                         arrival time                          -6.442    
+  -------------------------------------------------------------------
+                         slack                                  0.036    
+
+Slack (MET) :             0.036ns  (required time - arrival time)
+  Source:                 u_core/out_valid_reg/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/round_idx_reg[5]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.790ns  (logic 0.478ns (12.612%)  route 3.312ns (87.388%))
+  Logic Levels:           2  (LUT3=1 LUT4=1)
+  Clock Path Skew:        -0.149ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.345ns = ( 6.345 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.652ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.569ns (routing 1.096ns, distribution 1.473ns)
+  Clock Net Delay (Destination): 2.270ns (routing 1.005ns, distribution 1.265ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.569     2.652    u_core/clk
+    SLICE_X29Y197        FDCE                                         r  u_core/out_valid_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y197        FDCE (Prop_AFF_SLICEM_C_Q)
+                                                      0.115     2.767 f  u_core/out_valid_reg/Q
+                         net (fo=3, routed)           0.310     3.077    u_core/out_valid
+    SLICE_X28Y194        LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.196     3.273 r  u_core/hash_base[255]_i_1/O
+                         net (fo=1065, routed)        2.227     5.500    u_core/busy0
+    SLICE_X29Y195        LUT3 (Prop_F5LUT_SLICEM_I2_O)
+                                                      0.167     5.667 f  u_core/round_idx[5]_i_2/O
+                         net (fo=1, routed)           0.775     6.442    u_core/round_idx[5]_i_2_n_0
+    SLICE_X28Y194        FDCE                                         f  u_core/round_idx_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.270     6.345    u_core/clk
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/C
+                         clock pessimism              0.158     6.503    
+                         clock uncertainty           -0.085     6.418    
+    SLICE_X28Y194        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.478    u_core/round_idx_reg[5]
+  -------------------------------------------------------------------
+                         required time                          6.478    
+                         arrival time                          -6.442    
+  -------------------------------------------------------------------
+                         slack                                  0.036    
+
+Slack (MET) :             0.060ns  (required time - arrival time)
+  Source:                 u_core/busy_reg/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/round_idx_reg[5]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.769ns  (logic 0.416ns (11.037%)  route 3.353ns (88.963%))
+  Logic Levels:           2  (LUT3=1 LUT4=1)
+  Clock Path Skew:        -0.146ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.345ns = ( 6.345 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.649ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.566ns (routing 1.096ns, distribution 1.470ns)
+  Clock Net Delay (Destination): 2.270ns (routing 1.005ns, distribution 1.265ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.566     2.649    u_core/clk
+    SLICE_X29Y197        FDCE                                         r  u_core/busy_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y197        FDCE (Prop_EFF_SLICEM_C_Q)
+                                                      0.114     2.763 r  u_core/busy_reg/Q
+                         net (fo=4, routed)           0.351     3.114    u_core/busy
+    SLICE_X28Y194        LUT4 (Prop_C5LUT_SLICEM_I3_O)
+                                                      0.135     3.249 f  u_core/hash_base[255]_i_1/O
+                         net (fo=1065, routed)        2.227     5.476    u_core/busy0
+    SLICE_X29Y195        LUT3 (Prop_F5LUT_SLICEM_I2_O)
+                                                      0.167     5.643 r  u_core/round_idx[5]_i_2/O
+                         net (fo=1, routed)           0.775     6.418    u_core/round_idx[5]_i_2_n_0
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.270     6.345    u_core/clk
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/C
+                         clock pessimism              0.158     6.503    
+                         clock uncertainty           -0.085     6.418    
+    SLICE_X28Y194        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.478    u_core/round_idx_reg[5]
+  -------------------------------------------------------------------
+                         required time                          6.478    
+                         arrival time                          -6.418    
+  -------------------------------------------------------------------
+                         slack                                  0.060    
+
+Slack (MET) :             0.060ns  (required time - arrival time)
+  Source:                 u_core/busy_reg/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/round_idx_reg[5]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.769ns  (logic 0.416ns (11.037%)  route 3.353ns (88.963%))
+  Logic Levels:           2  (LUT3=1 LUT4=1)
+  Clock Path Skew:        -0.146ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.345ns = ( 6.345 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.649ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.566ns (routing 1.096ns, distribution 1.470ns)
+  Clock Net Delay (Destination): 2.270ns (routing 1.005ns, distribution 1.265ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.566     2.649    u_core/clk
+    SLICE_X29Y197        FDCE                                         r  u_core/busy_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y197        FDCE (Prop_EFF_SLICEM_C_Q)
+                                                      0.114     2.763 f  u_core/busy_reg/Q
+                         net (fo=4, routed)           0.351     3.114    u_core/busy
+    SLICE_X28Y194        LUT4 (Prop_C5LUT_SLICEM_I3_O)
+                                                      0.135     3.249 r  u_core/hash_base[255]_i_1/O
+                         net (fo=1065, routed)        2.227     5.476    u_core/busy0
+    SLICE_X29Y195        LUT3 (Prop_F5LUT_SLICEM_I2_O)
+                                                      0.167     5.643 f  u_core/round_idx[5]_i_2/O
+                         net (fo=1, routed)           0.775     6.418    u_core/round_idx[5]_i_2_n_0
+    SLICE_X28Y194        FDCE                                         f  u_core/round_idx_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.270     6.345    u_core/clk
+    SLICE_X28Y194        FDCE                                         r  u_core/round_idx_reg[5]/C
+                         clock pessimism              0.158     6.503    
+                         clock uncertainty           -0.085     6.418    
+    SLICE_X28Y194        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.478    u_core/round_idx_reg[5]
+  -------------------------------------------------------------------
+                         required time                          6.478    
+                         arrival time                          -6.418    
+  -------------------------------------------------------------------
+                         slack                                  0.060    
+
+Slack (MET) :             0.078ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[96]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.711ns  (logic 1.678ns (45.217%)  route 2.033ns (54.783%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.186ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.323ns = ( 6.323 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.248ns (routing 1.005ns, distribution 1.243ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.450     6.286    u_core/x[15]
+    SLICE_X26Y206        LUT4 (Prop_E6LUT_SLICEL_I3_O)
+                                                      0.069     6.355 r  u_core/hash_out[96]_i_1/O
+                         net (fo=1, routed)           0.023     6.378    u_core/hash_out[96]_i_1_n_0
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.248     6.323    u_core/clk
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/C
+                         clock pessimism              0.158     6.481    
+                         clock uncertainty           -0.085     6.396    
+    SLICE_X26Y206        FDCE (Setup_EFF_SLICEL_C_D)
+                                                      0.060     6.456    u_core/hash_out_reg[96]
+  -------------------------------------------------------------------
+                         required time                          6.456    
+                         arrival time                          -6.378    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.078ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[96]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.711ns  (logic 1.678ns (45.217%)  route 2.033ns (54.783%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.186ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.323ns = ( 6.323 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.248ns (routing 1.005ns, distribution 1.243ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 r  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 f  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 f  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 f  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.450     6.286    u_core/x[15]
+    SLICE_X26Y206        LUT4 (Prop_E6LUT_SLICEL_I3_O)
+                                                      0.069     6.355 r  u_core/hash_out[96]_i_1/O
+                         net (fo=1, routed)           0.023     6.378    u_core/hash_out[96]_i_1_n_0
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.248     6.323    u_core/clk
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/C
+                         clock pessimism              0.158     6.481    
+                         clock uncertainty           -0.085     6.396    
+    SLICE_X26Y206        FDCE (Setup_EFF_SLICEL_C_D)
+                                                      0.060     6.456    u_core/hash_out_reg[96]
+  -------------------------------------------------------------------
+                         required time                          6.456    
+                         arrival time                          -6.378    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.078ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[96]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.711ns  (logic 1.678ns (45.217%)  route 2.033ns (54.783%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.186ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.323ns = ( 6.323 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.248ns (routing 1.005ns, distribution 1.243ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 f  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.450     6.286    u_core/x[15]
+    SLICE_X26Y206        LUT4 (Prop_E6LUT_SLICEL_I3_O)
+                                                      0.069     6.355 r  u_core/hash_out[96]_i_1/O
+                         net (fo=1, routed)           0.023     6.378    u_core/hash_out[96]_i_1_n_0
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.248     6.323    u_core/clk
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/C
+                         clock pessimism              0.158     6.481    
+                         clock uncertainty           -0.085     6.396    
+    SLICE_X26Y206        FDCE (Setup_EFF_SLICEL_C_D)
+                                                      0.060     6.456    u_core/hash_out_reg[96]
+  -------------------------------------------------------------------
+                         required time                          6.456    
+                         arrival time                          -6.378    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.078ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[96]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.711ns  (logic 1.678ns (45.217%)  route 2.033ns (54.783%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.186ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.323ns = ( 6.323 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.248ns (routing 1.005ns, distribution 1.243ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 f  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 f  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.450     6.286    u_core/x[15]
+    SLICE_X26Y206        LUT4 (Prop_E6LUT_SLICEL_I3_O)
+                                                      0.069     6.355 r  u_core/hash_out[96]_i_1/O
+                         net (fo=1, routed)           0.023     6.378    u_core/hash_out[96]_i_1_n_0
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.248     6.323    u_core/clk
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/C
+                         clock pessimism              0.158     6.481    
+                         clock uncertainty           -0.085     6.396    
+    SLICE_X26Y206        FDCE (Setup_EFF_SLICEL_C_D)
+                                                      0.060     6.456    u_core/hash_out_reg[96]
+  -------------------------------------------------------------------
+                         required time                          6.456    
+                         arrival time                          -6.378    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.078ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[96]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.711ns  (logic 1.678ns (45.217%)  route 2.033ns (54.783%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.186ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.323ns = ( 6.323 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.248ns (routing 1.005ns, distribution 1.243ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 f  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 f  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 f  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.450     6.286    u_core/x[15]
+    SLICE_X26Y206        LUT4 (Prop_E6LUT_SLICEL_I3_O)
+                                                      0.069     6.355 r  u_core/hash_out[96]_i_1/O
+                         net (fo=1, routed)           0.023     6.378    u_core/hash_out[96]_i_1_n_0
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.248     6.323    u_core/clk
+    SLICE_X26Y206        FDCE                                         r  u_core/hash_out_reg[96]/C
+                         clock pessimism              0.158     6.481    
+                         clock uncertainty           -0.085     6.396    
+    SLICE_X26Y206        FDCE (Setup_EFF_SLICEL_C_D)
+                                                      0.060     6.456    u_core/hash_out_reg[96]
+  -------------------------------------------------------------------
+                         required time                          6.456    
+                         arrival time                          -6.378    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.079ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/e_reg[7]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.720ns  (logic 1.715ns (46.102%)  route 2.005ns (53.898%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.136     5.835 r  u_core/hash_out_reg[127]_i_3/O[6]
+                         net (fo=6, routed)           0.396     6.231    u_core/x[22]
+    SLICE_X28Y206        LUT5 (Prop_E6LUT_SLICEM_I2_O)
+                                                      0.134     6.365 r  u_core/e[7]_i_1/O
+                         net (fo=1, routed)           0.022     6.387    u_core/e[7]_i_1_n_0
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X28Y206        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.466    u_core/e_reg[7]
+  -------------------------------------------------------------------
+                         required time                          6.466    
+                         arrival time                          -6.387    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.079ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/e_reg[7]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.720ns  (logic 1.715ns (46.102%)  route 2.005ns (53.898%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 f  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 f  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 f  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.136     5.835 r  u_core/hash_out_reg[127]_i_3/O[6]
+                         net (fo=6, routed)           0.396     6.231    u_core/x[22]
+    SLICE_X28Y206        LUT5 (Prop_E6LUT_SLICEM_I2_O)
+                                                      0.134     6.365 r  u_core/e[7]_i_1/O
+                         net (fo=1, routed)           0.022     6.387    u_core/e[7]_i_1_n_0
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X28Y206        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.466    u_core/e_reg[7]
+  -------------------------------------------------------------------
+                         required time                          6.466    
+                         arrival time                          -6.387    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.079ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/e_reg[7]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.720ns  (logic 1.715ns (46.102%)  route 2.005ns (53.898%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.136     5.835 f  u_core/hash_out_reg[127]_i_3/O[6]
+                         net (fo=6, routed)           0.396     6.231    u_core/x[22]
+    SLICE_X28Y206        LUT5 (Prop_E6LUT_SLICEM_I2_O)
+                                                      0.134     6.365 r  u_core/e[7]_i_1/O
+                         net (fo=1, routed)           0.022     6.387    u_core/e[7]_i_1_n_0
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X28Y206        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.466    u_core/e_reg[7]
+  -------------------------------------------------------------------
+                         required time                          6.466    
+                         arrival time                          -6.387    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.079ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/e_reg[7]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.720ns  (logic 1.715ns (46.102%)  route 2.005ns (53.898%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 f  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 r  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.136     5.835 f  u_core/hash_out_reg[127]_i_3/O[6]
+                         net (fo=6, routed)           0.396     6.231    u_core/x[22]
+    SLICE_X28Y206        LUT5 (Prop_E6LUT_SLICEM_I2_O)
+                                                      0.134     6.365 r  u_core/e[7]_i_1/O
+                         net (fo=1, routed)           0.022     6.387    u_core/e[7]_i_1_n_0
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X28Y206        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.466    u_core/e_reg[7]
+  -------------------------------------------------------------------
+                         required time                          6.466    
+                         arrival time                          -6.387    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.079ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/e_reg[7]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.720ns  (logic 1.715ns (46.102%)  route 2.005ns (53.898%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=2 LUT6=1)
+  Clock Path Skew:        -0.176ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.333ns = ( 6.333 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.258ns (routing 1.005ns, distribution 1.253ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 f  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 f  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     5.672 f  u_core/hash_out_reg[127]_i_4/CO[7]
+                         net (fo=1, routed)           0.027     5.699    u_core/hash_out_reg[127]_i_4_n_0
+    SLICE_X27Y205        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.136     5.835 f  u_core/hash_out_reg[127]_i_3/O[6]
+                         net (fo=6, routed)           0.396     6.231    u_core/x[22]
+    SLICE_X28Y206        LUT5 (Prop_E6LUT_SLICEM_I2_O)
+                                                      0.134     6.365 r  u_core/e[7]_i_1/O
+                         net (fo=1, routed)           0.022     6.387    u_core/e[7]_i_1_n_0
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.258     6.333    u_core/clk
+    SLICE_X28Y206        FDCE                                         r  u_core/e_reg[7]/C
+                         clock pessimism              0.158     6.491    
+                         clock uncertainty           -0.085     6.406    
+    SLICE_X28Y206        FDCE (Setup_EFF_SLICEM_C_D)
+                                                      0.060     6.466    u_core/e_reg[7]
+  -------------------------------------------------------------------
+                         required time                          6.466    
+                         arrival time                          -6.387    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.080ns  (required time - arrival time)
+  Source:                 u_core/round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            u_core/hash_out_reg[120]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.712ns  (logic 1.796ns (48.384%)  route 1.916ns (51.616%))
+  Logic Levels:           10  (CARRY8=5 LUT3=2 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.181ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.328ns = ( 6.328 - 4.000 ) 
+    Source Clock Delay      (SCD):    2.667ns
+    Clock Pessimism Removal (CPR):    0.158ns
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+  Clock Net Delay (Source):      2.584ns (routing 1.096ns, distribution 1.488ns)
+  Clock Net Delay (Destination): 2.253ns (routing 1.005ns, distribution 1.248ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.083     0.083 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.584     2.667    u_core/clk
+    SLICE_X29Y195        FDCE                                         r  u_core/round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X29Y195        FDCE (Prop_BFF_SLICEM_C_Q)
+                                                      0.113     2.780 r  u_core/round_idx_reg[4]/Q
+                         net (fo=99, routed)          0.416     3.196    u_core/round_idx__0[4]
+    SLICE_X28Y196        LUT6 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.177     3.373 f  u_core/hash_out[127]_i_189/O
+                         net (fo=3, routed)           0.074     3.447    u_core/hash_out[127]_i_189_n_0
+    SLICE_X28Y196        LUT3 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.043     3.490 r  u_core/hash_out[127]_i_149/O
+                         net (fo=1, routed)           0.382     3.872    u_core/hash_out[127]_i_149_n_0
+    SLICE_X28Y198        CARRY8 (Prop_CARRY8_SLICEM_DI[1]_CO[7])
+                                                      0.341     4.213 r  u_core/hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, routed)           0.027     4.240    u_core/hash_out_reg[127]_i_67_n_0
+    SLICE_X28Y199        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.022     4.262 r  u_core/hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, routed)           0.027     4.289    u_core/hash_out_reg[127]_i_53_n_0
+    SLICE_X28Y200        CARRY8 (Prop_CARRY8_SLICEM_CI_O[3])
+                                                      0.138     4.427 r  u_core/hash_out_reg[231]_i_29/O[3]
+                         net (fo=6, routed)           0.282     4.709    u_core/x0_out[27]
+    SLICE_X27Y201        LUT3 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.132     4.841 r  u_core/hash_out[120]_i_29/O
+                         net (fo=2, routed)           0.140     4.981    u_core/hash_out[120]_i_29_n_0
+    SLICE_X27Y202        LUT5 (Prop_A6LUT_SLICEL_I3_O)
+                                                      0.115     5.096 r  u_core/hash_out[120]_i_8/O
+                         net (fo=1, routed)           0.185     5.281    u_core/hash_out[120]_i_8_n_0
+    SLICE_X27Y203        CARRY8 (Prop_CARRY8_SLICEL_DI[2]_CO[7])
+                                                      0.342     5.623 r  u_core/hash_out_reg[120]_i_2/CO[7]
+                         net (fo=1, routed)           0.027     5.650    u_core/hash_out_reg[120]_i_2_n_0
+    SLICE_X27Y204        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.186     5.836 r  u_core/hash_out_reg[127]_i_4/O[7]
+                         net (fo=6, routed)           0.330     6.166    u_core/x[15]
+    SLICE_X27Y208        LUT4 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.187     6.353 r  u_core/hash_out[120]_i_1/O
+                         net (fo=1, routed)           0.026     6.379    u_core/hash_out[120]_i_1_n_0
+    SLICE_X27Y208        FDCE                                         r  u_core/hash_out_reg[120]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=0)                   0.000     4.000    clk
+    BUFGCE_X1Y96         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.075     4.075 r  u_bufg/O
+    X1Y3 (CLOCK_ROOT)    net (fo=1355, routed)        2.253     6.328    u_core/clk
+    SLICE_X27Y208        FDCE                                         r  u_core/hash_out_reg[120]/C
+                         clock pessimism              0.158     6.486    
+                         clock uncertainty           -0.085     6.401    
+    SLICE_X27Y208        FDCE (Setup_BFF_SLICEL_C_D)
+                                                      0.058     6.459    u_core/hash_out_reg[120]
+  -------------------------------------------------------------------
+                         required time                          6.459    
+                         arrival time                          -6.379    
+  -------------------------------------------------------------------
+                         slack                                  0.080    
+
+
+
+

@@ -1,0 +1,13 @@
+SIM ?= verilator
+CORE_NUM ?= 8
+CTX_NUM ?= 32
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := sm3_multiblock_engine
+COCOTB_TEST_MODULES := test_sm3_multiblock
+export PYTHONPATH := $(CURDIR)/tb:$(PYTHONPATH)
+VERILOG_SOURCES := $(CURDIR)/rtl/core/sm3_core.sv $(CURDIR)/rtl/context/sm3_context_store.sv $(CURDIR)/rtl/context/sm3_multiblock_engine.sv
+COMPILE_ARGS += --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY -GCORE_NUM=$(CORE_NUM) -GCTX_NUM=$(CTX_NUM)
+SIM_BUILD := sim_build_multi_$(CORE_NUM)_$(CTX_NUM)
+COCOTB_RESULTS_FILE := results_multi_$(CORE_NUM)_$(CTX_NUM).xml
+
+include $(shell cocotb-config --makefiles)/Makefile.sim

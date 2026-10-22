@@ -1,0 +1,5 @@
+read_verilog -sv -DSYNTHESIS rtl/core/sm3_core.sv rtl/front_end/sm3_block_builder.sv rtl/context/sm3_block_pool.sv rtl/context/sm3_pool_engine.sv rtl/top/sm3_accel_top.sv
+chparam -set CORE_NUM 8 -set CTX_NUM 32 -set FAST_DEPTH 32 -set POOL_DEPTH 512 sm3_accel_top
+hierarchy -check -top sm3_accel_top
+synth_xilinx -family xcu -top sm3_accel_top -noiopad -noclkbuf -json synth/sm3_top8_ctx32_xcu.json
+stat -tech xilinx

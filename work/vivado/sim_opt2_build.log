@@ -1,0 +1,25 @@
+%Warning-DECLFILENAME: /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv:1:8: Filename 'sm3_core_opt2' does not match MODULE name: 'sm3_core'
+    1 | module sm3_core #(
+      |        ^~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.020
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-WIDTHEXPAND: /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv:178:50: Operator ADD expects 32 bits on the LHS, but LHS's VARREF 'round_idx' generates 6 bits.
+                                                                                           : ... note: In instance 'tb_sm3_core.dut'
+  178 |                                   int'(round_idx + 6'd1));
+      |                                                  ^
+%Warning-WIDTHEXPAND: /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv:178:50: Operator ADD expects 32 bits on the RHS, but RHS's CONST '6'h1' generates 6 bits.
+                                                                                           : ... note: In instance 'tb_sm3_core.dut'
+  178 |                                   int'(round_idx + 6'd1));
+      |                                                  ^
+make: 进入目录“/home/wx/Documents/AI/SM3/work/vivado/sim_opt2”
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-overloaded-virtual -Wno-shadow -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -DVL_TIME_CONTEXT    -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-overloaded-virtual -Wno-shadow -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable     -DVL_TIME_CONTEXT    -c -o verilated_timing.o /usr/local/share/verilator/include/verilated_timing.cpp
+In file included from /usr/local/share/verilator/include/verilated_timing.cpp:23:
+/usr/local/share/verilator/include/verilated_timing.h:47:11: fatal error: coroutine: 没有那个文件或目录
+   47 | # include <coroutine>
+      |           ^~~~~~~~~~~
+compilation terminated.
+make: *** [/usr/local/share/verilator/include/verilated.mk:278：verilated_timing.o] 错误 1
+make: 离开目录“/home/wx/Documents/AI/SM3/work/vivado/sim_opt2”
+%Error: make -C /home/wx/Documents/AI/SM3/work/vivado/sim_opt2 -f Vtb_sm3_core.mk -j 1 exited with 2
+%Error: Command Failed ulimit -s unlimited 2>/dev/null; exec /usr/local/bin/verilator_bin --binary --timing -Wall -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNUSEDSIGNAL -Wno-BLKSEQ --top-module tb_sm3_core /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv tb/tb_sm3_core.sv -Mdir /home/wx/Documents/AI/SM3/work/vivado/sim_opt2

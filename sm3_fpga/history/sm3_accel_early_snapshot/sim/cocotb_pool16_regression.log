@@ -1,0 +1,24 @@
+rm -f results_pool_16.xml
+rm -f results_pool_16.xml
+COCOTB_TEST_MODULES=test_sm3_core_pool COCOTB_TESTCASE=  COCOTB_TOPLEVEL=sm3_core_pool TOPLEVEL_LANG=verilog       \
+         sim_build_pool_16/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.13.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/mnt/data/sm3_accel/.venv/lib/python3.13/site-packages/cocotb/simulator.cpython-313-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.13.8 interpreter at /mnt/data/sm3_accel/.venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792639110
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /mnt/data/sm3_accel/.venv/lib/python3.13/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.048 2026-04-26
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_sm3_core_pool.eight_core_single_block_stress (1/1)
+                                                            Randomized 0..55-byte messages with input gaps and output backpressure.
+  3528.00ns INFO     cocotb.sm3_core_pool               16-core stress PASS: messages=200 cycles=877 max_occupied=16 avg_msg/cycle=0.228050
+  3528.00ns INFO     cocotb.regression                  test_sm3_core_pool.eight_core_single_block_stress passed
+  3528.00ns INFO     cocotb.regression                  ***********************************************************************************************************
+                                                        ** TEST                                               STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***********************************************************************************************************
+                                                        ** test_sm3_core_pool.eight_core_single_block_stress   PASS        3528.00           0.09      38579.19  **
+                                                        ***********************************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0                                    3528.00           0.09      38403.56  **
+                                                        ***********************************************************************************************************
+- :0: Verilog $finish

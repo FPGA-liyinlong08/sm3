@@ -1,0 +1,317 @@
+module sm3_block_builder #(
+    parameter int MSG_ID_W = 32
+) (
+    input  logic                  clk,
+    input  logic                  rst_n,
+
+    // One descriptor per message. Length is the original unpadded byte count.
+    input  logic                  desc_valid,
+    output logic                  desc_ready,
+    input  logic [MSG_ID_W-1:0]   desc_msg_id,
+    input  logic [31:0]           desc_len_bytes,
+
+    // 128-bit payload stream, bytes packed from MSB to LSB.
+    // keep[15] corresponds to data[127:120]. All non-final beats must be full.
+    input  logic                  s_valid,
+    output logic                  s_ready,
+    input  logic [127:0]          s_data,
+    input  logic [15:0]           s_keep,
+
+    // Pre-padded SM3 compression blocks.
+    output logic                  block_valid,
+    input  logic                  block_ready,
+    output logic [511:0]          block_data,
+    output logic [MSG_ID_W-1:0]   block_msg_id,
+    output logic                  block_first,
+    output logic                  block_last
+);
+
+    typedef enum logic [1:0] {
+        PAD_NONE   = 2'd0,
+        PAD_EXTRA  = 2'd1,
+        PAD_SECOND = 2'd2
+    } pad_state_t;
+
+    logic active;
+    logic [MSG_ID_W-1:0] msg_id_q;
+    logic [31:0] remaining_q;
+    logic [63:0] total_bits_q;
+    logic [511:0] block_buf;
+    logic [6:0] fill_count;
+    logic first_block_q;
+    pad_state_t pad_state;
+    logic finish_after_output;
+
+    logic out_slot_available;
+    logic [4:0] expected_bytes;
+    logic [6:0] next_fill;
+    logic will_emit;
+    logic [127:0] lane_masked;
+    logic [127:0] lane_padded;
+    logic [511:0] beat_merged;
+    logic [511:0] beat_with_pad;
+    logic [511:0] beat_final;
+
+    // The input interface is 128 bits wide. Before each accepted payload beat,
+    // fill_count is therefore restricted to 0/16/32/48. Keep the assembly
+    // network lane-based instead of synthesizing a 512-bit variable byte inserter.
+    function automatic logic [127:0] mask_lane(
+        input logic [127:0] beat,
+        input logic [4:0]   nbytes
+    );
+        logic [127:0] tmp;
+        integer j;
+        begin
+            tmp = '0;
+            for (j = 0; j < 16; j = j + 1)
+                if (j < nbytes)
+                    tmp[127 - j*8 -: 8] = beat[127 - j*8 -: 8];
+            mask_lane = tmp;
+        end
+    endfunction
+
+    function automatic logic [127:0] pad_lane(
+        input logic [127:0] beat,
+        input logic [4:0]   nbytes
+    );
+        logic [127:0] tmp;
+        integer j;
+        begin
+            tmp = '0;
+            for (j = 0; j < 16; j = j + 1) begin
+                if (j < nbytes)
+                    tmp[127 - j*8 -: 8] = beat[127 - j*8 -: 8];
+                else if (j == nbytes)
+                    tmp[127 - j*8 -: 8] = 8'h80;
+            end
+            pad_lane = tmp;
+        end
+    endfunction
+
+    function automatic logic [15:0] expected_keep(input logic [4:0] nbytes);
+        logic [15:0] mask;
+        begin
+            if (nbytes >= 16)
+                mask = 16'hffff;
+            else if (nbytes == 0)
+                mask = 16'h0000;
+            else
+                mask = 16'hffff << (16 - nbytes);
+            expected_keep = mask;
+        end
+    endfunction
+
+    function automatic logic [511:0] padding_only_block(input logic [63:0] total_bits);
+        logic [511:0] tmp;
+        begin
+            tmp = '0;
+            tmp[511:504] = 8'h80;
+            tmp[63:0] = total_bits;
+            padding_only_block = tmp;
+        end
+    endfunction
+
+    function automatic logic [511:0] length_only_block(input logic [63:0] total_bits);
+        logic [511:0] tmp;
+        begin
+            tmp = '0;
+            tmp[63:0] = total_bits;
+            length_only_block = tmp;
+        end
+    endfunction
+
+    assign out_slot_available = !block_valid || block_ready;
+
+    always_comb begin
+        if (remaining_q >= 16)
+            expected_bytes = 5'd16;
+        else
+            expected_bytes = remaining_q[4:0];
+
+        next_fill = fill_count + 7'(expected_bytes);
+        will_emit = (remaining_q != 0)
+                 && ((next_fill == 64) || (remaining_q <= 16));
+        lane_masked = mask_lane(s_data, expected_bytes);
+        lane_padded = pad_lane(s_data, expected_bytes);
+
+        beat_merged = block_buf;
+        case (fill_count)
+            7'd0:  beat_merged[511:384] = lane_masked;
+            7'd16: beat_merged[383:256] = lane_masked;
+            7'd32: beat_merged[255:128] = lane_masked;
+            7'd48: beat_merged[127:0]   = lane_masked;
+            default: beat_merged = block_buf;
+        endcase
+
+        // For a partial final beat the 0x80 byte lives in that same 128-bit
+        // lane. For a full 16-byte final beat at offsets 0/16/32 it is the
+        // first byte of the following lane. The 48+16 case is an exact
+        // 64-byte boundary and uses a separate padding block.
+        beat_with_pad = beat_merged;
+        if (expected_bytes < 16) begin
+            case (fill_count)
+                7'd0:  beat_with_pad[511:384] = lane_padded;
+                7'd16: beat_with_pad[383:256] = lane_padded;
+                7'd32: beat_with_pad[255:128] = lane_padded;
+                7'd48: beat_with_pad[127:0]   = lane_padded;
+                default: beat_with_pad = beat_merged;
+            endcase
+        end else begin
+            case (fill_count)
+                7'd0:  beat_with_pad[383:376] = 8'h80;
+                7'd16: beat_with_pad[255:248] = 8'h80;
+                7'd32: beat_with_pad[127:120] = 8'h80;
+                default: ;
+            endcase
+        end
+
+        beat_final = beat_with_pad;
+        beat_final[63:0] = total_bits_q;
+
+        desc_ready = !active && out_slot_available;
+        s_ready = active
+               && (remaining_q != 0)
+               && (pad_state == PAD_NONE)
+               && (!will_emit || out_slot_available);
+    end
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            active              <= 1'b0;
+            msg_id_q            <= '0;
+            remaining_q         <= '0;
+            total_bits_q        <= '0;
+            block_buf           <= '0;
+            fill_count          <= '0;
+            first_block_q       <= 1'b1;
+            pad_state           <= PAD_NONE;
+            finish_after_output <= 1'b0;
+
+            block_valid         <= 1'b0;
+            block_data          <= '0;
+            block_msg_id        <= '0;
+            block_first         <= 1'b0;
+            block_last          <= 1'b0;
+        end else begin
+            // Consume current output. A new output may replace it below in the
+            // same cycle when block_ready is asserted.
+            if (block_valid && block_ready) begin
+                block_valid <= 1'b0;
+                if (block_last && finish_after_output) begin
+                    active              <= 1'b0;
+                    finish_after_output <= 1'b0;
+                    pad_state           <= PAD_NONE;
+                    block_buf           <= '0;
+                    fill_count          <= '0;
+                end
+            end
+
+            // Accept a new message descriptor only when the previous message
+            // has fully retired its final output block.
+            if (desc_valid && desc_ready) begin
+                active        <= 1'b1;
+                msg_id_q      <= desc_msg_id;
+                remaining_q   <= desc_len_bytes;
+                total_bits_q  <= {29'd0, desc_len_bytes, 3'b000};
+                block_buf     <= '0;
+                fill_count    <= '0;
+                first_block_q <= 1'b1;
+                pad_state     <= PAD_NONE;
+
+                // Empty message: padding is the only block.
+                if (desc_len_bytes == 0) begin
+                    block_valid         <= 1'b1;
+                    block_data          <= padding_only_block(64'd0);
+                    block_msg_id        <= desc_msg_id;
+                    block_first         <= 1'b1;
+                    block_last          <= 1'b1;
+                    first_block_q       <= 1'b0;
+                    finish_after_output <= 1'b1;
+                end
+            end
+
+            // After a block ending at byte 64 or a 56..63-byte tail, emit the
+            // required final padding-only/length block once the output slot is free.
+            if (active && (pad_state != PAD_NONE) && out_slot_available) begin
+                block_valid  <= 1'b1;
+                block_data   <= (pad_state == PAD_SECOND)
+                              ? length_only_block(total_bits_q)
+                              : padding_only_block(total_bits_q);
+                block_msg_id <= msg_id_q;
+                block_first  <= first_block_q;
+                block_last   <= 1'b1;
+                first_block_q <= 1'b0;
+                pad_state    <= PAD_NONE;
+                finish_after_output <= 1'b1;
+            end
+
+            if (s_valid && s_ready) begin
+`ifndef SYNTHESIS
+                if (s_keep != expected_keep(expected_bytes)) begin
+                    $error("SM3 frontend keep mismatch: remaining=%0d expected_keep=%h got=%h",
+                           remaining_q, expected_keep(expected_bytes), s_keep);
+                end
+`endif
+
+                remaining_q <= remaining_q - 32'(expected_bytes);
+
+                if (remaining_q > 16) begin
+                    // Not the final payload beat.
+                    if (next_fill == 64) begin
+                        block_valid  <= 1'b1;
+                        block_data   <= beat_merged;
+                        block_msg_id <= msg_id_q;
+                        block_first  <= first_block_q;
+                        block_last   <= 1'b0;
+                        first_block_q <= 1'b0;
+                        block_buf    <= '0;
+                        fill_count   <= '0;
+                    end else begin
+                        block_buf  <= beat_merged;
+                        fill_count <= next_fill;
+                    end
+                end else begin
+                    // Final payload beat. remaining_q is the number of bytes
+                    // accepted on this beat (1..16).
+                    if (next_fill == 64) begin
+                        // Exact 64-byte boundary: data block first, then an
+                        // additional padding block carrying the bit length.
+                        block_valid  <= 1'b1;
+                        block_data   <= beat_merged;
+                        block_msg_id <= msg_id_q;
+                        block_first  <= first_block_q;
+                        block_last   <= 1'b0;
+                        first_block_q <= 1'b0;
+                        block_buf    <= '0;
+                        fill_count   <= '0;
+                        pad_state    <= PAD_EXTRA;
+                    end else if (next_fill <= 55) begin
+                        // Padding and 64-bit length fit in this block.
+                        block_valid  <= 1'b1;
+                        block_data   <= beat_final;
+                        block_msg_id <= msg_id_q;
+                        block_first  <= first_block_q;
+                        block_last   <= 1'b1;
+                        first_block_q <= 1'b0;
+                        block_buf    <= '0;
+                        fill_count   <= '0;
+                        finish_after_output <= 1'b1;
+                    end else begin
+                        // 56..63 data bytes: append the '1' byte now, then
+                        // emit a second block containing only the length.
+                        block_valid  <= 1'b1;
+                        block_data   <= beat_with_pad;
+                        block_msg_id <= msg_id_q;
+                        block_first  <= first_block_q;
+                        block_last   <= 1'b0;
+                        first_block_q <= 1'b0;
+                        block_buf    <= '0;
+                        fill_count   <= '0;
+                        pad_state    <= PAD_SECOND;
+                    end
+                end
+            end
+        end
+    end
+
+endmodule

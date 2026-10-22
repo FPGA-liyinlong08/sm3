@@ -1,0 +1,11 @@
+List of CLB Tiles
+CLE_M_X11Y198
+CLE_M_X8Y204
+CLEL_R_X8Y204
+CLE_M_X4Y219
+CLEL_R_X4Y219
+
+List of Congested Nets
+u_engine/g_core[3].u_core/w_reg[0]_19[24]
+u_engine/g_core[3].u_core/rol321_return__0[24]
+

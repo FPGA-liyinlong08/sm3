@@ -1,0 +1,24 @@
+rm -f results_multi_8_32.xml
+rm -f results_multi_8_32.xml
+COCOTB_TEST_MODULES=test_sm3_multiblock COCOTB_TESTCASE=  COCOTB_TOPLEVEL=sm3_multiblock_engine TOPLEVEL_LANG=verilog       \
+         sim_build_multi_8_32/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.13.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb/simulator.cpython-313-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.13.8 interpreter at /mnt/data/sm3_dev_env/venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792639577
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.048 2026-04-26
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_sm3_multiblock.multiblock_context_stress (1/1)
+                                                            Concurrent 0..4096-byte messages through Context RAM + iterative core pool.
+104560.00ns INFO     cocotb.sm3_multiblock_engine       8-core/32-context multiblock PASS: messages=250 blocks=2957 cycles=26134 max_core=8 max_ctx=32 max_pending=32 blocks/cycle=0.113148 avg_core_util=93.37%
+104560.00ns INFO     cocotb.regression                  test_sm3_multiblock.multiblock_context_stress passed
+104560.00ns INFO     cocotb.regression                  *******************************************************************************************************
+                                                        ** TEST                                           STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        *******************************************************************************************************
+                                                        ** test_sm3_multiblock.multiblock_context_stress   PASS      104560.00           1.99      52505.63  **
+                                                        *******************************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0                              104560.00           1.99      52491.67  **
+                                                        *******************************************************************************************************
+- :0: Verilog $finish

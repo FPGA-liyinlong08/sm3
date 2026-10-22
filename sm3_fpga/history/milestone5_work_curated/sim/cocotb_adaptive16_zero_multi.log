@@ -1,0 +1,24 @@
+rm -f results_adaptive_16_64.xml
+rm -f results_adaptive_16_64.xml
+COCOTB_TEST_MODULES=test_sm3_hybrid COCOTB_TESTCASE=  COCOTB_TOPLEVEL=sm3_adaptive_engine TOPLEVEL_LANG=verilog       \
+         sim_build_adaptive_16_64_b2_i8_h32/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.13.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb/simulator.cpython-313-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.13.8 interpreter at /mnt/data/sm3_dev_env/venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792641395
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.048 2026-04-26
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_sm3_hybrid.hybrid_fastpath_stress (1/1)
+                                                            Fast single-block bypass + Context RAM multi-block sharing one core pool.
+169124.00ns INFO     cocotb.sm3_adaptive_engine         16-core/64-context HYBRID PASS: messages=300 fast_msgs=0 multi_msgs=300 blocks=9765 cycles=42275 max_core=16 max_ctx=64 max_pending=64 max_fast=0 sticky=8545 blocks/cycle=0.230988 avg_core_util=93.85%
+169124.00ns INFO     cocotb.regression                  test_sm3_hybrid.hybrid_fastpath_stress passed
+169124.00ns INFO     cocotb.regression                  ************************************************************************************************
+                                                        ** TEST                                    STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ************************************************************************************************
+                                                        ** test_sm3_hybrid.hybrid_fastpath_stress   PASS      169124.00           6.03      28052.74  **
+                                                        ************************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0                       169124.00           6.03      28049.83  **
+                                                        ************************************************************************************************
+- :0: Verilog $finish

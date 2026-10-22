@@ -1,0 +1,135 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Oct 22 15:36:50 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_ram_utilization -file /home/wx/Documents/AI/SM3/work/vivado/top_16c_32ctx_ooc/top_16c_32ctx_ooc_ram_utilization_synth.rpt
+| Design       : sm3_accel_top
+| Device       : xcku060-ffva1156-2-e
+| Speed File   : -2
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+RAM Usage Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Memory Description
+3. Memory Utilization - Inferred
+4. Memory Performance - Inferred
+5. Block Ram / URAM Memory Power - Inferred
+
+1. Summary
+----------
+
++--------------------------+------------+-----------+-------+-----------+
+| Memory Type              | Total Used | Available | Util% | Inferred% |
++--------------------------+------------+-----------+-------+-----------+
+| URAM                     |          0 |         0 |  0.00 |      0.00 |
+| BlockRAM                 |       11.5 |      1080 |  1.06 |    100.00 |
+|  RAMB36E2                |         11 |           |       |    100.00 |
+|  RAMB18E2                |          1 |           |       |    100.00 |
+| LUTMs as Distributed RAM |        604 |    146880 |  0.41 |    100.00 |
+|  LUTMs as RAM64M8        |        192 |           |       |    100.00 |
+|  LUTMs as RAM64M         |         96 |           |       |    100.00 |
+|  LUTMs as RAM32M16       |        312 |           |       |    100.00 |
+|  LUTMs as RAM32M         |          4 |           |       |    100.00 |
+| XRAM                     |          0 |         0 |  0.00 |      0.00 |
++--------------------------+------------+-----------+-------+-----------+
+*  Each RAMB18 is calculated as 0.5 BlockRAM
+**  Tables 2, 3, 4 and 5 cover RAMs inferred by Vivado Synthesis using XPMs or RTL inference
+***  XRAMs are not reported for detailed tables
+
+
+2. Memory Description
+---------------------
+
++----------------------------------------+------------+-------------+------------------------+------------------------+
+| Memory Name                            | Array Size | Memory Type | Port 1 Dimension / Map | Port 2 Dimension / Map |
++----------------------------------------+------------+-------------+------------------------+------------------------+
+| u_engine/u_block_pool/block_mem        |     263168 | RAM_SDP     | 512x514                | 512x514                |
+|  u_engine/u_block_pool/block_mem_reg_0 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_1 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_2 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_3 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_4 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_5 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_6 |      36864 |             |  B:B:512x72            |  A:A:512x72            |
+|  u_engine/u_block_pool/block_mem_reg_7 |       5120 |             |  B:B:512x10            |  A:A:512x10            |
+| u_engine/hash_mem                      |       8192 | RAM_SDP     | 512x256                | 512x256                |
+|  u_engine/hash_mem_reg_0               |      36864 |             |  B:B:32x72             |  A:A:32x72             |
+|  u_engine/hash_mem_reg_1               |      36864 |             |  B:B:32x72             |  A:A:32x72             |
+|  u_engine/hash_mem_reg_2               |      36864 |             |  B:B:32x72             |  A:A:32x72             |
+|  u_engine/hash_mem_reg_3               |      20480 |             |  B:B:32x40             |  A:A:32x40             |
++----------------------------------------+------------+-------------+------------------------+------------------------+
+
+
+3. Memory Utilization - Inferred
+--------------------------------
+
++----------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| Memory Name                            | Primitive | Available Bits | Used Bits | Bit Util% | A Depth | A Depth Avail | A Depth Util% | A Width | A Width Avail | A Width Util% | B Depth | B Depth Avail | B Depth Util% | B Width | B Width Avail | B Width Util% |
++----------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| u_engine/u_block_pool/block_mem        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  u_engine/u_block_pool/block_mem_reg_0 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_1 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_2 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_3 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_4 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_5 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_6 | RAMB36E2  |          36864 |     36864 |    100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |     512 |           512 |        100.00 |      72 |            72 |        100.00 |
+|  u_engine/u_block_pool/block_mem_reg_7 | RAMB18E2  |          18432 |      5120 |     27.78 |     512 |           512 |        100.00 |      10 |            36 |         27.78 |     512 |           512 |        100.00 |      10 |            36 |         27.78 |
+| u_engine/hash_mem                      |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  u_engine/hash_mem_reg_0               | RAMB36E2  |          36864 |      2304 |      6.25 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |
+|  u_engine/hash_mem_reg_1               | RAMB36E2  |          36864 |      2304 |      6.25 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |
+|  u_engine/hash_mem_reg_2               | RAMB36E2  |          36864 |      2304 |      6.25 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |      32 |           512 |          6.25 |      72 |            72 |        100.00 |
+|  u_engine/hash_mem_reg_3               | RAMB36E2  |          36864 |      1280 |      3.47 |      32 |           512 |          6.25 |      40 |            72 |         55.56 |      32 |           512 |          6.25 |      40 |            72 |         55.56 |
++----------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+
+
+4. Memory Performance - Inferred
+--------------------------------
+
++----------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| Memory Name                            | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Type | Port A Requirement (ns) | Port B Type | Port B Requirement (ns) | A Cascade | IREG_A | OREG_A | DOA_REG | B Cascade | IREG_B | OREG_B | DOB_REG |
++----------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| u_engine/u_block_pool/block_mem        |           | 512x514                | 512x514                |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  u_engine/u_block_pool/block_mem_reg_0 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_1 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_2 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_3 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_4 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_5 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_6 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/u_block_pool/block_mem_reg_7 | RAMB18E2  |  B:B:512x10            |  A:A:512x10            |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+| u_engine/hash_mem                      |           | 512x256                | 512x256                |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  u_engine/hash_mem_reg_0               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/hash_mem_reg_1               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/hash_mem_reg_2               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
+|  u_engine/hash_mem_reg_3               | RAMB36E2  |  B:B:32x40             |  A:A:32x40             |        Read |                     4.0 |       Write |                     4.0 |      NONE |        |        |       0 |      NONE |        |        |       0 |
++----------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+
+
+5. Block Ram / URAM Memory Power - Inferred
+-------------------------------------------
+
++----------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| Memory Name                            | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Power Gated | Port A Enable | Port A WRITE_MODE | A Cascade | Port B Power Gated | Port B Enable | Port B WRITE_MODE | B Cascade |
++----------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| u_engine/u_block_pool/block_mem        |           | 512x514                | 512x514                |                    |               |                   |           |                    |               |                   |           |
+|  u_engine/u_block_pool/block_mem_reg_0 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_1 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_2 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_3 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_4 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_5 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_6 | RAMB36E2  |  B:B:512x72            |  A:A:512x72            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/u_block_pool/block_mem_reg_7 | RAMB18E2  |  B:B:512x10            |  A:A:512x10            |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+| u_engine/hash_mem                      |           | 512x256                | 512x256                |                    |               |                   |           |                    |               |                   |           |
+|  u_engine/hash_mem_reg_0               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/hash_mem_reg_1               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/hash_mem_reg_2               | RAMB36E2  |  B:B:32x72             |  A:A:32x72             |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
+|  u_engine/hash_mem_reg_3               | RAMB36E2  |  B:B:32x40             |  A:A:32x40             |                    |        SIGNAL |        READ_FIRST |      NONE |                    |        SIGNAL |        READ_FIRST |      NONE |
++----------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+
+

@@ -1,0 +1,19 @@
+SIM ?= verilator
+CORE_NUM ?= 8
+CTX_NUM ?= 32
+FAST_DEPTH ?= 32
+POOL_DEPTH ?= 256
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := sm3_accel_top
+COCOTB_TEST_MODULES := test_sm3_accel_top
+export PYTHONPATH := $(CURDIR)/tb:$(PYTHONPATH)
+VERILOG_SOURCES := $(CURDIR)/rtl/core/sm3_core.sv \
+                   $(CURDIR)/rtl/front_end/sm3_block_builder.sv \
+                   $(CURDIR)/rtl/context/sm3_block_pool.sv \
+                   $(CURDIR)/rtl/context/sm3_pool_engine.sv \
+                   $(CURDIR)/rtl/top/sm3_accel_top.sv
+COMPILE_ARGS += --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY -GCORE_NUM=$(CORE_NUM) -GCTX_NUM=$(CTX_NUM) -GFAST_DEPTH=$(FAST_DEPTH) -GPOOL_DEPTH=$(POOL_DEPTH)
+SIM_BUILD := sim_build_top_$(CORE_NUM)_$(CTX_NUM)_pool$(POOL_DEPTH)
+COCOTB_RESULTS_FILE := results_top_$(CORE_NUM)_$(CTX_NUM)_pool$(POOL_DEPTH).xml
+
+include $(shell cocotb-config --makefiles)/Makefile.sim

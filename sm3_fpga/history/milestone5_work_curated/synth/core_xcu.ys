@@ -1,0 +1,4 @@
+read_verilog -sv -DSYNTHESIS rtl/core/sm3_core.sv
+hierarchy -check -top sm3_core
+synth_xilinx -family xcu -top sm3_core -flatten -noiopad -noclkbuf -json synth/sm3_core_xcu.json
+stat -tech xilinx

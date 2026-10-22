@@ -1,0 +1,34 @@
+# Original delivered zip (kept on disk, not tracked)
+/*.zip
+
+# Binary tool packages shipped with the archive
+/sm3_fpga/tools/
+
+# Large historical synthesis logs (scripts and reports are kept)
+/sm3_fpga/history/milestone5_work_curated/synth/*.log
+/sm3_fpga/history/milestone5_work_curated/synth/*.stdout
+/sm3_fpga/history/milestone5_work_curated/synth/*.pid
+/sm3_fpga/history/milestone5_work_curated/synth/*.rc
+/sm3_fpga/logs/
+/sm3_fpga/latest/milestone6/synth/*.log
+
+# Vivado implementation artifacts
+*.dcp
+*.dcp.*
+**/.Xil/
+**/xsim.dir/
+**/sim/obj_dir/
+/work/vivado/sim_opt2/
+**/vivado_*.backup.log
+**/vivado_*.backup.jou
+
+# Simulator waveform / compiled artifacts
+*.wdb
+*.pb
+*.vcd
+*.fst
+*.wlf
+
+# Python caches
+__pycache__/
+*.pyc

@@ -1,0 +1,14 @@
+
+****** xsim v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source xsim.dir/tb_opt2/xsim_script.tcl
+# xsim {tb_opt2} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+SM3 CORE PASS: 305 compression vectors
+$finish called at time : 80548 ns : File "/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/tb/tb_sm3_core.sv" Line 112
+exit
+INFO: [Common 17-206] Exiting xsim at Thu Oct 22 16:31:01 2026...

@@ -1,0 +1,65 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Thu Oct 22 16:29:33 2026
+# Process ID: 2025309
+# Current directory: /home/wx/Documents/AI/SM3/work/vivado
+# Command line: vivado -mode batch -source /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/report_round.tcl
+# Log file: /home/wx/Documents/AI/SM3/work/vivado/vivado.log
+# Journal file: /home/wx/Documents/AI/SM3/work/vivado/vivado.jou
+# Running On: wx-linux, OS: Linux, CPU Frequency: 3200.000 MHz, CPU Physical cores: 6, Host memory: 134819 MB
+#-----------------------------------------------------------
+source /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/report_round.tcl
+# set out /home/wx/Documents/AI/SM3/work/vivado/core_bufg_opt2v_routed
+# open_checkpoint $out/core_bufg_opt2v_routed_routed.dcp
+Command: open_checkpoint /home/wx/Documents/AI/SM3/work/vivado/core_bufg_opt2v_routed/core_bufg_opt2v_routed_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2756.023 ; gain = 2.969 ; free physical = 13547 ; free virtual = 117113
+INFO: [Device 21-403] Loading part xcku060-ffva1156-2-e
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2756.152 ; gain = 0.000 ; free physical = 13770 ; free virtual = 117337
+INFO: [Netlist 29-17] Analyzing 12 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'sm3_core_bufg' is not ideal for floorplanning, since the cellview 'sm3_core' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-479] Netlist was created with Vivado 2021.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Constraints 18-5170] The checkpoint was created with non-default parameter values which do not match the current Vivado settings.  Mismatching parameters are:
+  general.maxThreads
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2896.734 ; gain = 11.875 ; free physical = 13499 ; free virtual = 117065
+Restored from archive | CPU: 0.060000 secs | Memory: 3.964317 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2896.734 ; gain = 11.875 ; free physical = 13499 ; free virtual = 117065
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3023.141 ; gain = 0.000 ; free physical = 13381 ; free virtual = 116948
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2021.2 (64-bit) build 3367213
+open_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3023.141 ; gain = 276.023 ; free physical = 13381 ; free virtual = 116948
+# report_high_fanout_nets -fanout_greater_than 64 -max_nets 30 \
+#     -file $out/high_fanout.rpt
+report_high_fanout_nets: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.06 . Memory (MB): peak = 3023.141 ; gain = 0.000 ; free physical = 13383 ; free virtual = 116949
+# report_timing -delay_type max -max_paths 10 -nworst 3 -path_type full_clock_expanded \
+#     -from [get_cells u_core/round_idx_reg*] \
+#     -to   [get_cells u_core/hash_out_reg*] \
+#     -file $out/round_path.rpt
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 10 -nworst 3 -delay_type max -sort_by slack.
+# report_timing -delay_type max -max_paths 10 -nworst 3 -path_type full_clock_expanded \
+#     -from [get_cells u_core/round_idx_reg*] \
+#     -to   [get_cells u_core/a_reg*] \
+#     -file $out/round_path_a.rpt
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 10 -nworst 3 -delay_type max -sort_by slack.
+# puts "ROUND_REPORT_DONE"
+ROUND_REPORT_DONE
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 22 16:29:43 2026...

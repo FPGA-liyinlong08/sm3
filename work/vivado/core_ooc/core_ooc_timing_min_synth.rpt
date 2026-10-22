@@ -1,0 +1,457 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date              : Thu Oct 22 15:23:58 2026
+| Host              : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command           : report_timing -delay_type min -max_paths 10 -nworst 3 -path_type full_clock_expanded -file /home/wx/Documents/AI/SM3/work/vivado/core_ooc/core_ooc_timing_min_synth.rpt
+| Design            : sm3_core
+| Device            : xcku060-ffva1156
+| Speed File        : -2  PRODUCTION 1.25 12-04-2018
+| Temperature Grade : E
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[0]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[0]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[0]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[0]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[0]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[0]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[0]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 f  hash_base_reg[0]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[0]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[0]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[0]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[0]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[0]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[0]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[0]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 f  hash_out[0]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[0]_i_1_n_0
+                         FDCE                                         f  hash_out_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[0]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[10]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[10]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[10]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[10]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[10]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[10]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[10]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[10]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[10]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[10]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[10]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[10]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[10]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 f  hash_base_reg[10]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[10]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[10]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[10]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[10]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[10]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[10]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[10]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[10]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[10]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[10]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[10]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 f  hash_out[10]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[10]_i_1_n_0
+                         FDCE                                         f  hash_out_reg[10]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[10]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[10]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[11]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[11]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[11]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[11]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[11]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[11]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[11]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[11]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[11]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[11]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[11]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[11]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[11]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 f  hash_base_reg[11]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[11]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[11]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[11]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[11]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[11]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[11]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[11]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[11]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[11]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[11]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[11]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 f  hash_out[11]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[11]_i_1_n_0
+                         FDCE                                         f  hash_out_reg[11]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[11]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[11]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 hash_base_reg[128]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[128]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk rise@0.000ns - clk rise@0.000ns)
+  Data Path Delay:        0.150ns  (logic 0.064ns (42.557%)  route 0.086ns (57.443%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Uncertainty:      0.050ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_base_reg[128]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.049     0.049 r  hash_base_reg[128]/Q
+                         net (fo=1, unplaced)         0.074     0.123    hash_base[128]
+                         LUT2 (Prop_LUT2_I1_O)        0.015     0.138 r  hash_out[128]_i_1/O
+                         net (fo=1, unplaced)         0.012     0.150    hash_out[128]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[128]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  hash_out_reg[128]/C
+                         clock pessimism              0.000     0.000    
+                         clock uncertainty            0.050     0.050    
+                         FDCE (Hold_FDCE_C_D)         0.056     0.106    hash_out_reg[128]
+  -------------------------------------------------------------------
+                         required time                         -0.106    
+                         arrival time                           0.150    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+
+
+

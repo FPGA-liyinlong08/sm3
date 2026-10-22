@@ -1,0 +1,7 @@
+List of CLB Tiles
+CLEL_R_X46Y206
+
+List of Congested Nets
+u_core/w_reg[0][27]
+u_core/hash_out[127]_i_55_n_0
+

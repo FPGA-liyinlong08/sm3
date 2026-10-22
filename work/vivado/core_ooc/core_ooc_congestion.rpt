@@ -1,0 +1,46 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Oct 22 15:25:32 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_design_analysis -congestion -file /home/wx/Documents/AI/SM3/work/vivado/core_ooc/core_ooc_congestion.rpt
+| Design       : sm3_core
+| Device       : xcku060
+| Design State : Fully Placed
+---------------------------------------------------------------------------------------------------------------------------------
+
+Report Design Analysis
+
+Table of Contents
+-----------------
+1. Placer Final Level Congestion Reporting
+2. Router Initial Congestion
+3. SLR Net Crossing Reporting
+
+1. Placer Final Level Congestion Reporting
+------------------------------------------
+
++-----------+------+-------+------------+--------+---------------+---------------+-----+--------+------+------+------+------+-----+-------+-----+------------+
+| Direction | Type | Level | Congestion | Window | Combined LUTs | Avg LUT Input | LUT | LUTRAM | Flop | MUXF | RAMB | URAM | DSP | CARRY | SRL | Cell Names |
++-----------+------+-------+------------+--------+---------------+---------------+-----+--------+------+------+------+------+-----+-------+-----+------------+
+* No congestion windows are found above level 5
+
+
+2. Router Initial Congestion
+----------------------------
+
++-----------+------+-------+--------+---------------+---------------+-----+--------+------+------+------+------+-----+-------+-----+------------+-------------+
+| Direction | Type | Level | Window | Combined LUTs | Avg LUT Input | LUT | LUTRAM | Flop | MUXF | RAMB | URAM | DSP | CARRY | SRL | Cell Names | Sub Windows |
++-----------+------+-------+--------+---------------+---------------+-----+--------+------+------+------+------+-----+-------+-----+------------+-------------+
+* No effective congestion windows are found above level 5
+
+
+3. SLR Net Crossing Reporting
+-----------------------------
+
++------------+-----------------------------+
+| Cell Names | Number of Nets crossing SLR |
++------------+-----------------------------+
+* The current part is not an SSI device
+
+

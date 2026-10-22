@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv" into library work
+INFO: [VRFC 10-311] analyzing module sm3_core
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/wx/Documents/AI/SM3/SM3_FPGA_COMPLETE_20261022/latest/milestone6/tb/tb_sm3_core.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_sm3_core

@@ -1,0 +1,26 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Thu Oct 22 16:29:42 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_high_fanout_nets -fanout_greater_than 64 -max_nets 30 -file /home/wx/Documents/AI/SM3/work/vivado/core_bufg_opt2v_routed/high_fanout.rpt
+| Design       : sm3_core_bufg
+| Device       : xcku060
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++------------------------------+--------+-------------+
+| Net Name                     | Fanout | Driver Type |
++------------------------------+--------+-------------+
+| rst_n                        |   1387 | PORT        |
+| u_core/h                     |    806 | LUT2        |
+| u_core/hash_out[255]_i_1_n_0 |    290 | LUT5        |
+| u_core/round_idx__0[4]       |    127 | FDCE        |
+| u_core/round_idx__0[5]       |    110 | FDCE        |
++------------------------------+--------+-------------+
+
+

@@ -1,0 +1,11 @@
+SM3 Milestone 5 summary
+=======================
+Architecture: global shared Block Pool + per-Context linked queues + RR scheduler + adaptive Sticky Core.
+Toolchain: Verilator 5.048, cocotb 2.1.0, 250 MHz reference.
+
+Key results:
+- 16C/64CTX/512 slots, 1000 mixed random messages: PASS, 0.22978 block/cycle, 28.270 Gbps payload, avg core 14.94/16.
+- 8C/32CTX/512 slots, 500 mixed random messages: PASS, 0.11858 block/cycle, 14.595 Gbps payload, avg core 7.71/8.
+- Pool sweep (16C mixed steady): 128=13.902 Gbps, 256=23.471 Gbps, 512=26.377 Gbps, 1024=26.377 Gbps.
+- 512 slots is the recommended first implementation point.
+- Final resource assertions: Context=0, Fast FIFO=0, pool_free=POOL_DEPTH.

@@ -1,0 +1,7 @@
+List of CLB Tiles
+CLEL_R_X18Y205
+
+List of Congested Nets
+u_core/w_reg[0][17]
+u_core/x0_out[10]
+

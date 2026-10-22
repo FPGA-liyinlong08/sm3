@@ -1,0 +1,12 @@
+SIM ?= verilator
+CORE_NUM ?= 8
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := sm3_core_pool
+COCOTB_TEST_MODULES := test_sm3_core_pool
+export PYTHONPATH := $(CURDIR)/tb:$(PYTHONPATH)
+VERILOG_SOURCES := $(CURDIR)/rtl/core/sm3_core.sv $(CURDIR)/rtl/sched/sm3_core_pool.sv
+COMPILE_ARGS += --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY -GCORE_NUM=$(CORE_NUM)
+SIM_BUILD := sim_build_pool_$(CORE_NUM)
+COCOTB_RESULTS_FILE := results_pool_$(CORE_NUM).xml
+
+include $(shell cocotb-config --makefiles)/Makefile.sim

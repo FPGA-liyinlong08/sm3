@@ -1,0 +1,238 @@
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/run_core_bufg_synth.tcl
+# set core_sv [lindex $argv 0]
+# set out     [lindex $argv 1]
+# set tag     [lindex $argv 2]
+# file mkdir $out
+# set_param general.maxThreads 6
+# read_verilog -sv $core_sv
+# read_verilog -sv /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_bufg.sv
+# read_xdc /home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc
+# synth_design -top sm3_core_bufg -part xcku060-ffva1156-2-e -mode out_of_context \
+#              -flatten_hierarchy none -directive default
+Command: synth_design -top sm3_core_bufg -part xcku060-ffva1156-2-e -mode out_of_context -flatten_hierarchy none -directive default
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xcku060'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xcku060'
+INFO: [Device 21-403] Loading part xcku060-ffva1156-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 2018599
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 2833.742 ; gain = 74.652 ; free physical = 12717 ; free virtual = 116279
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'sm3_core_bufg' [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_bufg.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [/home/Xilinx/Vivado/2021.2/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (1#1) [/home/Xilinx/Vivado/2021.2/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6157] synthesizing module 'sm3_core' [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv:1]
+	Parameter MSG_ID_W bound to: 32'sb00000000000000000000000000100000 
+INFO: [Synth 8-6155] done synthesizing module 'sm3_core' (2#1) [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_opt2.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'sm3_core_bufg' (3#1) [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/sm3_core_bufg.sv:5]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2881.711 ; gain = 122.621 ; free physical = 12487 ; free virtual = 116049
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2899.523 ; gain = 140.434 ; free physical = 12484 ; free virtual = 116047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2899.523 ; gain = 140.434 ; free physical = 12484 ; free virtual = 116047
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2905.461 ; gain = 0.000 ; free physical = 12477 ; free virtual = 116040
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc]
+Finished Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/sm3_core_bufg_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/sm3_core_bufg_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3054.234 ; gain = 0.000 ; free physical = 13323 ; free virtual = 116885
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3054.234 ; gain = 0.000 ; free physical = 13323 ; free virtual = 116885
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3054.234 ; gain = 295.145 ; free physical = 13403 ; free virtual = 116965
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xcku060-ffva1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3054.234 ; gain = 295.145 ; free physical = 13403 ; free virtual = 116965
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3054.234 ; gain = 295.145 ; free physical = 13403 ; free virtual = 116965
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3054.234 ; gain = 295.145 ; free physical = 13393 ; free virtual = 116957
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 1     
+	   4 Input   32 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 1     
++---XORs : 
+	   2 Input    256 Bit         XORs := 1     
+	   2 Input     32 Bit         XORs := 2     
+	   3 Input     32 Bit         XORs := 4     
+	   5 Input     32 Bit         XORs := 1     
++---Registers : 
+	              256 Bit    Registers := 2     
+	               32 Bit    Registers := 27    
+	                6 Bit    Registers := 1     
+	                1 Bit    Registers := 4     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 28    
+	   2 Input   31 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 8     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2760 (col length:120)
+BRAMs: 2160 (col length: RAMB18 120 RAMB36 60)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3054.234 ; gain = 295.145 ; free physical = 13365 ; free virtual = 116932
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3079.102 ; gain = 320.012 ; free physical = 13140 ; free virtual = 116707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13094 ; free virtual = 116662
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13091 ; free virtual = 116658
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13091 ; free virtual = 116658
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13091 ; free virtual = 116658
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13091 ; free virtual = 116658
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY8 |    12|
+|3     |LUT1   |     1|
+|4     |LUT2   |   279|
+|5     |LUT3   |   791|
+|6     |LUT4   |    81|
+|7     |LUT5   |   164|
+|8     |LUT6   |   269|
+|9     |FDCE   |  1372|
+|10    |FDPE   |    15|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 3172.062 ; gain = 412.973 ; free physical = 13091 ; free virtual = 116658
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3172.062 ; gain = 258.262 ; free physical = 13115 ; free virtual = 116682
+Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 3172.070 ; gain = 412.973 ; free physical = 13115 ; free virtual = 116682
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:02 ; elapsed = 00:00:00 . Memory (MB): peak = 3172.070 ; gain = 0.000 ; free physical = 13211 ; free virtual = 116778
+INFO: [Netlist 29-17] Analyzing 13 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'sm3_core_bufg' is not ideal for floorplanning, since the cellview 'sm3_core' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc]
+Finished Parsing XDC File [/home/wx/Documents/AI/SM3/work/vivado/rtl_opt/core_bufg.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3216.789 ; gain = 0.000 ; free physical = 13143 ; free virtual = 116711
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  BUFG => BUFGCE: 1 instance 
+
+Synth Design complete, checksum: 40970664
+INFO: [Common 17-83] Releasing license: Synthesis
+24 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 3216.789 ; gain = 465.707 ; free physical = 13366 ; free virtual = 116933
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+# write_checkpoint -force $out/${tag}_post_synth.dcp
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint '/home/wx/Documents/AI/SM3/work/vivado/core_bufg_opt2v/core_bufg_opt2v_post_synth.dcp' has been generated.
+# report_utilization    -file $out/${tag}_utilization_synth.rpt
+# report_timing_summary -delay_type min_max -report_unconstrained \
+#                       -check_timing_verbose -max_paths 20 \
+#                       -file $out/${tag}_timing_summary_synth.rpt
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 6 CPUs
+report_timing_summary: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 4033.504 ; gain = 700.859 ; free physical = 12948 ; free virtual = 116516
+# puts "CORE_BUFG_SYNTH_DONE $tag"
+CORE_BUFG_SYNTH_DONE core_bufg_opt2v
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 22 16:23:22 2026...

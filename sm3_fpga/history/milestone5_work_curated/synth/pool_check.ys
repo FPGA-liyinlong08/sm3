@@ -1,0 +1,7 @@
+read_verilog -sv -DSYNTHESIS rtl/context/sm3_block_pool.sv
+chparam -set POOL_DEPTH 512 sm3_block_pool
+hierarchy -check -top sm3_block_pool
+proc
+opt
+memory -nomap
+stat

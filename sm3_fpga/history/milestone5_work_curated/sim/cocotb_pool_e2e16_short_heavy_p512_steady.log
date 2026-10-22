@@ -1,0 +1,23 @@
+rm -f results_top_16_64_pool512.xml
+rm -f results_top_16_64_pool512.xml
+COCOTB_TEST_MODULES=test_sm3_accel_top COCOTB_TESTCASE=  COCOTB_TOPLEVEL=sm3_accel_top TOPLEVEL_LANG=verilog       \
+         sim_build_top_16_64_pool512/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.13.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb/simulator.cpython-313-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.13.8 interpreter at /mnt/data/sm3_dev_env/venv/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1792649286
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /mnt/data/sm3_dev_env/venv/lib/python3.13/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.048 2026-04-26
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_sm3_accel_top.end_to_end_raw_messages (1/1)
+ 44516.00ns INFO     cocotb.sm3_accel_top               SM3 E2E PASS: messages=500 payload_bytes=95676 cycles=10609 max_core=16 max_ctx=26 max_fast=22 min_pool_free=267 blocks=1788 block/cycle=0.16854 avg_core=10.97 avg_ready_ctx=2.76 max_ready_ctx=17 payload=18.037Gbps rate=11.782Mmsg/s
+ 44516.00ns INFO     cocotb.regression                  test_sm3_accel_top.end_to_end_raw_messages passed
+ 44516.00ns INFO     cocotb.regression                  ****************************************************************************************************
+                                                        ** TEST                                        STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ****************************************************************************************************
+                                                        ** test_sm3_accel_top.end_to_end_raw_messages   PASS       44516.00           1.12      39796.70  **
+                                                        ****************************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0                            44516.00           1.12      39775.33  **
+                                                        ****************************************************************************************************
+- :0: Verilog $finish

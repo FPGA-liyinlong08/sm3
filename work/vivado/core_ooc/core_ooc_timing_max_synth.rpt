@@ -1,0 +1,1447 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date              : Thu Oct 22 15:23:58 2026
+| Host              : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command           : report_timing -delay_type max -max_paths 20 -nworst 5 -path_type full_clock_expanded -file /home/wx/Documents/AI/SM3/work/vivado/core_ooc/core_ooc_timing_max_synth.rpt
+| Design            : sm3_core
+| Device            : xcku060-ffva1156
+| Speed File        : -2  PRODUCTION 1.25 12-04-2018
+| Temperature Grade : E
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.785 r  a[29]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    a[29]_i_1_n_0
+                         FDCE                                         r  a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[29]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[29]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.785 r  a[29]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    a[29]_i_1_n_0
+                         FDCE                                         r  a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[29]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[29]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 f  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 f  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 f  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 f  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 f  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.785 r  a[29]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    a[29]_i_1_n_0
+                         FDCE                                         r  a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[29]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[29]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 f  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.785 r  a[29]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    a[29]_i_1_n_0
+                         FDCE                                         r  a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[29]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[29]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[29]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 f  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.785 r  a[29]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    a[29]_i_1_n_0
+                         FDCE                                         r  a_reg[29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[29]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[29]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[253]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.785 r  hash_out[253]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    hash_out[253]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[253]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[253]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[253]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.785 r  hash_out[253]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    hash_out[253]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[253]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[253]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[253]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 f  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.785 r  hash_out[253]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    hash_out[253]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[253]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[253]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[253]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 f  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 r  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.785 r  hash_out[253]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    hash_out[253]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[253]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[253]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.166ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[253]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.808ns  (logic 1.692ns (44.433%)  route 2.116ns (55.567%))
+  Logic Levels:           12  (CARRY8=7 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     3.261 r  hash_out_reg[247]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.261    hash_out_reg[247]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.435 f  hash_out_reg[255]_i_3/O[5]
+                         net (fo=2, unplaced)         0.310     3.745    an[29]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.785 r  hash_out[253]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.808    hash_out[253]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[253]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[253]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.808    
+  -------------------------------------------------------------------
+                         slack                                  0.166    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.754 r  a[21]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    a[21]_i_1_n_0
+                         FDCE                                         r  a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[21]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[21]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.754 r  a[21]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    a[21]_i_1_n_0
+                         FDCE                                         r  a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[21]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[21]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 f  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 f  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 f  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 f  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 f  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.754 r  a[21]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    a[21]_i_1_n_0
+                         FDCE                                         r  a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[21]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[21]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.754 r  a[21]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    a[21]_i_1_n_0
+                         FDCE                                         r  a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[21]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[21]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            a_reg[21]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT3=2 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT3 (Prop_LUT3_I2_O)        0.040     3.754 r  a[21]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    a[21]_i_1_n_0
+                         FDCE                                         r  a_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  a_reg[21]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    a_reg[21]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[245]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.754 r  hash_out[245]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    hash_out[245]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[245]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[245]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[245]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[245]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.754 r  hash_out[245]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    hash_out[245]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[245]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[245]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[245]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[245]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 f  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 f  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 f  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 r  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.754 r  hash_out[245]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    hash_out[245]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[245]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[245]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[245]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[245]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 r  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 f  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.754 r  hash_out[245]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    hash_out[245]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[245]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[245]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[245]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+Slack (MET) :             0.197ns  (required time - arrival time)
+  Source:                 round_idx_reg[4]/C
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Destination:            hash_out_reg[245]/D
+                            (rising edge-triggered cell FDCE clocked by clk  {rise@0.000ns fall@2.000ns period=4.000ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk rise@4.000ns - clk rise@0.000ns)
+  Data Path Delay:        3.777ns  (logic 1.661ns (43.977%)  route 2.116ns (56.023%))
+  Logic Levels:           11  (CARRY8=6 LUT2=1 LUT3=1 LUT5=1 LUT6=2)
+  Clock Uncertainty:      0.085ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.050ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     0.000    clk
+                         FDCE                                         r  round_idx_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_FDCE_C_Q)         0.115     0.115 f  round_idx_reg[4]/Q
+                         net (fo=99, unplaced)        0.409     0.524    round_idx__0[4]
+                         LUT6 (Prop_LUT6_I0_O)        0.190     0.714 r  hash_out[127]_i_195/O
+                         net (fo=3, unplaced)         0.255     0.969    hash_out[127]_i_195_n_0
+                         LUT3 (Prop_LUT3_I1_O)        0.040     1.009 r  hash_out[127]_i_164/O
+                         net (fo=1, unplaced)         0.313     1.322    hash_out[127]_i_164_n_0
+                         CARRY8 (Prop_CARRY8_DI[3]_CO[7])
+                                                      0.346     1.668 r  hash_out_reg[127]_i_94/CO[7]
+                         net (fo=1, unplaced)         0.000     1.668    hash_out_reg[127]_i_94_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.699 r  hash_out_reg[127]_i_67/CO[7]
+                         net (fo=1, unplaced)         0.000     1.699    hash_out_reg[127]_i_67_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.031     1.730 r  hash_out_reg[127]_i_53/CO[7]
+                         net (fo=1, unplaced)         0.000     1.730    hash_out_reg[127]_i_53_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[7])
+                                                      0.186     1.916 r  hash_out_reg[231]_i_29/O[7]
+                         net (fo=6, unplaced)         0.271     2.187    x0_out[31]
+                         LUT5 (Prop_LUT5_I4_O)        0.095     2.282 r  hash_out[239]_i_33/O
+                         net (fo=3, unplaced)         0.255     2.537    hash_out[239]_i_33_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.040     2.577 r  hash_out[239]_i_10/O
+                         net (fo=1, unplaced)         0.280     2.857    hash_out[239]_i_10_n_0
+                         CARRY8 (Prop_CARRY8_DI[0]_CO[7])
+                                                      0.373     3.230 r  hash_out_reg[239]_i_2/CO[7]
+                         net (fo=1, unplaced)         0.000     3.230    hash_out_reg[239]_i_2_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.174     3.404 f  hash_out_reg[247]_i_2/O[5]
+                         net (fo=2, unplaced)         0.310     3.714    an[21]
+                         LUT2 (Prop_LUT2_I1_O)        0.040     3.754 r  hash_out[245]_i_1/O
+                         net (fo=1, unplaced)         0.023     3.777    hash_out[245]_i_1_n_0
+                         FDCE                                         r  hash_out_reg[245]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)        4.000     4.000 r  
+                                                      0.000     4.000 r  clk (IN)
+                         net (fo=1353, unset)         0.000     4.000    clk
+                         FDCE                                         r  hash_out_reg[245]/C
+                         clock pessimism              0.000     4.000    
+                         clock uncertainty           -0.085     3.915    
+                         FDCE (Setup_FDCE_C_D)        0.059     3.974    hash_out_reg[245]
+  -------------------------------------------------------------------
+                         required time                          3.974    
+                         arrival time                          -3.777    
+  -------------------------------------------------------------------
+                         slack                                  0.197    
+
+
+
+
