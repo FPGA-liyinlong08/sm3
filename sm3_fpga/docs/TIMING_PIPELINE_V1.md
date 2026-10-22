@@ -52,9 +52,10 @@ cd sm3_fpga/latest/milestone6
 bash scripts/check_timing_v1.sh
 ```
 
-完成后使用 Vivado 重跑：
+完成后，从**仓库根目录**使用 Vivado 重跑：
 
 ```bash
+cd ../../..
 vivado -mode batch -source work/vivado/top_16c_32ctx_ooc/run_top_ooc.tcl
 ```
 
