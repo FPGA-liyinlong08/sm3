@@ -26,9 +26,14 @@ jobs:
       - name: Install simulator
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y verilator
+          sudo apt-get install -y verilator curl
+          curl -fL --retry 3 https://deb.debian.org/debian/pool/main/v/verilator/verilator_5.048-1_amd64.deb -o /tmp/verilator_5.048.deb
+          mkdir -p /tmp/verilator-5.048-root
+          dpkg-deb -x /tmp/verilator_5.048.deb /tmp/verilator-5.048-root
+          echo "/tmp/verilator-5.048-root/usr/bin" >> "$GITHUB_PATH"
+          echo "VERILATOR_ROOT=/tmp/verilator-5.048-root/usr/share/verilator" >> "$GITHUB_ENV"
           python3 -m pip install --break-system-packages 'cocotb==2.1.0'
-          verilator --version
+          /tmp/verilator-5.048-root/usr/bin/verilator --version
           cocotb-config --version
       - name: Verilator lint
         run: |
