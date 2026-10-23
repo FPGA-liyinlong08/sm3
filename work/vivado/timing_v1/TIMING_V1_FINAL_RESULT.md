@@ -194,3 +194,107 @@ work/vivado/timing_v1/route_v42_eco1_physopt/top_timing_v1_internal_min_eco_phys
 - 最终 DCP 是签核依据；RTL 回放不包含 ECO 的 LOC，因为布局阶段加 LOC 会改变 floorplan。
 - 若要再次优化，请先保存当前 DCP；任何 `place_design`/`route_design`/`phys_opt_design` 全量重跑都可能丢失当前的 1 ps 裕量。
 - 最终 WNS 是内部 reg-to-reg 口径，顶层 I/O 延迟未建模；这与本项目此前的时序签核口径一致。
+
+## 8. 资源、逻辑级数与扇出（最终 DCP）
+
+数据来源：对最终 checkpoint `route_v42_eco1_physopt/top_timing_v1_eco_physopt.dcp` 重新运行 `report_utilization`、`report_high_fanout_nets`、`report_design_analysis -logic_level_distribution` 和 `report_timing`。报告见本节末尾。
+
+### 8.1 资源利用率
+
+| 资源 | 使用 | 可用 | 利用率 |
+|---|---:|---:|---:|
+| CLB LUTs | 29,000 | 331,680 | 8.74% |
+| LUT as Logic | 28,492 | 331,680 | 8.59% |
+| LUT as Memory (LUTRAM) | 508 | 146,880 | 0.35% |
+| CLB Registers (FF) | 29,015 | 663,360 | 4.37% |
+| CLB | 5,381 | 41,460 | 12.98% |
+| CARRY8 | 204 | 41,460 | 0.49% |
+| Block RAM Tile | 12 | 1,080 | 1.11% |
+| RAMB36 | 11 | 1,080 | 1.02% |
+| RAMB18 | 2 | 2,160 | 0.09% |
+| DSP48E2 | 0 | 2,760 | 0.00% |
+| Bonded IOB | 0 | 520 | 0.00% * |
+| BUFG | 0 | 624 | 0.00% * |
+
+\* 当前 checkpoint 为 out-of-context 的 `sm3_accel_top` 实现：顶层端口没有 I/O buffer，时钟是带 `HD.CLK_SRC BUFGCTRL_X0Y0` 的输入端口，因此 I/O/BUFG 资源为 0；这里的资源数字是内部逻辑资源。
+
+补充：
+
+- CLB 中 `CLBL=2,501`、`CLBM=2,880`；FF 中 `FDCE=28,732`、`FDPE=274`、`FDRE=9`。
+- CLB Registers 有 **1 个 Fixed**，就是 ECO 固定到 `SLICE_X4Y152/SLICEM.AFF2` 的 `tj_rot_q_reg[9]`。
+- 设计没有 DSP；BRAM 只用了 12 个 tile，远低于器件容量。资源不是当前瓶颈，瓶颈是核心 hash 组合路径的布线延迟。
+
+### 8.2 最差路径与逻辑级数
+
+最终最差路径：
+
+```text
+Source:      u_engine/g_core[5].u_core/a_reg[27]/C   (SLICE_X18Y208)
+Destination: u_engine/g_core[5].u_core/hash_out_reg[235]/D (SLICE_X15Y187)
+Slack:       +0.001 ns (MET)
+Data:        3.853 ns  (logic 1.378 / route 2.475，route 占 64.2%)
+Logic:       9 levels (CARRY8=5, LUT2=1, LUT3=1, LUT5=1, LUT6=1)
+Skew:        -0.120 ns
+Uncertainty: 0.085 ns
+```
+
+**最差路径逻辑级数 = 9**。但设计里还有级数更多、只是裕量稍大的近临界路径：
+
+| 路径 | Logic Levels | Slack |
+|---|---:|---:|
+| `core[9].tj_rot_q_reg[1] -> core[9].hash_out_reg[246]` | 11 | +0.002 ns |
+| `core[1].a_reg[28] -> core[1].hash_out_reg[251]` | 11 | +0.010 ns |
+| `core[14].a_reg[24] -> core[14].a_reg[30]` | 12 | +0.025 ns |
+| `core[4].a_reg[21] -> core[4].hash_out_reg[234]` | 10 | +0.025 ns |
+
+对最差 10,000 条路径做 logic-level 分布：
+
+| Logic Levels | 8 | 9 | 10 | 11 | 12 |
+|---|---:|---:|---:|---:|---:|
+| Paths | 755 | 557 | 524 | 462 | 206 |
+
+因此：
+
+- **关键路径本身是 9 级**；
+- **最差 10,000 条路径中的最大逻辑级数是 12 级**（206 条），12 级路径仍有 +0.025 ns 裕量；
+- 当前关键路径是**布线主导**（route 2.475 ns，64%），不是逻辑级数主导；单纯再压逻辑级数不一定能增加裕量。
+
+### 8.3 扇出
+
+| 范围 | 最大扇出 | 说明 |
+|---|---:|---|
+| 全设计时钟 | **29,864** | `clk` 输入端口；全局时钟 |
+| 全设计非时钟 | **29,015** | `rst_n`；29,006 个 FF reset + 8 data + 1 BRAM |
+| 全设计数据 | **1,199** | `u_engine/g_core[14].u_core/D[0]`，LUT6；worst slack +0.127 ns |
+| 最差路径内部 | **9** | `core[5].a_reg_n_0_[27]`，路径上其余 net 扇出 1/2/4/6 |
+
+主要数据高扇出 net：
+
+- `core[*].h` / `round_idx[5]`：每个 core 806；
+- `fast_wr_ptr[*]`：633–637；`fast_rd_ptr[*]`：553–557；
+- `u_block_builder/E[0]`、`block_valid_reg_0`：553；
+- `launch_fast_block`：517；
+- `core[*].out_valid`、`hash_out[255]`：约 296；
+- `digest_out[255]`：295。
+
+判断：
+
+- 全局最大扇出是时钟和复位，属于正常的全局控制网；`rst_n` 的 29,015 与寄存器数量一致。
+- 真正需要关注的数据扇出最大为 1,199（`D[0]`），其 worst slack 仍有 +0.127 ns；当前没有因为数据扇出导致失败。
+- 最差路径的最大扇出只有 9，说明这条 1 ps 路径不是扇出问题，而是**跨 core 的 route + clock skew** 问题。
+
+### 8.4 资源/时序判断
+
+- **资源充足**：LUT 8.74%、FF 4.37%、BRAM 1.11%、DSP 0%，没有资源压力。
+- **时序极限**：WNS +0.001 ns，且 11/12 级路径的裕量只有 2–25 ps；当前设计已经是 250 MHz 的边界。
+- **优化方向**：如果还要增加裕量，优先做核心 hash 路径的局部 placement/route 优化或 post-route ECO，而不是增加流水级数或改分组；此前 v48–v52 的结构改动都因 floorplan 变化而失败。
+
+### 8.5 本节报告
+
+```text
+work/vivado/timing_v1/route_v42_eco1_physopt/final_utilization.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/final_high_fanout_nets.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/final_high_fanout_loads.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/final_logic_level_distribution.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/final_timing_max20.rpt
+```

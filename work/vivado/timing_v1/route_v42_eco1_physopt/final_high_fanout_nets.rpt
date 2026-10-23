@@ -1,0 +1,61 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Fri Oct 23 10:01:28 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_high_fanout_nets -max_nets 40 -fanout_greater_than 100 -timing -file /home/wx/Documents/AI/SM3/work/vivado/timing_v1/route_v42_eco1_physopt/final_high_fanout_nets.rpt
+| Design       : sm3_accel_top
+| Device       : xcku060
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| Net Name                                             | Fanout | Driver Type | Worst Slack(ns) | Worst Delay(ns) |
++------------------------------------------------------+--------+-------------+-----------------+-----------------+
+| rst_n                                                |  29015 | PORT        |             inf |           0.000 |
+| u_engine/g_core[14].u_core/D[0]                      |   1199 | LUT6        |           0.127 |           0.909 |
+| u_engine/g_core[0].u_core/tj_rot_q[31]_i_1__8_n_0    |    806 | LUT2        |           0.286 |           1.785 |
+| u_engine/g_core[10].u_core/h__2                      |    806 | LUT2        |           0.144 |           1.758 |
+| u_engine/g_core[11].u_core/round_idx[5]_i_1__6_n_0   |    806 | LUT2        |           0.213 |           1.356 |
+| u_engine/g_core[12].u_core/h                         |    806 | LUT2        |           0.128 |           1.293 |
+| u_engine/g_core[13].u_core/round_idx[5]_i_1__7_n_0   |    806 | LUT2        |           0.336 |           1.145 |
+| u_engine/g_core[14].u_core/tj_rot_q[31]_i_1__10_n_0  |    806 | LUT2        |           0.138 |           1.721 |
+| u_engine/g_core[15].u_core/h                         |    806 | LUT2        |           0.175 |           2.044 |
+| u_engine/g_core[1].u_core/h__1                       |    806 | LUT2        |           0.206 |           2.033 |
+| u_engine/g_core[2].u_core/h__0                       |    806 | LUT2        |           0.242 |           1.773 |
+| u_engine/g_core[3].u_core/round_idx[5]_i_1__0_n_0    |    806 | LUT2        |           0.221 |           1.330 |
+| u_engine/g_core[4].u_core/round_idx[5]_i_1__1_n_0    |    806 | LUT2        |           0.222 |           1.839 |
+| u_engine/g_core[5].u_core/round_idx[5]_i_1__2_n_0    |    806 | LUT2        |           0.293 |           1.206 |
+| u_engine/g_core[6].u_core/round_idx[5]_i_1__3_n_0    |    806 | LUT2        |           0.283 |           1.718 |
+| u_engine/g_core[7].u_core/round_idx[5]_i_1__4_n_0    |    806 | LUT2        |           0.159 |           1.166 |
+| u_engine/g_core[8].u_core/tj_rot_q[31]_i_1__12_n_0   |    806 | LUT2        |           0.526 |           1.571 |
+| u_engine/g_core[9].u_core/round_idx[5]_i_1__11_n_0   |    806 | LUT2        |           0.143 |           1.950 |
+| u_engine/fast_push                                   |    651 | LUT6        |           0.399 |           1.533 |
+| u_engine/fast_wr_ptr[0]                              |    637 | FDCE        |           1.413 |           1.997 |
+| u_engine/fast_wr_ptr[1]                              |    636 | FDCE        |           1.473 |           1.868 |
+| u_engine/fast_wr_ptr[2]                              |    635 | FDCE        |           0.843 |           2.552 |
+| u_engine/fast_wr_ptr[3]                              |    634 | FDCE        |           0.955 |           2.392 |
+| u_engine/fast_wr_ptr[4]                              |    633 | FDCE        |           1.652 |           1.806 |
+| u_engine/fast_rd_ptr[0]                              |    557 | FDCE        |           1.014 |           2.045 |
+| u_engine/fast_rd_ptr[1]                              |    556 | FDCE        |           1.259 |           1.794 |
+| u_engine/fast_rd_ptr[2]                              |    555 | FDCE        |           1.147 |           2.330 |
+| u_engine/fast_rd_ptr[3]                              |    554 | FDCE        |           1.088 |           2.090 |
+| u_block_builder/E[0]                                 |    553 | LUT6        |           0.092 |           0.658 |
+| u_block_builder/block_valid_reg_0                    |    553 | LUT5        |           0.467 |           1.006 |
+| u_engine/fast_rd_ptr[4]                              |    553 | FDCE        |           1.123 |           1.882 |
+| u_engine/launch_fast_block                           |    517 | LUT3        |           0.964 |           1.482 |
+| u_engine/g_core[12].u_core/commit_valid_q0           |    342 | LUT6        |           0.442 |           2.072 |
+| u_engine/g_core[10].u_core/out_valid                 |    296 | LUT5        |           0.291 |           1.743 |
+| u_engine/g_core[11].u_core/hash_out[255]_i_1__6_n_0  |    296 | LUT5        |           0.256 |           1.793 |
+| u_engine/g_core[12].u_core/E[0]                      |    296 | LUT5        |           0.192 |           1.371 |
+| u_engine/g_core[14].u_core/hash_out[255]_i_1__10_n_0 |    296 | LUT4        |           0.218 |           1.451 |
+| u_engine/g_core[15].u_core/E[0]                      |    296 | LUT5        |           0.265 |           1.667 |
+| u_engine/g_core[1].u_core/out_valid__2               |    296 | LUT4        |           0.214 |           1.700 |
+| u_engine/digest_out[255]_i_1_n_0                     |    295 | LUT5        |           0.525 |           1.955 |
++------------------------------------------------------+--------+-------------+-----------------+-----------------+
+
+

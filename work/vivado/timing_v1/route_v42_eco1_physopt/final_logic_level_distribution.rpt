@@ -1,0 +1,29 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Fri Oct 23 10:01:32 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_design_analysis -logic_level_distribution -logic_level_dist_paths 10000 -file /home/wx/Documents/AI/SM3/work/vivado/timing_v1/route_v42_eco1_physopt/final_logic_level_distribution.rpt
+| Design       : sm3_accel_top
+| Device       : xcku060
+| Design State : Fully Placed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Design Analysis
+
+Table of Contents
+-----------------
+1. Logic Level Distribution
+
+1. Logic Level Distribution
+---------------------------
+
++-----------------+-------------+---+------+------+------+----+-----+-----+----+-----+-----+-----+-----+-----+
+| End Point Clock | Requirement | 0 |   1  |   2  |   3  |  4 |  5  |  6  |  7 |  8  |  9  |  10 |  11 |  12 |
++-----------------+-------------+---+------+------+------+----+-----+-----+----+-----+-----+-----+-----+-----+
+| clk             | 4.000ns     | 1 | 2040 | 1360 | 3376 | 31 | 188 | 458 | 42 | 755 | 557 | 524 | 462 | 206 |
++-----------------+-------------+---+------+------+------+----+-----+-----+----+-----+-----+-----+-----+-----+
+* Columns represent the logic levels per end point clock
+** Distribution is for top worst 10000 paths
+
+
