@@ -32,3 +32,25 @@
 # Python caches
 __pycache__/
 *.pyc
+
+# Generated Vivado experiment directories and run logs
+/work/vivado/timing_v1/synth*/
+/work/vivado/timing_v1/baseline_synth/
+/work/vivado/timing_v1/impl_v*/
+/work/vivado/timing_v1/place_v*/
+/work/vivado/timing_v1/route_v4*/
+/work/vivado/timing_v1/route_v5*/
+/work/vivado/timing_v1/**/*.log
+/work/vivado/timing_v1/**/*.jou
+/work/vivado/timing_v1/**/*.out
+/work/vivado/timing_v1/**/*.backup.*
+/work/vivado/timing_v1/**/run_stdout.log
+
+# Cocotb simulation build artifacts
+/sm3_fpga/latest/milestone6/sim_build*/
+
+# Generated cocotb result XML files
+/sm3_fpga/latest/milestone6/results*.xml
+
+# Local pblock visualization dumps kept for the high-density experiments
+/hd_visual/
