@@ -40,6 +40,7 @@ __pycache__/
 /work/vivado/timing_v1/place_v*/
 /work/vivado/timing_v1/route_v4*/
 /work/vivado/timing_v1/route_v5*/
+/work/vivado/timing_v1/m1_cluster_*/
 /work/vivado/timing_v1/**/*.log
 /work/vivado/timing_v1/**/*.jou
 /work/vivado/timing_v1/**/*.out

@@ -15,6 +15,26 @@ def ival(sig):
     return int(sig.value)
 
 
+def popcount(value):
+    # Python 3.8-compatible popcount (int.bit_count is unavailable here).
+    return bin(value).count("1")
+
+
+def make_clock(signal, period_ns):
+    # cocotb 2.x uses unit=, cocotb 1.x uses units=.
+    try:
+        return Clock(signal, period_ns, units="ns")
+    except TypeError:
+        return Clock(signal, period_ns, unit="ns")
+
+
+async def timer_ps():
+    try:
+        return await Timer(1, units="ps")
+    except TypeError:
+        return await Timer(1, unit="ps")
+
+
 def keep_mask(n):
     if n >= 16:
         return 0xFFFF
@@ -41,7 +61,7 @@ async def reset_dut(dut):
 
 @cocotb.test()
 async def end_to_end_raw_messages(dut):
-    cocotb.start_soon(Clock(dut.clk, 4, unit="ns").start())
+    cocotb.start_soon(make_clock(dut.clk, 4).start())
     await reset_dut(dut)
 
     rng = random.Random(0xE2E5_2026)
@@ -62,6 +82,13 @@ async def end_to_end_raw_messages(dut):
             if p < 35:
                 lengths.append(rng.randrange(0, 56))
             elif p < 65:
+                lengths.append(rng.randrange(56, 513))
+            else:
+                lengths.append(rng.randrange(513, 4097))
+        elif profile == "long_heavy":
+            if p < 10:
+                lengths.append(rng.randrange(0, 56))
+            elif p < 20:
                 lengths.append(rng.randrange(56, 513))
             else:
                 lengths.append(rng.randrange(513, 4097))
@@ -113,7 +140,7 @@ async def end_to_end_raw_messages(dut):
                 dut.desc_msg_id.value = mid
                 dut.desc_len_bytes.value = len(payload)
                 dut.s_valid.value = 0
-                await Timer(1, unit="ps")
+                await timer_ps()
                 sent = bool(ival(dut.desc_valid) and ival(dut.desc_ready))
                 await RisingEdge(dut.clk)
             dut.desc_valid.value = 0
@@ -130,7 +157,7 @@ async def end_to_end_raw_messages(dut):
                     dut.s_valid.value = 1 if rng.randrange(100) < drive_prob else 0
                     dut.s_data.value = word
                     dut.s_keep.value = keep_mask(n)
-                    await Timer(1, unit="ps")
+                    await timer_ps()
                     accepted = bool(ival(dut.s_valid) and ival(dut.s_ready))
                     await RisingEdge(dut.clk)
                 off += n
@@ -152,7 +179,7 @@ async def end_to_end_raw_messages(dut):
             dut.result_ready.value = 0
         else:
             dut.result_ready.value = 1 if rng.randrange(100) < ready_prob else 0
-        await Timer(1, unit="ps")
+        await timer_ps()
 
         valid = bool(ival(dut.result_valid))
         ready = bool(ival(dut.result_ready))
@@ -176,18 +203,18 @@ async def end_to_end_raw_messages(dut):
             assert digest == expected[mid], f"digest mismatch msg_id={mid}"
             received[mid] = digest
 
-        occ = ival(dut.dbg_core_occupied).bit_count()
+        occ = popcount(ival(dut.dbg_core_occupied))
         max_core = max(max_core, occ)
         core_occ_sum += occ
         try:
             pend = ival(dut.u_engine.ctx_pending_valid)
             infl = ival(dut.u_engine.ctx_inflight)
-            ready_ctx = (pend & ~infl).bit_count()
+            ready_ctx = popcount(pend & ~infl)
             ready_ctx_sum += ready_ctx
             max_ready_ctx = max(max_ready_ctx, ready_ctx)
         except Exception:
             pass
-        max_ctx = max(max_ctx, ival(dut.dbg_ctx_allocated).bit_count())
+        max_ctx = max(max_ctx, popcount(ival(dut.dbg_ctx_allocated)))
         max_fast = max(max_fast, ival(dut.dbg_fast_level))
         try:
             pf = ival(dut.dbg_pool_free)
@@ -204,8 +231,8 @@ async def end_to_end_raw_messages(dut):
             "desc_ready=%d s_ready=%d core_occ=%d ctx_alloc=%d fast=%d",
             driver_done, drive_phase, drive_mid, drive_off, len(received), nmsg,
             ival(dut.desc_ready), ival(dut.s_ready),
-            ival(dut.dbg_core_occupied).bit_count(),
-            ival(dut.dbg_ctx_allocated).bit_count(), ival(dut.dbg_fast_level),
+            popcount(ival(dut.dbg_core_occupied)),
+            popcount(ival(dut.dbg_ctx_allocated)), ival(dut.dbg_fast_level),
         )
         # Hierarchical state is available under Verilator public-flat-rw.
         for name in ["stream_ctx_valid", "stream_ctx_id", "bb_valid", "bb_ready",
@@ -247,7 +274,7 @@ async def end_to_end_raw_messages(dut):
 
     # RisingEdge resumes before all NBA-updated state is necessarily visible
     # through VPI; settle once before checking resource reclamation.
-    await Timer(1, unit="ps")
+    await timer_ps()
     assert driver_done, "input driver did not finish"
     assert len(received) == nmsg, f"completed {len(received)}/{nmsg}"
     # By the time every digest has retired, all multi-block payload slots and

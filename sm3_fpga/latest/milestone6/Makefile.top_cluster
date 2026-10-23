@@ -1,0 +1,37 @@
+SIM ?= verilator
+CORE_NUM ?= 16
+CTX_NUM ?= 32
+FAST_DEPTH ?= 32
+POOL_DEPTH ?= 512
+CLUSTER_NUM ?= 4
+# Verilator 5.020 miscompiles this model at one optimization level or the
+# other depending on the generated hierarchy.  -Os is stable for four
+# clusters; -O1 is stable for two (verified with AddressSanitizer).
+ifeq ($(CLUSTER_NUM),2)
+OPT := -O1
+else
+OPT := -Os
+endif
+export OPT
+NMSG ?= 300
+PROFILE ?= short_heavy
+TOPLEVEL_LANG ?= verilog
+TOPLEVEL := sm3_accel_cluster_top
+MODULE := test_sm3_accel_top
+COCOTB_TEST_MODULES := test_sm3_accel_top
+export PYTHONPATH := $(CURDIR)/tb:$(PYTHONPATH)
+VERILOG_SOURCES := $(CURDIR)/rtl/core/sm3_core.sv \
+                   $(CURDIR)/rtl/front_end/sm3_block_builder.sv \
+                   $(CURDIR)/rtl/context/sm3_block_pool.sv \
+                   $(CURDIR)/rtl/context/sm3_pool_engine.sv \
+                   $(CURDIR)/rtl/top/sm3_accel_cluster.sv \
+                   $(CURDIR)/rtl/top/sm3_accel_cluster_top.sv
+COMPILE_ARGS += --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY \
+                -GCORE_NUM=$(CORE_NUM) -GCTX_NUM=$(CTX_NUM) \
+                -GFAST_DEPTH=$(FAST_DEPTH) -GPOOL_DEPTH=$(POOL_DEPTH) \
+                -GCLUSTER_NUM=$(CLUSTER_NUM)
+SIM_BUILD := sim_build_top_cluster_$(CLUSTER_NUM)x$(CORE_NUM)_ctx$(CTX_NUM)_pool$(POOL_DEPTH)
+COCOTB_RESULTS_FILE := results_top_cluster_$(CLUSTER_NUM)x$(CORE_NUM).xml
+export NMSG PROFILE POOL_DEPTH
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
