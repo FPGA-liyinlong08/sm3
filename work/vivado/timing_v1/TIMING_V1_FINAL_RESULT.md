@@ -298,3 +298,136 @@ work/vivado/timing_v1/route_v42_eco1_physopt/final_high_fanout_loads.rpt
 work/vivado/timing_v1/route_v42_eco1_physopt/final_logic_level_distribution.rpt
 work/vivado/timing_v1/route_v42_eco1_physopt/final_timing_max20.rpt
 ```
+
+## 9. 各主要模块资源与时序（最终 DCP）
+
+数据来源：最终 checkpoint `route_v42_eco1_physopt/top_timing_v1_eco_physopt.dcp`。资源来自 `report_utilization -hierarchical -hierarchical_depth 6`；CARRY8 按 `REF_NAME == CARRY8` 逐模块统计；时序来自 `get_timing_paths -delay_type max -max_paths 100000 -nworst 1 -sort_by slack`，按 `STARTPOINT_PIN` / `ENDPOINT_PIN` 归组。未重新综合、布局或布线。
+
+OOC 说明：该 checkpoint 仍是 out-of-context 的 `sm3_accel_top` 实现，0 bonded IOB、0 BUFG；`clk` 是带 `HD.CLK_SRC BUFGCTRL_X0Y0` 的顶层端口。因此资源百分比是内部逻辑资源；时序是内部 reg-to-reg（data/I/O false path），原始顶层 I/O delay 未建模。
+
+### 9.1 各主要模块资源
+
+| 模块 | Logic LUT | LUTRAM | Total LUT | FF | CARRY8 | RAMB36 | RAMB18 | BRAM Tile | DSP |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `sm3_accel_top`（总计） | 28,492 | 508 | 29,000 | 29,015 | 204 | 11 | 2 | 12 | 0 |
+| top glue（top 自身） | 63 | 0 | 63 | 1,152 | 0 | 0 | 0 | 0 | 0 |
+| `u_block_builder` | 2,132 | 0 | 2,132 | 1,198 | 10 | 0 | 0 | 0 | 0 |
+| `u_engine`（总计） | 26,297 | 508 | 26,805 | 26,665 | 194 | 11 | 2 | 12 | 0 |
+| engine glue（`u_engine` 自身） | 1,322 | 316 | 1,638 | 4,234 | 0 | 4 | 0 | 4 | 0 |
+| core array（16 × `u_core`） | 23,596 | 0 | 23,596 | 22,384 | 192 | 0 | 0 | 0 | 0 |
+| `u_block_pool` | 1,382 | 192 | 1,574 | 47 | 2 | 7 | 2 | 8 | 0 |
+
+说明：
+
+- `Total LUT = Logic LUT + LUTRAM`。
+- 2 个 RAMB18 可共用一个 RAMB36 tile；`u_block_pool` 是 7 个 RAMB36 + 2 个 RAMB18 = 8 个 BRAM tile，engine glue 4 个 RAMB36，顶层共 12 个 tile。
+- 子模块 LUT 相加为 29,003，顶层为 29,000，差 3 个 LUT 来自 Vivado 的跨层次 LUT 合并；FF、BRAM、CARRY8 均完全闭合。
+- CARRY8 分布：core array 192（每核 12）、`u_block_builder` 10、`u_block_pool` 2，共 204。
+- DSP、URAM、SRL 均为 0。
+
+### 9.2 每核资源
+
+16 个 `u_core` 的 FF 均为 1,399，CARRY8 均为 12，BRAM/LUTRAM/DSP 均为 0；LUT 如下：
+
+| Core | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| LUT | 1,453 | 1,396 | 1,395 | 1,382 | 1,437 | 1,390 | 1,374 | 1,386 | 1,374 | 1,343 | 1,360 | 1,389 | 1,375 | 1,433 | 2,483 | 1,626 |
+
+- core array LUT 合计 23,596，平均 1,475。
+- `core[14]` 为 2,483 LUT，是明显离群点；其数据高扇出 `D[0]` 为 1,199（全设计最大数据扇出），对应额外的复制/驱动逻辑。`core[15]` 次高 1,626；其余 14 个核为 1,343–1,453。
+- 每核 FF 完全一致（1,399），说明状态/流水寄存器是统一的；LUT 差异来自综合/physopt 后的局部逻辑复制与优化。
+- `core[14]` 的 LUT 占器件 0.75%，`core[15]` 占 0.49%，其余核约 0.40–0.44%。
+
+### 9.3 占比与器件利用率
+
+| 资源 | 设计占用 | 主要模块 |
+|---|---:|---|
+| LUT | 29,000 | cores 23,596（81.4%）；block builder 2,132（7.35%）；engine glue 1,638（5.65%）；block pool 1,574（5.43%）；top glue 63（0.22%） |
+| FF | 29,015 | cores 22,384（77.15%）；engine glue 4,234（14.59%）；block builder 1,198（4.13%）；top glue 1,152（3.97%）；block pool 47（0.16%） |
+| BRAM tile | 12 | block pool 8（66.7%）；engine glue 4（33.3%）；其余 0 |
+| LUTRAM | 508 | engine glue 316（62.2%）；block pool 192（37.8%）；其余 0 |
+| CARRY8 | 204 | cores 192（94.1%）；block builder 10（4.9%）；block pool 2（1.0%） |
+| DSP / URAM / SRL | 0 | — |
+
+相对 `xcku060-ffva1156-2-e`：
+
+| 资源 | 使用 | 利用率 |
+|---|---:|---:|
+| CLB LUTs | 29,000 / 331,680 | 8.74% |
+| CLB Registers | 29,015 / 663,360 | 4.37% |
+| Block RAM Tile | 12 / 1,080 | 1.11% |
+| CARRY8 | 204 / 41,460 | 0.49% |
+| CLB | 5,381 / 41,460 | 12.98% |
+| DSP48E2 | 0 / 2,760 | 0.00% |
+
+资源判断：
+
+- core array 是绝对主体：81.4% LUT、77.15% FF、94.1% CARRY8，但 0 BRAM、0 LUTRAM。
+- BRAM 只在两个地方：block pool 8 个 tile（66.7%）和 engine glue 4 个 tile（33.3%）；block pool 只有 47 FF，说明池状态基本在 BRAM/LUTRAM 中。
+- engine glue 占 14.59% FF 和 62.2% LUTRAM，是 context/launch/commit 的主要寄存器与分布式存储开销。
+- block builder 占 7.35% LUT、4.13% FF；top glue 只占 0.22% LUT，但占 3.97% FF（head FIFO）。
+- 整体资源余量很大：LUT 8.74%、FF 4.37%、BRAM 1.11%、DSP 0；最高的 CLB 利用率也只有 12.98%。设计不是资源受限，而是时序受限（WNS +0.001 ns）。
+
+### 9.4 各主要模块时序（setup）
+
+下表为模块级 setup WNS。`Internal` 表示起点和终点都在模块内；`Input` 表示终点在模块内、起点在模块外；`Output` 表示起点在模块内、终点在模块外；`Overall` 取三者最小值。模块 WNS 用于定位，不能相加。
+
+| 模块 | Internal WNS | Input WNS | Output WNS | Overall WNS | LL | 最差路径（简写） |
+|---|---:|---:|---:|---:|---:|---|
+| top glue | +0.092 | +2.492 | +0.172 | **+0.092** | 9 | `head_ctx_valid_q_reg -> in_buf_valid_reg[1]` |
+| `u_block_builder` | +0.342 | +1.275 | +2.492 | **+0.342** | 10 | `remaining_q_reg[3] -> next_fill_q_reg[5]` |
+| engine glue | +0.229 | +0.127 | +0.052 | **+0.052** | 1 | `launch_hash_q_reg[69] -> core[13].f_reg[5]` |
+| `u_block_pool` | +0.356 | +0.172 | +0.139 | **+0.139** | 1 | `block_mem_reg_7/CLKARDCLK -> launch_hash_q_reg[221]` |
+| core array（16×） | +0.001 | +0.052 | +0.127 | **+0.001** | 9 | `core[5].a_reg[27] -> core[5].hash_out_reg[235]` |
+| 顶层 | — | — | — | **+0.001** | 9 | 同上 core[5] 路径 |
+
+关键结果：
+
+- 唯一临界模块是 core array：WNS +0.001 ns；其次是 engine glue +0.052 ns、top glue +0.092 ns、block pool +0.139 ns、block builder +0.342 ns。
+- engine glue 的最差路径是 `launch_hash_q_reg[69] -> core[13].f_reg[5]`（+0.052），对应 core[13] 的输入边界；core[4] 的输入边界也是 +0.052。
+- block pool 的最差路径是输出到 engine glue 的 `launch_hash_q_reg[221]`（+0.139）；其内部 WNS 有 +0.356，不是瓶颈。
+- top glue 的最差路径是内部 `head_ctx_valid_q_reg -> in_buf_valid_reg[1]`（+0.092）；block builder 的内部 WNS +0.342，均不临界。
+
+每核 setup（`Overall = min(Internal, Input)`；core 的输出路径未成为任何核的约束项）：
+
+| Core | Internal WNS | Input WNS | Overall WNS | LL | 最差路径（简写） |
+|---|---:|---:|---:|---:|---|
+| 0 | +0.034 | +0.110 | +0.034 | 10 | `tj_rot_q[17] -> hash_out[127]` |
+| 1 | +0.010 | +0.122 | +0.010 | 11 | `a_reg[28] -> hash_out[251]` |
+| 2 | +0.046 | +0.071 | +0.046 | 5 | `round_idx[4] -> hash_out[238]` |
+| 3 | +0.076 | +0.109 | +0.076 | 9 | `e_reg[15] -> hash_out[251]` |
+| 4 | +0.025 | +0.052 | +0.025 | 10 | `a_reg[21] -> hash_out[234]` |
+| 5 | **+0.001** | +0.144 | **+0.001** | 9 | `a_reg[27] -> hash_out[235]` |
+| 6 | +0.123 | +0.164 | +0.123 | 11 | `e_reg[1] -> hash_out[246]` |
+| 7 | +0.077 | +0.056 | **+0.056** | 1 | `launch_fast_block[68] -> w_reg[13][4]`（输入边界） |
+| 8 | +0.042 | +0.223 | +0.042 | 11 | `a_reg[29] -> hash_out[247]` |
+| 9 | +0.002 | +0.136 | +0.002 | 11 | `tj_rot_q[1] -> hash_out[246]` |
+| 10 | +0.055 | +0.144 | +0.055 | 12 | `tj_rot_q[7] -> hash_out[248]` |
+| 11 | +0.034 | +0.106 | +0.034 | 11 | `a_reg[22] -> hash_out[116]` |
+| 12 | +0.005 | +0.060 | +0.005 | 8 | `e_reg[0] -> hash_out[112]` |
+| 13 | +0.029 | +0.052 | +0.029 | 9 | `tj_rot_q[7] -> hash_out[234]` |
+| 14 | +0.025 | +0.138 | +0.025 | 12 | `a_reg[24] -> a_reg[30]` |
+| 15 | +0.035 | +0.073 | +0.035 | 9 | `a_reg[21] -> e_reg[13]` |
+
+补充：
+
+- core[7] 是唯一由输入边界决定的核（+0.056），其内部 WNS 为 +0.077；其余核由内部 hash 路径决定。
+- core[4]/core[13] 的输入 WNS 为 +0.052（engine glue 输出边界），但其内部 WNS 更小（+0.025/+0.029），所以 overall 仍由内部决定。
+- 每核输出路径没有成为约束项；core array 的输出边界最差为 +0.127（core[10] -> engine glue）。
+
+最终顶层：
+
+- setup WNS **+0.001 ns**，WHS **+0.015 ns**，TNS/THS 均为 **0.000 ns**，所有约束满足。
+- 最差路径：`u_engine/g_core[5].u_core/a_reg[27] -> hash_out_reg[235]`，data 3.853 ns（logic 1.378 / route 2.475），9 级逻辑，slack +0.001 ns。
+- 次差：core[9] +0.002 ns（11 级）；core[12] +0.005 ns；core[1] +0.010 ns。
+- 该表为 setup（max）模块拆分；hold 只做了全设计汇总（WHS +0.015 ns），未按模块拆 hold。
+- 时序口径仍是内部 reg-to-reg，data/I/O false path；原始顶层 I/O delay 未建模。最终 checkpoint 为准，未重新跑综合/布局布线。
+
+### 9.5 本节报告
+
+```text
+work/vivado/timing_v1/route_v42_eco1_physopt/final_utilization_hier.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/final_utilization_hier_pct.rpt
+work/vivado/timing_v1/route_v42_eco1_physopt/count_carry8.out
+work/vivado/timing_v1/route_v42_eco1_physopt/final_module_timing_fixed2.out
+```

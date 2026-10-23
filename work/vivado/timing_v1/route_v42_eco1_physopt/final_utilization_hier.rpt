@@ -1,0 +1,50 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.2 (lin64) Build 3367213 Tue Oct 19 02:47:39 MDT 2021
+| Date         : Fri Oct 23 10:12:32 2026
+| Host         : wx-linux running 64-bit Ubuntu 20.04.6 LTS
+| Command      : report_utilization -hierarchical -hierarchical_depth 6 -file /home/wx/Documents/AI/SM3/work/vivado/timing_v1/route_v42_eco1_physopt/final_utilization_hier.rpt
+| Design       : sm3_accel_top
+| Device       : xcku060-ffva1156-2-e
+| Speed File   : -2
+| Design State : Physopt postRoute
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------------+-------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+|        Instance       |       Module      | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | URAM | DSP Blocks |
++-----------------------+-------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+| sm3_accel_top         |             (top) |      29000 |      28492 |     508 |    0 | 29015 |     11 |      2 |    0 |          0 |
+|   (sm3_accel_top)     |             (top) |         63 |         63 |       0 |    0 |  1152 |      0 |      0 |    0 |          0 |
+|   u_block_builder     | sm3_block_builder |       2132 |       2132 |       0 |    0 |  1198 |      0 |      0 |    0 |          0 |
+|   u_engine            |   sm3_pool_engine |      26805 |      26297 |     508 |    0 | 26665 |     11 |      2 |    0 |          0 |
+|     (u_engine)        |   sm3_pool_engine |       1638 |       1322 |     316 |    0 |  4234 |      4 |      0 |    0 |          0 |
+|     g_core[0].u_core  |          sm3_core |       1453 |       1453 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[10].u_core |        sm3_core_0 |       1360 |       1360 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[11].u_core |        sm3_core_1 |       1389 |       1389 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[12].u_core |        sm3_core_2 |       1375 |       1375 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[13].u_core |        sm3_core_3 |       1433 |       1433 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[14].u_core |        sm3_core_4 |       2483 |       2483 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[15].u_core |        sm3_core_5 |       1626 |       1626 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[1].u_core  |        sm3_core_6 |       1396 |       1396 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[2].u_core  |        sm3_core_7 |       1395 |       1395 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[3].u_core  |        sm3_core_8 |       1382 |       1382 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[4].u_core  |        sm3_core_9 |       1437 |       1437 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[5].u_core  |       sm3_core_10 |       1390 |       1390 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[6].u_core  |       sm3_core_11 |       1374 |       1374 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[7].u_core  |       sm3_core_12 |       1386 |       1386 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[8].u_core  |       sm3_core_13 |       1374 |       1374 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     g_core[9].u_core  |       sm3_core_14 |       1343 |       1343 |       0 |    0 |  1399 |      0 |      0 |    0 |          0 |
+|     u_block_pool      |    sm3_block_pool |       1574 |       1382 |     192 |    0 |    47 |      7 |      2 |    0 |          0 |
++-----------------------+-------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
