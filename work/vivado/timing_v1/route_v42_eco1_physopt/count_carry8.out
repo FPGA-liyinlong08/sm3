@@ -1,0 +1,84 @@
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source /tmp/opencode/count_carry8.tcl
+# set out /home/wx/Documents/AI/SM3/work/vivado/timing_v1/route_v42_eco1_physopt
+# open_checkpoint $out/top_timing_v1_eco_physopt.dcp
+Command: open_checkpoint /home/wx/Documents/AI/SM3/work/vivado/timing_v1/route_v42_eco1_physopt/top_timing_v1_eco_physopt.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2756.023 ; gain = 2.969 ; free physical = 7924 ; free virtual = 114533
+INFO: [Device 21-403] Loading part xcku060-ffva1156-2-e
+Netlist sorting complete. Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2756.152 ; gain = 0.000 ; free physical = 7876 ; free virtual = 114663
+INFO: [Netlist 29-17] Analyzing 1490 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2021.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Constraints 18-5170] The checkpoint was created with non-default parameter values which do not match the current Vivado settings.  Mismatching parameters are:
+  general.maxThreads
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3060.883 ; gain = 63.117 ; free physical = 7340 ; free virtual = 114227
+Restored from archive | CPU: 1.290000 secs | Memory: 59.380371 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3060.883 ; gain = 63.117 ; free physical = 7340 ; free virtual = 114227
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3189.227 ; gain = 0.000 ; free physical = 7183 ; free virtual = 114086
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 72 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 1 instance 
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 39 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 16 instances
+  RAM64M8 => RAM64M8 (RAMD64E(x8)): 16 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2021.2 (64-bit) build 3367213
+open_checkpoint: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3189.227 ; gain = 442.109 ; free physical = 7183 ; free virtual = 114086
+# set cs [get_cells -hier -filter {REF_NAME == CARRY8}]
+# puts "TOTAL_CARRY8=[llength $cs]"
+TOTAL_CARRY8=204
+# array set cnt {}
+# foreach c $cs {
+#     set n [get_property NAME $c]
+#     if {[regexp {^u_engine/g_core\[([0-9]+)\]\.u_core/} $n -> idx]} {
+#         incr cnt(core$idx)
+#     } elseif {[string match "u_engine/u_block_pool/*" $n]} {
+#         incr cnt(block_pool)
+#     } elseif {[string match "u_engine/*" $n]} {
+#         incr cnt(engine_glue)
+#     } elseif {[string match "u_block_builder/*" $n]} {
+#         incr cnt(block_builder)
+#     } elseif {[string match "sm3_accel_top/*" $n]} {
+#         incr cnt(top_glue)
+#     } else {
+#         incr cnt(other)
+#     }
+# }
+# foreach k [lsort [array names cnt]] { puts "CARRY8 $k $cnt($k)" }
+CARRY8 block_builder 10
+CARRY8 block_pool 2
+CARRY8 core0 12
+CARRY8 core1 12
+CARRY8 core10 12
+CARRY8 core11 12
+CARRY8 core12 12
+CARRY8 core13 12
+CARRY8 core14 12
+CARRY8 core15 12
+CARRY8 core2 12
+CARRY8 core3 12
+CARRY8 core4 12
+CARRY8 core5 12
+CARRY8 core6 12
+CARRY8 core7 12
+CARRY8 core8 12
+CARRY8 core9 12
+# puts "CARRY8_DONE"
+CARRY8_DONE
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 23 10:22:20 2026...

@@ -25,6 +25,7 @@ module sm3_block_pool #(
     input  logic                 link_wr_en,
     input  logic [SLOT_W-1:0]    link_wr_slot,
     input  logic [SLOT_W-1:0]    link_wr_next,
+    input  logic                 link_rd_en,
     input  logic [SLOT_W-1:0]    link_rd_slot,
     output logic [SLOT_W-1:0]    link_rd_next,
 
@@ -42,6 +43,12 @@ module sm3_block_pool #(
     logic [SLOT_W-1:0] next_mem [0:POOL_DEPTH-1];
     logic [SLOT_W-1:0] free_fifo [0:POOL_DEPTH-1];
 
+    // Two-stage synchronous link lookup:
+    // cycle N captures the slot; N+1 reads next_mem into link_rd_next.
+    // The engine retires the head update in cycle N+2.
+    logic [SLOT_W-1:0] link_rd_slot_q;
+    logic link_rd_valid_q;
+
     logic [PTR_W-1:0] free_rd_ptr, free_wr_ptr;
     logic [SLOT_W-1:0] init_idx;
     logic alloc_fire;
@@ -49,7 +56,7 @@ module sm3_block_pool #(
     assign alloc_ready = init_done && (free_count != 0);
     assign alloc_slot  = free_fifo[free_rd_ptr];
     assign alloc_fire  = alloc_valid && alloc_ready;
-    assign link_rd_next = next_mem[link_rd_slot];
+    // No asynchronous next_mem read on the core-commit -> ctx_head path.
 
     function automatic logic [PTR_W-1:0] ptr_inc(input logic [PTR_W-1:0] ptr);
         begin
@@ -92,6 +99,18 @@ module sm3_block_pool #(
     always_ff @(posedge clk) begin
         if (rst_n && link_wr_en)
             next_mem[link_wr_slot] <= link_wr_next;
+
+        if (link_rd_en)
+            link_rd_slot_q <= link_rd_slot;
+        if (link_rd_valid_q)
+            link_rd_next <= next_mem[link_rd_slot_q];
+    end
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            link_rd_valid_q <= 1'b0;
+        else
+            link_rd_valid_q <= link_rd_en;
     end
 
     always_ff @(posedge clk or negedge rst_n) begin

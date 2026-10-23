@@ -1,0 +1,91 @@
+name: SM3 Timing V1 RTL Regression
+
+on:
+  push:
+    branches: [opt/timing-pipeline-v1]
+    paths:
+      - "sm3_fpga/latest/milestone6/**"
+      - ".github/workflows/sm3-timing-v1-regression.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "sm3_fpga/latest/milestone6/**"
+      - ".github/workflows/sm3-timing-v1-regression.yml"
+  workflow_dispatch:
+
+jobs:
+  sim:
+    name: Verilator cocotb 16c 32ctx pool512
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: sm3_fpga/latest/milestone6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install simulator
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y verilator curl
+          curl -fL --retry 3 https://deb.debian.org/debian/pool/main/v/verilator/verilator_5.048-1_amd64.deb -o /tmp/verilator_5.048.deb
+          mkdir -p /tmp/verilator-5.048-root
+          dpkg-deb -x /tmp/verilator_5.048.deb /tmp/verilator-5.048-root
+          echo "/tmp/verilator-5.048-root/usr/bin" >> "$GITHUB_PATH"
+          echo "VERILATOR_ROOT=/tmp/verilator-5.048-root/usr/share/verilator" >> "$GITHUB_ENV"
+          python3 -m pip install --break-system-packages 'cocotb==2.1.0'
+          /tmp/verilator-5.048-root/usr/bin/verilator --version
+          cocotb-config --version
+      - name: Verilator lint
+        run: |
+          verilator --lint-only --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY \
+            --top-module sm3_accel_top \
+            -GCORE_NUM=16 -GCTX_NUM=32 -GFAST_DEPTH=32 -GPOOL_DEPTH=512 \
+            rtl/core/sm3_core.sv \
+            rtl/front_end/sm3_block_builder.sv \
+            rtl/context/sm3_block_pool.sv \
+            rtl/context/sm3_pool_engine.sv \
+            rtl/top/sm3_accel_top.sv
+      - name: Mixed 1000 messages
+        env:
+          NMSG: "1000"
+          PROFILE: mixed
+          DRIVE_PROB: "96"
+          READY_PROB: "94"
+        run: make -f Makefile.top SIM=verilator CORE_NUM=16 CTX_NUM=32 FAST_DEPTH=32 POOL_DEPTH=512 2>&1 | tee /tmp/sm3_mixed1000.log
+        shell: bash -eo pipefail {0}
+      - name: Mixed 10000 messages
+        env:
+          NMSG: "10000"
+          PROFILE: mixed
+          DRIVE_PROB: "96"
+          READY_PROB: "94"
+        run: make -f Makefile.top SIM=verilator CORE_NUM=16 CTX_NUM=32 FAST_DEPTH=32 POOL_DEPTH=512 2>&1 | tee /tmp/sm3_mixed10000.log
+        shell: bash -eo pipefail {0}
+      - name: Short-heavy 3000 messages, backpressure
+        env:
+          NMSG: "3000"
+          PROFILE: short_heavy
+          DRIVE_PROB: "85"
+          READY_PROB: "60"
+        run: make -f Makefile.top SIM=verilator CORE_NUM=16 CTX_NUM=32 FAST_DEPTH=32 POOL_DEPTH=512 2>&1 | tee /tmp/sm3_short3000.log
+        shell: bash -eo pipefail {0}
+      - name: Single-block 3000 messages, backpressure
+        env:
+          NMSG: "3000"
+          PROFILE: single
+          DRIVE_PROB: "90"
+          READY_PROB: "75"
+        run: make -f Makefile.top SIM=verilator CORE_NUM=16 CTX_NUM=32 FAST_DEPTH=32 POOL_DEPTH=512 2>&1 | tee /tmp/sm3_single3000.log
+        shell: bash -eo pipefail {0}
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sm3-timing-v1-simulation-logs
+          path: |
+            /tmp/sm3_mixed1000.log
+            /tmp/sm3_mixed10000.log
+            /tmp/sm3_short3000.log
+            /tmp/sm3_single3000.log
+            sm3_fpga/latest/milestone6/results_top_*.xml
+          if-no-files-found: warn
