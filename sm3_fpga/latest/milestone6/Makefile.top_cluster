@@ -4,14 +4,12 @@ CTX_NUM ?= 32
 FAST_DEPTH ?= 32
 POOL_DEPTH ?= 512
 CLUSTER_NUM ?= 4
-# Verilator 5.020 miscompiles this model at one optimization level or the
-# other depending on the generated hierarchy.  -Os is stable for four
-# clusters; -O1 is stable for two (verified with AddressSanitizer).
-ifeq ($(CLUSTER_NUM),2)
-OPT := -O1
-else
-OPT := -Os
-endif
+# Verilator 5.020 miscompiles the registered cluster allocator at the old
+# per-variant -Os/-O1 levels.  -O0 is the stable build for the final 2x8
+# regression.  The final four-cluster RTL still hits the Verilator 5.020
+# four-cluster crash; it was gated out by post-synth timing and never P&R'd.
+# This is a simulator-only setting and does not change cycle counts.
+OPT := -O0
 export OPT
 NMSG ?= 300
 PROFILE ?= short_heavy
@@ -26,7 +24,7 @@ VERILOG_SOURCES := $(CURDIR)/rtl/core/sm3_core.sv \
                    $(CURDIR)/rtl/context/sm3_pool_engine.sv \
                    $(CURDIR)/rtl/top/sm3_accel_cluster.sv \
                    $(CURDIR)/rtl/top/sm3_accel_cluster_top.sv
-COMPILE_ARGS += --timing -Wall -Wno-fatal -Wno-PINCONNECTEMPTY \
+COMPILE_ARGS += --timing --O0 -Wall -Wno-fatal -Wno-PINCONNECTEMPTY \
                 -GCORE_NUM=$(CORE_NUM) -GCTX_NUM=$(CTX_NUM) \
                 -GFAST_DEPTH=$(FAST_DEPTH) -GPOOL_DEPTH=$(POOL_DEPTH) \
                 -GCLUSTER_NUM=$(CLUSTER_NUM)

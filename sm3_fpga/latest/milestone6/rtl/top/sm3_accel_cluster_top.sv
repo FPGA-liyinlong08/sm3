@@ -76,11 +76,15 @@ module sm3_accel_cluster_top #(
     logic [CLUSTER_ID_W-1:0] active_cluster;
     logic                    all_init;
     logic                    need_ctx;
-    logic                    sel_found;
-    logic [CLUSTER_ID_W-1:0] sel;
-    logic [7:0]              sel_score;
+    logic                    sel_valid_q;
+    logic [CLUSTER_ID_W-1:0] sel_q;
+    logic                    sel_found_next;
+    logic [CLUSTER_ID_W-1:0] sel_next;
+    logic [7:0]              sel_score_next;
     logic [7:0]              cl_load [0:CLUSTER_NUM-1];
+    logic [7:0]              cl_load_q [0:CLUSTER_NUM-1];
     logic [CTX_CNT_W-1:0]    cl_ctx_count [0:CLUSTER_NUM-1];
+    logic [CTX_CNT_W-1:0]    cl_ctx_count_q [0:CLUSTER_NUM-1];
 
     // Two-entry result FIFO.  A cluster result is retired when it is written
     // into this FIFO, so the local context can be reused before the public
@@ -117,30 +121,69 @@ module sm3_accel_cluster_top #(
         end
     end
 
-    // Pick the least-loaded ready cluster.  Ties are resolved toward cluster 0;
-    // the load score includes running cores, allocated contexts and queued
-    // single-block work, so short messages still distribute across clusters.
+    // Both the load score and the context-headroom count are registered.  The
+    // cross-cluster allocator must not feed free-bitmap/core status directly
+    // into the selection and another cluster's block builder in one cycle.
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            for (int i = 0; i < CLUSTER_NUM; i = i + 1) begin
+                cl_load_q[i] <= '0;
+                cl_ctx_count_q[i] <= '0;
+            end
+        end else begin
+            for (int i = 0; i < CLUSTER_NUM; i = i + 1) begin
+                cl_load_q[i] <= cl_load[i];
+                cl_ctx_count_q[i] <= cl_ctx_count[i];
+            end
+        end
+    end
+
+    // Pick the least-loaded ready cluster from the registered status.  Ties go
+    // to the lower index.  The one-cycle-old context count is safe because the
+    // top still gates the actual handshake with the selected cluster's current
+    // descriptor_ready; a cluster short on contexts simply stalls its builder.
     always_comb begin
-        sel_found = 1'b0;
-        sel       = '0;
-        sel_score = '0;
+        sel_found_next = 1'b0;
+        sel_next       = '0;
+        sel_score_next = '0;
         for (int i = 0; i < CLUSTER_NUM; i = i + 1) begin
-            if (cl_desc_ready[i] && (!need_ctx || (cl_ctx_count[i] < CTX_PER_CLUSTER))) begin
-                if (!sel_found || (cl_load[i] < sel_score)) begin
-                    sel_found = 1'b1;
-                    sel       = CLUSTER_ID_W'(i);
-                    sel_score = cl_load[i];
+            if (cl_desc_ready[i]
+                && (!need_ctx || (cl_ctx_count_q[i] < CTX_PER_CLUSTER))) begin
+                if (!sel_found_next || (cl_load_q[i] < sel_score_next)) begin
+                    sel_found_next = 1'b1;
+                    sel_next       = CLUSTER_ID_W'(i);
+                    sel_score_next = cl_load_q[i];
                 end
             end
         end
     end
 
-    assign desc_ready = !active && all_init && sel_found;
+    // Registered cluster selection.  The selection is held until the external
+    // descriptor is accepted; if the chosen cluster loses descriptor_ready it
+    // is discarded and re-selected on the next cycle.
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            sel_q       <= '0;
+            sel_valid_q <= 1'b0;
+        end else if (desc_valid && desc_ready) begin
+            sel_valid_q <= 1'b0;
+        end else if (active || !all_init) begin
+            sel_valid_q <= 1'b0;
+        end else if (sel_valid_q && !cl_desc_ready[sel_q]) begin
+            sel_valid_q <= 1'b0;
+        end else if (!sel_valid_q && sel_found_next) begin
+            sel_q       <= sel_next;
+            sel_valid_q <= 1'b1;
+        end
+    end
+
+    assign desc_ready = !active && all_init && sel_valid_q
+                      && cl_desc_ready[sel_q];
 
     always_comb begin
         for (int i = 0; i < CLUSTER_NUM; i = i + 1) begin
-            cl_desc_valid[i] = desc_valid && !active && all_init && sel_found
-                             && (sel == CLUSTER_ID_W'(i));
+            cl_desc_valid[i] = desc_valid && !active && sel_valid_q
+                             && (sel_q == CLUSTER_ID_W'(i));
             cl_s_valid[i]    = s_valid && active
                              && (active_cluster == CLUSTER_ID_W'(i));
         end
@@ -155,7 +198,7 @@ module sm3_accel_cluster_top #(
         end else if (!active) begin
             if (desc_valid && desc_ready) begin
                 active         <= 1'b1;
-                active_cluster <= sel;
+                active_cluster <= sel_q;
             end
         end else begin
             // The cluster block builder only raises desc_ready after its final

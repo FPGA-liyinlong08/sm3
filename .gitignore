@@ -41,6 +41,8 @@ __pycache__/
 /work/vivado/timing_v1/route_v4*/
 /work/vivado/timing_v1/route_v5*/
 /work/vivado/timing_v1/m1_cluster_*/
+/work/vivado/timing_v1/iter_*_CongestedCLBsAndNets.txt
+/work/vivado/timing_v1/tight_setup_hold_pins.txt
 /work/vivado/timing_v1/**/*.log
 /work/vivado/timing_v1/**/*.jou
 /work/vivado/timing_v1/**/*.out
